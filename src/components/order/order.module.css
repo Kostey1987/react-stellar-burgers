@@ -1,0 +1,14 @@
+.order {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 568px;
+}
+
+.icon {
+  margin-right: 66px;
+}
+
+.order_container {
+  margin-top: 40px;
+}

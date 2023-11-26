@@ -1,0 +1,26 @@
+.title {
+  text-align: start;
+  width: 640px;
+  height: 64px;
+}
+
+.image {
+  margin: 0;
+}
+
+.subtitle {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+.infoContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 516px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}

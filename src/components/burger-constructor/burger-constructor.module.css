@@ -1,0 +1,20 @@
+.constructor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.components {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 464px;
+  overflow-y: auto;
+}
+
+.components_container {
+  width: 568px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

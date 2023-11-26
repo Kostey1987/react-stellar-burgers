@@ -1,0 +1,17 @@
+.orderDetails {
+  display: flex;
+  flex-direction: column;
+  width: 520px;
+  background-color: transparent;
+  align-items: center;
+}
+
+.orderNumber {
+  text-shadow: 0 0 30px #4c4cff;
+}
+
+.image {
+  width: 120px;
+  height: 120px;
+  border: none;
+}
