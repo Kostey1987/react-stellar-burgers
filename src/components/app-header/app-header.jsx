@@ -9,7 +9,7 @@ import {
 
 const AppHeader = () => {
   return (
-    <header className="{$styles.header} m-10 pb-4 pt-4">
+    <header className={`${styles.header} m-10 pb-4 pt-4`}>
       <nav className={styles.nav}>
         <a
           href="#"

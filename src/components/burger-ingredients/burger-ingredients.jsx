@@ -14,7 +14,7 @@ const Tabs = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className={styles.container}>
       <Tab value="one" active={current === "one"} onClick={changeIngredient}>
         Булки
       </Tab>

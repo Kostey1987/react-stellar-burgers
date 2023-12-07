@@ -16,3 +16,7 @@
   width: 600px;
   justify-content: space-evenly;
 }
+
+.container {
+  display: flex;
+}

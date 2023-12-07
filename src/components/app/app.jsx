@@ -9,7 +9,7 @@ import Order from "../order/order";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { getItem } from "../api/api";
+import { getItems } from "../../utils/api";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +18,7 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
 
   React.useEffect(() => {
-    getItem(setIngredients);
+    getItems(setIngredients);
   }, []);
 
   const handleClickButton = () => {
