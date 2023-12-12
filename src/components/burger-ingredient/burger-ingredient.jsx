@@ -27,9 +27,9 @@ const BurgerIngredient = memo(function BurgerIngredient({
   );
 });
 
-BurgerIngredient.propTypes = {
-  item: ingredientPropType.isRequired,
-  handleClickIngredient: PropTypes.func.isRequired,
-};
+// BurgerIngredient.propTypes = {
+//   item: ingredientPropType.isRequired,
+//   handleClickIngredient: PropTypes.func.isRequired,
+// };
 
 export default BurgerIngredient;

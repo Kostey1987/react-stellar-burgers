@@ -33,7 +33,7 @@ const Tabs = () => {
   );
 };
 
-const BurgerIngredients = ({ handleClickIngredient }) => {
+const BurgerIngredients = ({ handleIngredientClick }) => {
   // const dispatch = useDispatch();
 
   const itemsArray = useSelector((state) => state.items.itemsArray);
@@ -55,7 +55,7 @@ const BurgerIngredients = ({ handleClickIngredient }) => {
           {bun.map((item) => {
             return (
               <BurgerIngredient
-                handleClickIngredient={handleClickIngredient}
+                handleClickIngredient={handleIngredientClick}
                 item={item}
                 key={item._id}
               />
@@ -69,7 +69,7 @@ const BurgerIngredients = ({ handleClickIngredient }) => {
           {suace.map((item) => {
             return (
               <BurgerIngredient
-                handleClickIngredient={handleClickIngredient}
+                handleClickIngredient={handleIngredientClick}
                 item={item}
                 key={item._id}
               />
@@ -83,7 +83,7 @@ const BurgerIngredients = ({ handleClickIngredient }) => {
           {main.map((item) => {
             return (
               <BurgerIngredient
-                handleClickIngredient={handleClickIngredient}
+                handleClickIngredient={handleIngredientClick}
                 item={item}
                 key={item._id}
               />
@@ -95,9 +95,9 @@ const BurgerIngredients = ({ handleClickIngredient }) => {
   );
 };
 
-BurgerIngredients.propTypes = {
-  handleClickIngredient: PropTypes.func.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-};
+// BurgerIngredients.propTypes = {
+//   handleClickIngredient: PropTypes.func.isRequired,
+//   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
+// };
 
 export default BurgerIngredients;
