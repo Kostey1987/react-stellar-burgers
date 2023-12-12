@@ -14,10 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalSelector } from "../../services/selectors/modalSelectors";
 import { toggleModal } from "../../services/redusers/modal-slice";
 import { fetchIngredients } from "../../services/ingredientsQuery";
+import {
+  selectIngredient,
+  clearSelectedIngredient,
+} from "../../services/redusers/current-slice";
+import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
 
 function App() {
   const dispatch = useDispatch();
   const isModalOpen = useSelector(modalSelector);
+  const currentIngredient = useSelector(selectedIngredientSelector);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -37,13 +43,24 @@ function App() {
   const handleClickButton = useCallback(() => dispatch(toggleModal()), []);
   const closeModal = useCallback(() => dispatch(toggleModal()), []);
 
-  const handleClickIngredient = (item) => {
-    // setItem(item);
-    // setIsModalOpen(!isModalOpen);
+  // const handleClickIngredient = (item) => {
+  //   setItem(item);
+  //   setIsModalOpen(!isModalOpen);
+  // };
+
+  const handleIngredientClick = React.useCallback(
+    (item) => {
+      dispatch(selectIngredient(item));
+    },
+    [dispatch]
+  );
+
+  const handleCloseIngredientModal = () => {
+    dispatch(clearSelectedIngredient());
   };
 
   // const closeModal = () => {
-  // setIsModalOpen(!isModalOpen);
+  //   setIsModalOpen(!isModalOpen);
   // };
   return (
     <div className={styles.app}>
@@ -58,7 +75,7 @@ function App() {
           </h1>
           <BurgerIngredients
             ingredients={ingredients}
-            handleClickIngredient={handleClickIngredient}
+            handleClickIngredient={handleIngredientClick}
           />
         </section>
         <section

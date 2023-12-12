@@ -6,10 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
+import { memo } from "react";
 
-function BurgerIngredient({ item, handleClickIngredient }) {
+const BurgerIngredient = memo(function BurgerIngredient({
+  item,
+  handleIngredientClick,
+}) {
   return (
-    <div className={styles.card} onClick={() => handleClickIngredient(item)}>
+    <div className={styles.card} onClick={() => handleIngredientClick(item)}>
       <div className={styles.counter}>
         <Counter count={1} size="default" />
       </div>
@@ -21,11 +25,11 @@ function BurgerIngredient({ item, handleClickIngredient }) {
       <p className="text text_type_main-default">{item.name}</p>
     </div>
   );
-}
+});
 
-BurgerIngredient.propTypes = {
-  item: ingredientPropType.isRequired,
-  handleClickIngredient: PropTypes.func.isRequired,
-};
+// BurgerIngredient.propTypes = {
+//   item: ingredientPropType.isRequired,
+//   handleClickIngredient: PropTypes.func.isRequired,
+// };
 
 export default BurgerIngredient;

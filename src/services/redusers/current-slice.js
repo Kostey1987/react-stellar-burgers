@@ -8,14 +8,15 @@ const selectedSlice = createSlice({
   name: "selected",
   initialState,
   reducers: {
-    setIngredient(state, action) {
+    selectIngredient(state, action) {
       state.ingredient = action.payload;
     },
   },
-  clearIngredient(state) {
+  clearSelectedIngredient(state) {
     state.ingredient = initialState;
   },
 });
 
-export const { setIngredient, clearIngredient } = selectedSlice.actions;
+export const { selectIngredient, clearSelectedIngredient } =
+  selectedSlice.actions;
 export default selectedSlice.reducer;
