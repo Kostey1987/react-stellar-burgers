@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styles from "./app.module.css";
 import { data } from "../../utils/data";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -10,30 +10,40 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { getItems } from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { modalSelector } from "../../services/selectors/modalSelectors";
+import { toggleModal } from "../../services/redusers/modal-slice";
+import { fetchIngredients } from "../../services/ingredientsQuery";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isModalOpen = useSelector(modalSelector);
+
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [item, setItem] = useState(false);
   const [ingredients, setIngredients] = useState([]);
 
   React.useEffect(() => {
-    getItems(setIngredients);
+    dispatch(fetchIngredients());
   }, []);
 
-  const handleClickButton = () => {
-    setItem(false);
-    setIsModalOpen(!isModalOpen);
-  };
+  // const handleClickButton = () => {
+  // setItem(false);
+  // setIsModalOpen(!isModalOpen);
+  // };
+
+  const handleClickButton = useCallback(() => dispatch(toggleModal()), []);
+  const closeModal = useCallback(() => dispatch(toggleModal()), []);
 
   const handleClickIngredient = (item) => {
-    setItem(item);
-    setIsModalOpen(!isModalOpen);
+    // setItem(item);
+    // setIsModalOpen(!isModalOpen);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  // const closeModal = () => {
+  // setIsModalOpen(!isModalOpen);
+  // };
   return (
     <div className={styles.app}>
       <AppHeader />

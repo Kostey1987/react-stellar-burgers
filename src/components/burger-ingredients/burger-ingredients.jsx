@@ -4,6 +4,7 @@ import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients.module.css";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
 const Tabs = () => {
   const [current, setCurrent] = React.useState("one");
@@ -32,11 +33,14 @@ const Tabs = () => {
   );
 };
 
-const BurgerIngredients = ({ ingredients, handleClickIngredient }) => {
-  const bun = ingredients.filter((item) => item.type == "bun");
-  console.log(bun);
-  const suace = ingredients.filter((item) => item.type == "sauce");
-  const main = ingredients.filter((item) => item.type == "main");
+const BurgerIngredients = ({ handleClickIngredient }) => {
+  // const dispatch = useDispatch();
+
+  const itemsArray = useSelector((state) => state.items.itemsArray);
+
+  const bun = itemsArray.filter((item) => item.type == "bun");
+  const suace = itemsArray.filter((item) => item.type == "sauce");
+  const main = itemsArray.filter((item) => item.type == "main");
 
   return (
     <>
