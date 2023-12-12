@@ -10,10 +10,10 @@ import { memo } from "react";
 
 const BurgerIngredient = memo(function BurgerIngredient({
   item,
-  handleIngredientClick,
+  handleClickIngredient,
 }) {
   return (
-    <div className={styles.card} onClick={() => handleIngredientClick(item)}>
+    <div className={styles.card} onClick={() => handleClickIngredient(item)}>
       <div className={styles.counter}>
         <Counter count={1} size="default" />
       </div>

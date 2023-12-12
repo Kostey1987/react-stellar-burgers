@@ -75,7 +75,7 @@ function App() {
           </h1>
           <BurgerIngredients
             ingredients={ingredients}
-            handleClickIngredient={handleIngredientClick}
+            handleIngredientClick={handleIngredientClick}
           />
         </section>
         <section
@@ -96,10 +96,6 @@ function App() {
           <OrderDetails />
         </Modal>
       )}
-      {/* {isModalOpen && (
-        <Modal onClose={closeModal}>
-          {item ? <IngredientDetails item={item} /> : <OrderDetails />}
-        </Modal> */}
     </div>
   );
 }

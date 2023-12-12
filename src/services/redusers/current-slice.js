@@ -11,9 +11,9 @@ const selectedSlice = createSlice({
     selectIngredient(state, action) {
       state.ingredient = action.payload;
     },
-  },
-  clearSelectedIngredient(state) {
-    state.ingredient = initialState;
+    clearSelectedIngredient(state) {
+      state.ingredient = initialState;
+    },
   },
 });
 

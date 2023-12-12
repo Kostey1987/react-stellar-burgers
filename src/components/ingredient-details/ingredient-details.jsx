@@ -4,6 +4,7 @@ import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
 
 function IngredientDetails({ item }) {
+  console.log(item);
   return (
     <>
       <h2 className={styles.title + " " + "text text_type_main-large mt-10"}>
