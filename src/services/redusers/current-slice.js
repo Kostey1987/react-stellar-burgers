@@ -1,16 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  ingredient: [],
+  ingredient: null,
 };
 
 const selectedSlice = createSlice({
-  name: "items",
+  name: "selected",
   initialState,
   reducers: {
     setIngredient(state, action) {
       state.ingredient = action.payload;
-      state.error = "";
     },
   },
   clearIngredient(state) {
