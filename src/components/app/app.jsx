@@ -22,7 +22,8 @@ function App() {
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [item, setItem] = useState(false);
-  const [ingredients, setIngredients] = useState([]);
+
+  const ingredients = useSelector((state) => state.items.itemsArray);
 
   React.useEffect(() => {
     dispatch(fetchIngredients());

@@ -7,8 +7,4 @@ export const getItems = (setIngredients) => {
     }
     return Promise.reject(`Ошибка ${res.status}`);
   });
-  // .then((arr) => {
-  //   setIngredients(arr.data);
-  // })
-  // .catch(console.error);
 };
