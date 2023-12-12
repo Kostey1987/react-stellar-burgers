@@ -27,7 +27,7 @@ function App() {
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [item, setItem] = useState(false);
+  // const [item, setItem] = useState(false);
 
   const ingredients = useSelector((state) => state.items.itemsArray);
 
@@ -86,11 +86,20 @@ function App() {
           <Order handleClickButton={handleClickButton} />
         </section>
       </main>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          {item ? <IngredientDetails item={item} /> : <OrderDetails />}
+      {!!currentIngredient && (
+        <Modal onClose={handleCloseIngredientModal}>
+          <IngredientDetails item={currentIngredient} />
         </Modal>
       )}
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <OrderDetails />
+        </Modal>
+      )}
+      {/* {isModalOpen && (
+        <Modal onClose={closeModal}>
+          {item ? <IngredientDetails item={item} /> : <OrderDetails />}
+        </Modal> */}
     </div>
   );
 }

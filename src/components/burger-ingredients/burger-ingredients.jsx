@@ -33,7 +33,7 @@ const Tabs = () => {
   );
 };
 
-const BurgerIngredients = ({ handleIngredientClick }) => {
+const BurgerIngredients = ({ handleClickIngredient }) => {
   // const dispatch = useDispatch();
 
   const itemsArray = useSelector((state) => state.items.itemsArray);
@@ -55,7 +55,7 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
           {bun.map((item) => {
             return (
               <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
+                handleClickIngredient={handleClickIngredient}
                 item={item}
                 key={item._id}
               />
@@ -69,7 +69,7 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
           {suace.map((item) => {
             return (
               <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
+                handleClickIngredient={handleClickIngredient}
                 item={item}
                 key={item._id}
               />
@@ -83,7 +83,7 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
           {main.map((item) => {
             return (
               <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
+                handleClickIngredient={handleClickIngredient}
                 item={item}
                 key={item._id}
               />
