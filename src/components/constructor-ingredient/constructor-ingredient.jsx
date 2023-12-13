@@ -4,7 +4,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "../../components/burger-constructor/burger-constructor.module.css";
+import styles from "../constructor-ingredient/constructor-ingredient.module.css";
 
 function ConstructorIngredient({ item }) {
   return (
