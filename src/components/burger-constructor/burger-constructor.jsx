@@ -15,6 +15,7 @@ import {
   bun,
   addIngredients,
   clearConstructor,
+  delIngredients,
 } from "../../services/redusers/constructor-slice";
 
 import {
@@ -44,7 +45,7 @@ function BurgerConstructor({ item }) {
 
   return (
     <div className={styles.constructor + " mt-25 ml-8 mr-2"}>
-      <div className={styles.components_container}>
+      <div className={styles.components_container + " ml-10"}>
         <ConstructorIngredient>
           <ConstructorElement
             type="top"
@@ -60,18 +61,19 @@ function BurgerConstructor({ item }) {
           return (
             <ConstructorIngredient key={item.constructorId}>
               <ConstructorElement
-                // key={item.constructorId}
                 text={item.name}
                 thumbnail={item.image}
                 price={item.price}
-                handleClose={() => {}}
+                handleClose={() => {
+                  dispatch(delIngredients(item));
+                }}
               />
               <DragIcon type="primary" />
             </ConstructorIngredient>
           );
         })}
       </ul>
-      <div className={styles.components_container}>
+      <div className={styles.components_container + " ml-10"}>
         <ConstructorIngredient>
           <ConstructorElement
             type="bottom"

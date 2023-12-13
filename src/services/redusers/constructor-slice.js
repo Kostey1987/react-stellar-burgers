@@ -126,10 +126,15 @@ const constructorSlice = createSlice({
       state.bun = null;
       state.ingredients = [];
     },
+    delIngredients: (state, action) => {
+      state.ingredients = [...state.ingredients].filter(
+        (item) => item.constructorId != action.payload.constructorId
+      );
+    },
   },
 });
 
-export const { bun, addIngredients, clearConstructor } =
+export const { bun, addIngredients, clearConstructor, delIngredients } =
   constructorSlice.actions;
 
 export default constructorSlice.reducer;
