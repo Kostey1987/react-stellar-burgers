@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from "react";
 import styles from "./app.module.css";
-import { data } from "../../utils/data";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -9,7 +7,6 @@ import Order from "../order/order";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { getItems } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { modalSelector } from "../../services/selectors/modalSelectors";
 import { toggleModal } from "../../services/redusers/modal-slice";
@@ -31,18 +28,8 @@ function App() {
     dispatch(fetchIngredients());
   }, []);
 
-  // const handleClickButton = () => {
-  // setItem(false);
-  // setIsModalOpen(!isModalOpen);
-  // };
-
   const handleClickButton = useCallback(() => dispatch(toggleModal()), []);
   const closeModal = useCallback(() => dispatch(toggleModal()), []);
-
-  // const handleClickIngredient = (item) => {
-  //   setItem(item);
-  //   setIsModalOpen(!isModalOpen);
-  // };
 
   const handleIngredientClick = React.useCallback(
     (item) => {
@@ -55,9 +42,6 @@ function App() {
     dispatch(clearSelectedIngredient());
   };
 
-  // const closeModal = () => {
-  //   setIsModalOpen(!isModalOpen);
-  // };
   return (
     <div className={styles.app}>
       <AppHeader />

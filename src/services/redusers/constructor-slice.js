@@ -23,6 +23,6 @@ const constructorSlice = createSlice({
 });
 
 export const { bun, addIngredients, clearConstructor } =
-  constructorSlice.reducer;
+  constructorSlice.actions;
 
 export default constructorSlice.reducer;
