@@ -56,9 +56,9 @@ function BurgerConstructor({ item }) {
       <ul className={styles.components + " custom-scroll"}>
         {ingredients.map((item) => {
           return (
-            <ConstructorIngredient>
+            <ConstructorIngredient key={item.consructorId}>
               <ConstructorElement
-                key={item.consructorId}
+                // key={item.consructorId}
                 text={item.name}
                 thumbnail={item.image}
                 price={item.price}
