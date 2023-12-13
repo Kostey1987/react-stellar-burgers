@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { hardcodedIngredients, hardcodedBun } from "../../utils/data";
 
-import ConstructorIngredients from "../constructor-ingredients/constructor-ingredients";
+import ConstructorIngredient from "../constructor-ingredients/constructor-ingredients";
 
 import {
   bun,
@@ -25,6 +25,8 @@ import {
 function BurgerConstructor({ item }) {
   const dispatch = useDispatch();
   const buns = useSelector(bunSelector);
+
+  console.log(buns);
   const ingredients = useSelector(ingredientSelector);
 
   React.useEffect(() => {

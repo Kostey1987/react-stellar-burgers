@@ -6,9 +6,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../../components/burger-constructor/burger-constructor.module.css";
 
-function ConstructorIngredients({ item }) {
+function ConstructorIngredient({ item }) {
   return (
-    <div className={styles.container}>
+    <li className={styles.container}>
       <DragIcon type="primary" />
       <ConstructorElement
         text={item.name}
@@ -16,8 +16,8 @@ function ConstructorIngredients({ item }) {
         price={item.price}
         handleClose={() => {}}
       />
-    </div>
+    </li>
   );
 }
 
-export default ConstructorIngredients;
+export default ConstructorIngredient;
