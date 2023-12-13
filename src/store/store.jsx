@@ -9,5 +9,6 @@ export const store = configureStore({
     modal: modalReducer,
     items: itemReducer,
     selected: selectedReducer,
+    constructor: constructorReduser,
   },
 });
