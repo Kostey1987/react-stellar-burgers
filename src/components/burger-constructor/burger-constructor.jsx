@@ -45,13 +45,15 @@ function BurgerConstructor({ item }) {
   return (
     <div className={styles.constructor + " mt-25 ml-8 mr-2"}>
       <div className={styles.components_container}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${buns.name} (верх)`}
-          price={buns.price}
-          thumbnail={buns.image}
-        />
+        <ConstructorIngredient>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${buns.name} (верх)`}
+            price={buns.price}
+            thumbnail={buns.image}
+          />
+        </ConstructorIngredient>
       </div>
       <ul className={styles.components + " custom-scroll"}>
         {ingredients.map((item) => {
@@ -70,13 +72,15 @@ function BurgerConstructor({ item }) {
         })}
       </ul>
       <div className={styles.components_container}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${buns.name} (низ)`}
-          price={buns.price}
-          thumbnail={buns.image}
-        />
+        <ConstructorIngredient>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${buns.name} (низ)`}
+            price={buns.price}
+            thumbnail={buns.image}
+          />
+        </ConstructorIngredient>
       </div>
     </div>
   );
