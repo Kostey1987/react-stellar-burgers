@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hardcodedIngredients, hardcodedBun } from "../../utils/data";
 
 import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
+import { nanoid } from "@reduxjs/toolkit";
 
 import {
   bun,
@@ -52,6 +53,7 @@ function BurgerConstructor({ item }) {
           return (
             <ConstructorIngredient>
               <ConstructorElement
+                key={consructorId}
                 text={item.name}
                 thumbnail={item.image}
                 price={item.price}
