@@ -5,3 +5,9 @@ export const getItemsSelector = (state) => {
 };
 
 export const selectedIngredientSelector = (state) => state.selected.ingredient;
+
+export const bunSelector = (state) => state.constructor.bun;
+
+export const ingredientSelector = (state) => state.constructor.addIngredients;
+
+export const clearSelector = (state) => state.constructor.clearConstructor;

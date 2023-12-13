@@ -12,7 +12,7 @@ const selectedSlice = createSlice({
       state.ingredient = action.payload;
     },
     clearSelectedIngredient(state) {
-      state.ingredient = initialState;
+      state.ingredient = null;
     },
   },
 });

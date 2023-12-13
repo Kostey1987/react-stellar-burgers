@@ -25,10 +25,6 @@ function App() {
   const isModalOpen = useSelector(modalSelector);
   const currentIngredient = useSelector(selectedIngredientSelector);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const [item, setItem] = useState(false);
-
   const ingredients = useSelector((state) => state.items.itemsArray);
 
   React.useEffect(() => {
