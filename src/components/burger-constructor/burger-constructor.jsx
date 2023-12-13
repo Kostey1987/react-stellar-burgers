@@ -12,7 +12,7 @@ import ConstructorIngredient from "../constructor-ingredient/constructor-ingredi
 import { nanoid } from "@reduxjs/toolkit";
 
 import {
-  setBun,
+  bun,
   addIngredients,
   clearConstructor,
 } from "../../services/redusers/constructor-slice";
@@ -35,8 +35,12 @@ function BurgerConstructor({ item }) {
     hardcodedIngredients.forEach((item) => {
       dispatch(addIngredients(item));
     });
-    dispatch(setBun(hardcodedBun));
+    dispatch(bun(hardcodedBun));
   }, [dispatch]);
+
+  if (!buns || !ingredients) {
+    return <p>Загрузка </p>;
+  }
 
   return (
     <div className={styles.constructor + " mt-25 ml-8 mr-2"}>

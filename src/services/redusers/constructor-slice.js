@@ -129,7 +129,7 @@ const constructorSlice = createSlice({
   },
 });
 
-export const { setBun, addIngredients, clearConstructor } =
+export const { bun, addIngredients, clearConstructor } =
   constructorSlice.actions;
 
 export default constructorSlice.reducer;
