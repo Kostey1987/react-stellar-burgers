@@ -29,6 +29,7 @@ function BurgerConstructor({ item }) {
 
   console.log(buns);
   const ingredients = useSelector(ingredientSelector);
+  console.log(ingredients);
 
   React.useEffect(() => {
     hardcodedIngredients.forEach((item) => {
