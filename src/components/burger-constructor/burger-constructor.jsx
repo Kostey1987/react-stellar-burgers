@@ -50,7 +50,6 @@ function BurgerConstructor({ item }) {
       <ul className={styles.components + " custom-scroll"}>
         <div className={styles.components_container + " " + "mr-2"}>
           <ConstructorIngredient>
-            <DragIcon type="primary" />
             <ConstructorElement
               text={item.name}
               thumbnail={item.image}
@@ -58,6 +57,7 @@ function BurgerConstructor({ item }) {
               handleClose={() => {}}
             />
           </ConstructorIngredient>
+          <DragIcon type="primary" />
         </div>
       </ul>
       <div className={styles.components_container}>
