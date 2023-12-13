@@ -24,3 +24,5 @@ const constructorSlice = createSlice({
 
 export const { bun, addIngredients, clearConstructor } =
   constructorSlice.reducer;
+
+export default constructorSlice.reducer;
