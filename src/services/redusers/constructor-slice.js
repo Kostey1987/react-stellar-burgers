@@ -16,7 +16,7 @@ const initialState = {
     image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
     image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
     __v: 0,
-    consructorId: 123,
+    constructorId: 123,
   },
   ingredients: [
     {
@@ -32,7 +32,7 @@ const initialState = {
       image_mobile: "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
       image_large: "https://code.s3.yandex.net/react/code/meat-03-large.png",
       __v: 0,
-      consructorId: 1234,
+      constructorId: 1234,
     },
     {
       _id: "643d69a5c3f7b9001cfa0942",
@@ -47,7 +47,7 @@ const initialState = {
       image_mobile: "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
       image_large: "https://code.s3.yandex.net/react/code/sauce-02-large.png",
       __v: 0,
-      consructorId: 1235,
+      constructorId: 1235,
     },
     {
       _id: "643d69a5c3f7b9001cfa0943",
@@ -62,7 +62,7 @@ const initialState = {
       image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
       image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
       __v: 0,
-      consructorId: 1236,
+      constructorId: 1236,
     },
     {
       _id: "643d69a5c3f7b9001cfa093f",
@@ -77,7 +77,7 @@ const initialState = {
       image_mobile: "https://code.s3.yandex.net/react/code/meat-02-mobile.png",
       image_large: "https://code.s3.yandex.net/react/code/meat-02-large.png",
       __v: 0,
-      consructorId: 1237,
+      constructorId: 1237,
     },
     {
       _id: "643d69a5c3f7b9001cfa0940",
@@ -92,7 +92,7 @@ const initialState = {
       image_mobile: "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
       image_large: "https://code.s3.yandex.net/react/code/meat-04-large.png",
       __v: 0,
-      consructorId: 1238,
+      constructorId: 1238,
     },
   ],
 };
