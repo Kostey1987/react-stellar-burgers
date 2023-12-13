@@ -71,9 +71,9 @@ function BurgerConstructor({ item }) {
       </ul>
       <div className={styles.components_container}>
         <ConstructorElement
-          type="top"
+          type="bottom"
           isLocked={true}
-          text={`${buns.name} (верх)`}
+          text={`${buns.name} (низ)`}
           price={buns.price}
           thumbnail={buns.image}
         />
