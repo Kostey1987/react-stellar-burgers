@@ -56,8 +56,8 @@ function BurgerConstructor({ item }) {
               price={item.price}
               handleClose={() => {}}
             />
+            <DragIcon type="primary" />
           </ConstructorIngredient>
-          <DragIcon type="primary" />
         </div>
       </ul>
       <div className={styles.components_container}>
