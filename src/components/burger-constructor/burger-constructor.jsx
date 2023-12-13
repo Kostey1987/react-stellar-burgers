@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { hardcodedIngredients, hardcodedBun } from "../../utils/data";
 
-import ConstructorIngredient from "../constructor-ingredients/constructor-ingredients";
+import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
 
 import {
   bun,
