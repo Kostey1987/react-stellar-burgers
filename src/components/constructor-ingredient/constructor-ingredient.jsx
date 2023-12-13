@@ -20,4 +20,4 @@ function ConstructorIngredient({ item }) {
   );
 }
 
-export default ConstructorIngredient;
+export default React.memo(ConstructorIngredient);
