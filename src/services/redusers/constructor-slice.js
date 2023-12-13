@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { nanoid } from "@reduxjs/toolkit";
+
 const initialState = {
   bun: null,
   ingredients: [],
@@ -9,11 +11,26 @@ const constructorSlice = createSlice({
   name: "constructor",
   initialState,
   reducers: {
-    bun(state, action) {
-      state.bun = action.payload;
+    bun: {
+      prepare: function (item) {
+        return {
+          payload: { ...item, constructorId: nanoid(12) },
+        };
+      },
+      reducer: function (state, action) {
+        state.bun = action.payload;
+      },
     },
-    addIngredients(state, action) {
-      state.ingredients.push(action.payload);
+
+    addIngredients: {
+      prepare: function (item) {
+        return {
+          payload: { ...item, constructorId: nanoid(12) },
+        };
+      },
+      reducer: function (state, action) {
+        state.ingredients.push(action.payload);
+      },
     },
     clearConstructor: (state) => {
       state.bun = null;
