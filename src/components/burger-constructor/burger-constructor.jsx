@@ -6,7 +6,16 @@ import {
 import styles from "./burger-constructor.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
+import { hardcodedIngredients, hardcodedBun } from "../../utils/data";
+
 import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
+import { nanoid } from "@reduxjs/toolkit";
+
+import {
+  setBun,
+  addIngredients,
+  clearConstructor,
+} from "../../services/redusers/constructor-slice";
 
 import {
   bunSelector,
@@ -20,6 +29,14 @@ function BurgerConstructor({ item }) {
 
   console.log(buns);
   const ingredients = useSelector(ingredientSelector);
+  console.log(ingredients);
+
+  React.useEffect(() => {
+    hardcodedIngredients.forEach((item) => {
+      dispatch(addIngredients(item));
+    });
+    dispatch(setBun(hardcodedBun));
+  }, [dispatch]);
 
   return (
     <div className={styles.constructor + " mt-25 ml-8 mr-2"}>
@@ -49,13 +66,13 @@ function BurgerConstructor({ item }) {
         })}
       </ul>
       <div className={styles.components_container}>
-        {/* <ConstructorElement
-          type="bottom"
+        <ConstructorElement
+          type="top"
           isLocked={true}
-          text={`${item.name} (низ)`}
-          price={item.price}
-          thumbnail={item.image}
-        /> */}
+          text={`${buns.name} (верх)`}
+          price={buns.price}
+          thumbnail={buns.image}
+        />
       </div>
     </div>
   );
