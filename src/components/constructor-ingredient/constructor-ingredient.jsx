@@ -7,7 +7,7 @@ import {
 import styles from "../constructor-ingredient/constructor-ingredient.module.css";
 
 function ConstructorIngredient({ children }) {
-  return <li className={styles.container}>{children}</li>;
+  return <li className={styles.container + " " + "mr-2"}>{children}</li>;
 }
 
 export default React.memo(ConstructorIngredient);
