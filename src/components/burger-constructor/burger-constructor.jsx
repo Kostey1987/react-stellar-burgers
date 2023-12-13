@@ -48,15 +48,19 @@ function BurgerConstructor({ item }) {
         />
       </div>
       <ul className={styles.components + " custom-scroll"}>
-        <ConstructorIngredient>
-          <ConstructorElement
-            text={item.name}
-            thumbnail={item.image}
-            price={item.price}
-            handleClose={() => {}}
-          />
-          <DragIcon type="primary" />
-        </ConstructorIngredient>
+        {ingredients.map((item) => {
+          return (
+            <ConstructorIngredient>
+              <ConstructorElement
+                text={item.name}
+                thumbnail={item.image}
+                price={item.price}
+                handleClose={() => {}}
+              />
+              <DragIcon type="primary" />
+            </ConstructorIngredient>
+          );
+        })}
       </ul>
       <div className={styles.components_container}>
         {/* <ConstructorElement
