@@ -82,15 +82,17 @@ function BurgerConstructor({ item }) {
           })}
       </ul>
       <div className={styles.components_container + " ml-10"}>
-        <ConstructorIngredient>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${buns.name} (низ)`}
-            price={buns.price}
-            thumbnail={buns.image}
-          />
-        </ConstructorIngredient>
+        {!!buns && (
+          <ConstructorIngredient>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${buns.name} (низ)`}
+              price={buns.price}
+              thumbnail={buns.image}
+            />
+          </ConstructorIngredient>
+        )}
       </div>
     </div>
   );
