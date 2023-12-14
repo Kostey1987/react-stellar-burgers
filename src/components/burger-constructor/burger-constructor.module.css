@@ -18,3 +18,7 @@
   align-items: center;
   justify-content: flex-start;
 }
+
+.paragraph {
+  text-align: center;
+}

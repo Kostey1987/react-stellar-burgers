@@ -46,32 +46,40 @@ function BurgerConstructor({ item }) {
   return (
     <div className={styles.constructor + " mt-25 ml-8 mr-2"}>
       <div className={styles.components_container + " ml-10"}>
-        <ConstructorIngredient>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${buns.name} (верх)`}
-            price={buns.price}
-            thumbnail={buns.image}
-          />
-        </ConstructorIngredient>
+        {!!buns && (
+          <ConstructorIngredient>
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${buns.name} (верх)`}
+              price={buns.price}
+              thumbnail={buns.image}
+            />
+          </ConstructorIngredient>
+        )}
       </div>
       <ul className={styles.components + " custom-scroll"}>
-        {ingredients.map((item) => {
-          return (
-            <ConstructorIngredient key={item.constructorId}>
-              <ConstructorElement
-                text={item.name}
-                thumbnail={item.image}
-                price={item.price}
-                handleClose={() => {
-                  dispatch(delIngredients(item));
-                }}
-              />
-              <DragIcon type="primary" />
-            </ConstructorIngredient>
-          );
-        })}
+        {ingredients.length === 0 && (
+          <p className={styles.paragraph + " text text_type_main-default"}>
+            Выберите ингредиент
+          </p>
+        )}
+        {ingredients.length > 0 &&
+          ingredients.map((item) => {
+            return (
+              <ConstructorIngredient key={item.constructorId}>
+                <ConstructorElement
+                  text={item.name}
+                  thumbnail={item.image}
+                  price={item.price}
+                  handleClose={() => {
+                    dispatch(delIngredients(item));
+                  }}
+                />
+                <DragIcon type="primary" />
+              </ConstructorIngredient>
+            );
+          })}
       </ul>
       <div className={styles.components_container + " ml-10"}>
         <ConstructorIngredient>
