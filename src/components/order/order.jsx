@@ -5,6 +5,9 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIcon from "../../images/icon 36x36.svg";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
+import { modalSelector } from "../../services/selectors/modalSelectors";
+import { toggleModal } from "../../services/redusers/modal-slice";
+import { postOrder } from "../../services/ordersQuery";
 
 import {
   bunSelector,
@@ -13,12 +16,20 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 
-function Order({ handleClickButton }) {
+function Order() {
   const dispatch = useDispatch();
 
   const buns = useSelector(bunSelector);
-  console.log(buns);
   const ingredients = useSelector(ingredientSelector);
+
+  const handleClickButton = () => {
+    const orderIds = ingredients.map((i) => i._id);
+    orderIds.push(buns._id);
+
+    dispatch(postOrder({ ingredients: orderIds }));
+
+    dispatch(toggleModal());
+  };
 
   return (
     <div className={styles.order_container}>

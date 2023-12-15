@@ -17,18 +17,30 @@ import {
 } from "../../services/redusers/current-slice";
 import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
 
+import {
+  ingredientSelector,
+  bunSelector,
+} from "../../services/selectors/modalSelectors";
+
 function App() {
   const dispatch = useDispatch();
   const isModalOpen = useSelector(modalSelector);
   const currentIngredient = useSelector(selectedIngredientSelector);
 
   const ingredients = useSelector((state) => state.items.itemsArray);
+  const ingredientIds = useSelector(
+    (state) => state.constructor_slice.ingredients
+  );
+  const bunIds = useSelector((state) => state.constructor_slice.bun);
 
   React.useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
 
-  const handleClickButton = useCallback(() => dispatch(toggleModal()), []);
+  const handleClickButton = useCallback(() => {
+    // console.log(ingredientsConstructor);
+    // dispatch(toggleModal());
+  }, []);
   const closeModal = useCallback(() => dispatch(toggleModal()), []);
 
   const handleIngredientClick = React.useCallback(

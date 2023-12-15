@@ -9,6 +9,8 @@ import { store } from "./store/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import { saveOrder } from "./utils/api";
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

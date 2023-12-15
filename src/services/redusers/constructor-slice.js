@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { postOrder } from "../../services/ordersQuery";
+
 import { nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
+  order: {
+    number: null,
+  },
+  name: "",
   bun: {
     _id: "643d69a5c3f7b9001cfa093c",
     name: "Краторная булка N-200i",
@@ -131,6 +137,14 @@ const constructorSlice = createSlice({
         (item) => item.constructorId != action.payload.constructorId
       );
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(postOrder.fulfilled, (state, action) => {
+      // state.isLoading = false;
+      state.name = action.payload.name;
+      state.order.number = action.payload.order.number;
+      // state.error = "";
+    });
   },
 });
 

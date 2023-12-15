@@ -19,15 +19,10 @@ function checkResponse(res) {
   });
 }
 
-export function saveOrder(ingredients) {
+export function saveOrder(data) {
   return fetch(`${baseUrl}/orders`, {
     headers: { "Content-Type": "application/json" },
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ingredients,
-    }),
+    body: JSON.stringify(data),
   }).then(checkResponse);
 }

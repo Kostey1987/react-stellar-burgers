@@ -42,6 +42,10 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
   const suace = itemsArray.filter((item) => item.type == "sauce");
   const main = itemsArray.filter((item) => item.type == "main");
 
+  const [elements, setElements] = useState([]);
+  const [draggedElements, setDraggedElements] = useState([]);
+  const [draggedElement, setDraggedElement] = useState([]);
+
   return (
     <>
       <Tabs />

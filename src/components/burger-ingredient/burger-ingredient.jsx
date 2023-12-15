@@ -11,9 +11,18 @@ import { memo } from "react";
 const BurgerIngredient = memo(function BurgerIngredient({
   item,
   handleClickIngredient,
+  onDrag,
 }) {
+  const onDragStart = () => {
+    onDrag(item);
+  };
   return (
-    <div className={styles.card} onClick={() => handleClickIngredient(item)}>
+    <div
+      className={styles.card}
+      onClick={() => handleClickIngredient(item)}
+      draggable
+      onDragStart={onDragStart}
+    >
       <div className={styles.counter}>
         <Counter count={1} size="default" />
       </div>
