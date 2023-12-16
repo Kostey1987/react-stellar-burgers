@@ -31,10 +31,19 @@ function Order() {
     dispatch(toggleModal());
   };
 
+  const totalPrice = React.useMemo(() => {
+    return ingredients.reduce(
+      (acc, curr) => {
+        return acc + curr.price;
+      },
+      buns ? buns.price * 2 : 0
+    );
+  }, [ingredients, buns]);
+
   return (
     <div className={styles.order_container}>
       <div className={styles.order}>
-        <p className="text text_type_digits-medium mr-2">12 739</p>
+        <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
         <img className={styles.icon} src={burgerIcon} alt="burger" />
         <Button
           onClick={handleClickButton}
