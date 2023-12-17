@@ -25,9 +25,7 @@ function Order() {
   const handleClickButton = () => {
     const orderIds = ingredients.map((i) => i._id);
     orderIds.push(buns._id);
-
     dispatch(postOrder({ ingredients: orderIds }));
-
     dispatch(toggleModal());
   };
 

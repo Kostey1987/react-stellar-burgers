@@ -10,6 +10,7 @@ import { hardcodedIngredients, hardcodedBun } from "../../utils/data";
 
 import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
 import { nanoid } from "@reduxjs/toolkit";
+import { useDrop } from "react-dnd";
 
 import {
   bun,
@@ -27,10 +28,22 @@ import {
 function BurgerConstructor({ item }) {
   const dispatch = useDispatch();
   const buns = useSelector(bunSelector);
-
   console.log(buns);
   const ingredients = useSelector(ingredientSelector);
   console.log(ingredients);
+  const [{ isDragging }, dropRef] = useDrop({
+    accept: "ingredient",
+    drop: (item) => {
+      if (item.type === "bun") {
+        dispatch(bun(item));
+      } else {
+        dispatch(addIngredients(item));
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isOver(),
+    }),
+  });
 
   React.useEffect(() => {
     hardcodedIngredients.forEach((item) => {
@@ -44,7 +57,15 @@ function BurgerConstructor({ item }) {
   }
 
   return (
-    <div className={styles.constructor + " mt-25 ml-8 mr-2"}>
+    <div
+      className={
+        `${isDragging ? styles.drop : ""}` +
+        " " +
+        styles.constructor +
+        " mt-25 ml-8 mr-2"
+      }
+      ref={dropRef}
+    >
       <div className={styles.components_container + " ml-10"}>
         {!!buns && (
           <ConstructorIngredient>

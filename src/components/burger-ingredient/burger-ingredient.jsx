@@ -8,15 +8,19 @@ import PropTypes from "prop-types";
 import { ingredientPropType } from "../../utils/prop-types";
 import { memo } from "react";
 import { useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
 
 const BurgerIngredient = memo(function BurgerIngredient({
   item,
   handleClickIngredient,
-  onDrag,
 }) {
-  // const onDragStart = () => {
-  //   onDrag(item);
-  // };
+  const [{ isDragging }, dragRef] = useDrag({
+    type: "ingredient",
+    item: item,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
 
   const { ingredients, bun } = useSelector((state) => state.constructor_slice);
   const count = React.useMemo(() => {
@@ -28,10 +32,9 @@ const BurgerIngredient = memo(function BurgerIngredient({
   }, [ingredients, bun]);
   return (
     <div
-      className={styles.card}
+      className={`${isDragging ? styles.opacity : styles.card}`}
       onClick={() => handleClickIngredient(item)}
-      // draggable
-      // onDragStart={onDragStart}
+      ref={dragRef}
     >
       <div className={styles.counter}>
         <Counter count={count} size="default" />

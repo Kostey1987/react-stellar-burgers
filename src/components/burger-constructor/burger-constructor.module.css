@@ -22,3 +22,7 @@
 .paragraph {
   text-align: center;
 }
+
+.drop {
+  outline: solid 3px rebeccapurple;
+}

@@ -14,7 +14,9 @@ import { saveOrder } from "./utils/api";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
