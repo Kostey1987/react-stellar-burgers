@@ -6,7 +6,6 @@ import constructorReduser from "../services/redusers/constructor-slice";
 
 export const store = configureStore({
   reducer: {
-    modal: modalReducer,
     items: itemReducer,
     selected: selectedReducer,
     constructor_slice: constructorReduser,

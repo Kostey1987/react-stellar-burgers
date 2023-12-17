@@ -8,7 +8,6 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
-import { modalSelector } from "../../services/selectors/modalSelectors";
 import { toggleModal } from "../../services/redusers/modal-slice";
 import { fetchIngredients } from "../../services/ingredientsQuery";
 import {
@@ -16,31 +15,20 @@ import {
   clearSelectedIngredient,
 } from "../../services/redusers/current-slice";
 import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
-
-import {
-  ingredientSelector,
-  bunSelector,
-} from "../../services/selectors/modalSelectors";
+import { clearConstructor } from "../../services/redusers/constructor-slice";
 
 function App() {
   const dispatch = useDispatch();
-  const isModalOpen = useSelector(modalSelector);
   const currentIngredient = useSelector(selectedIngredientSelector);
 
   const ingredients = useSelector((state) => state.items.itemsArray);
-  const ingredientIds = useSelector(
-    (state) => state.constructor_slice.ingredients
-  );
-  const bunIds = useSelector((state) => state.constructor_slice.bun);
+  const currentOrder = useSelector((state) => state.constructor_slice.order);
 
   React.useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
 
-  const handleClickButton = useCallback(() => {
-    // console.log(ingredientsConstructor);
-    // dispatch(toggleModal());
-  }, []);
+  const handleClickButton = useCallback(() => {}, []);
   const closeModal = useCallback(() => dispatch(toggleModal()), []);
 
   const handleIngredientClick = React.useCallback(
@@ -52,6 +40,9 @@ function App() {
 
   const handleCloseIngredientModal = () => {
     dispatch(clearSelectedIngredient());
+  };
+  const handleCloseCurrentOrderModal = () => {
+    dispatch(clearConstructor());
   };
 
   return (
@@ -83,8 +74,8 @@ function App() {
           <IngredientDetails item={currentIngredient} />
         </Modal>
       )}
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
+      {currentOrder && (
+        <Modal onClose={handleCloseCurrentOrderModal}>
           <OrderDetails />
         </Modal>
       )}

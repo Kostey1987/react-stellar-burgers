@@ -4,9 +4,7 @@ import imgDone from "../../images/done.png";
 import { useSelector } from "react-redux";
 
 function OrderDetails() {
-  const orderNumber = useSelector(
-    (state) => state.constructor_slice.order.number
-  );
+  const orderNumber = useSelector((state) => state.constructor_slice.order);
 
   return (
     <div className={styles.orderDetails + " " + "mt-30"}>

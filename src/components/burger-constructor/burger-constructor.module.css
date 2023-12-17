@@ -1,15 +1,17 @@
 .constructor {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  /* gap: 16px; */
 }
 
 .components {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 568px;
+  height: 464px;
   overflow-y: auto;
+  margin-right: 60px;
+  padding: 0;
 }
 
 .components_container {

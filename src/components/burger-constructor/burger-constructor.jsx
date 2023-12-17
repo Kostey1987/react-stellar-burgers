@@ -62,7 +62,7 @@ function BurgerConstructor({ item }) {
       }
       ref={dropRef}
     >
-      <div className={styles.components_container + " ml-10"}>
+      <div className={styles.components_container + " ml-8"}>
         {!!buns && (
           <ConstructorElement
             type="top"
@@ -100,7 +100,7 @@ function BurgerConstructor({ item }) {
             );
           })}
       </ul>
-      <div className={styles.components_container + " ml-10"}>
+      <div className={styles.components_container + " ml-8"}>
         {!!buns && (
           <ConstructorElement
             type="bottom"
