@@ -6,49 +6,46 @@ import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-const Tabs = () => {
-  const [current, setCurrent] = React.useState("one");
-
-  const changeIngredient = (id) => {
-    setCurrent(id);
-    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  return (
-    <div className={styles.container}>
-      <Tab value="one" active={current === "one"} onClick={changeIngredient}>
-        Булки
-      </Tab>
-      <Tab value="two" active={current === "two"} onClick={changeIngredient}>
-        Соусы
-      </Tab>
-      <Tab
-        value="three"
-        active={current === "three"}
-        onClick={changeIngredient}
-      >
-        Начинки
-      </Tab>
-    </div>
-  );
-};
-
 const BurgerIngredients = ({ handleIngredientClick }) => {
   // const dispatch = useDispatch();
 
+  const [currentTab, setCurrentTab] = React.useState("one");
   const itemsArray = useSelector((state) => state.items.itemsArray);
+
+  const changeIngredient = (id) => {
+    setCurrentTab(id);
+    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const bun = itemsArray.filter((item) => item.type == "bun");
   const suace = itemsArray.filter((item) => item.type == "sauce");
   const main = itemsArray.filter((item) => item.type == "main");
 
-  const [elements, setElements] = useState([]);
-  const [draggedElements, setDraggedElements] = useState([]);
-  const [draggedElement, setDraggedElement] = useState([]);
-
   return (
     <>
-      <Tabs />
+      <div className={styles.container}>
+        <Tab
+          value="one"
+          active={currentTab === "one"}
+          onClick={changeIngredient}
+        >
+          Булки
+        </Tab>
+        <Tab
+          value="two"
+          active={currentTab === "two"}
+          onClick={changeIngredient}
+        >
+          Соусы
+        </Tab>
+        <Tab
+          value="three"
+          active={currentTab === "three"}
+          onClick={changeIngredient}
+        >
+          Начинки
+        </Tab>
+      </div>
       <section
         className={styles.ingredients + " " + " custom-scroll" + " " + "mb-10"}
       >
