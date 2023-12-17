@@ -133,6 +133,12 @@ const constructorSlice = createSlice({
       state.bun = null;
       state.ingredients = [];
     },
+    changeIngredients: (store, action) => {
+      const { indexFrom, indexTo, ingredient } = action.payload;
+      store.ingredients.splice(indexFrom, 1);
+      store.ingredients.splice(indexTo, 0, ingredient);
+    },
+
     delIngredients: (state, action) => {
       state.ingredients = [...state.ingredients].filter(
         (item) => item.constructorId != action.payload.constructorId
@@ -149,7 +155,12 @@ const constructorSlice = createSlice({
   },
 });
 
-export const { bun, addIngredients, clearConstructor, delIngredients } =
-  constructorSlice.actions;
+export const {
+  bun,
+  addIngredients,
+  clearConstructor,
+  delIngredients,
+  changeIngredients,
+} = constructorSlice.actions;
 
 export default constructorSlice.reducer;

@@ -8,3 +8,7 @@
   flex-flow: row-reverse nowrap;
   width: 568px;
 }
+
+.dragging {
+  opacity: 0.5;
+}

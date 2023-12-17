@@ -45,16 +45,12 @@ function BurgerConstructor({ item }) {
     }),
   });
 
-  React.useEffect(() => {
-    hardcodedIngredients.forEach((item) => {
-      dispatch(addIngredients(item));
-    });
-    dispatch(bun(hardcodedBun));
-  }, [dispatch]);
-
-  if (!buns || !ingredients) {
-    return <p>Загрузка </p>;
-  }
+  // React.useEffect(() => {
+  //   hardcodedIngredients.forEach((item) => {
+  //     dispatch(addIngredients(item));
+  //   });
+  //   dispatch(bun(hardcodedBun));
+  // }, [dispatch]);
 
   return (
     <div
@@ -68,15 +64,13 @@ function BurgerConstructor({ item }) {
     >
       <div className={styles.components_container + " ml-10"}>
         {!!buns && (
-          <ConstructorIngredient>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={`${buns.name} (верх)`}
-              price={buns.price}
-              thumbnail={buns.image}
-            />
-          </ConstructorIngredient>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${buns.name} (верх)`}
+            price={buns.price}
+            thumbnail={buns.image}
+          />
         )}
       </div>
       <ul className={styles.components + " custom-scroll"}>
@@ -86,9 +80,13 @@ function BurgerConstructor({ item }) {
           </p>
         )}
         {ingredients.length > 0 &&
-          ingredients.map((item) => {
+          ingredients.map((item, index) => {
             return (
-              <ConstructorIngredient key={item.constructorId}>
+              <ConstructorIngredient
+                key={item.constructorId}
+                item={item}
+                index={index}
+              >
                 <ConstructorElement
                   text={item.name}
                   thumbnail={item.image}
@@ -104,15 +102,13 @@ function BurgerConstructor({ item }) {
       </ul>
       <div className={styles.components_container + " ml-10"}>
         {!!buns && (
-          <ConstructorIngredient>
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={`${buns.name} (низ)`}
-              price={buns.price}
-              thumbnail={buns.image}
-            />
-          </ConstructorIngredient>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${buns.name} (низ)`}
+            price={buns.price}
+            thumbnail={buns.image}
+          />
         )}
       </div>
     </div>
