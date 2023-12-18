@@ -22,13 +22,12 @@ function App() {
   const currentIngredient = useSelector(selectedIngredientSelector);
 
   const ingredients = useSelector((state) => state.items.itemsArray);
-  const currentOrder = useSelector((state) => state.constructor_slice.order);
+  const currentOrder = useSelector((state) => state.sandwich.order);
 
   React.useEffect(() => {
     dispatch(fetchIngredients());
   }, []);
 
-  const handleClickButton = useCallback(() => {}, []);
   const closeModal = useCallback(() => dispatch(toggleModal()), []);
 
   const handleIngredientClick = React.useCallback(
@@ -66,7 +65,7 @@ function App() {
           aria-label={`Компоненты бутерброда`}
         >
           <BurgerConstructor />
-          <Order handleClickButton={handleClickButton} />
+          <Order />
         </section>
       </main>
       {!!currentIngredient && (

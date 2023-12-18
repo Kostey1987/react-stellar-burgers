@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const constructorSlice = createSlice({
-  name: "constructor_slice",
+  name: "sandwich",
   initialState,
   reducers: {
     bun: {

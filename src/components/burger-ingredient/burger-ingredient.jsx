@@ -22,7 +22,7 @@ const BurgerIngredient = memo(function BurgerIngredient({
     }),
   });
 
-  const { ingredients, bun } = useSelector((state) => state.constructor_slice);
+  const { ingredients, bun } = useSelector((state) => state.sandwich);
   const count = React.useMemo(() => {
     if (item.type === "bun") {
       return !!bun && bun._id === item._id ? 1 : 0;
@@ -49,9 +49,9 @@ const BurgerIngredient = memo(function BurgerIngredient({
   );
 });
 
-// BurgerIngredient.propTypes = {
-//   item: ingredientPropType.isRequired,
-//   handleClickIngredient: PropTypes.func.isRequired,
-// };
+BurgerIngredient.propTypes = {
+  item: ingredientPropType.isRequired,
+  handleClickIngredient: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredient;

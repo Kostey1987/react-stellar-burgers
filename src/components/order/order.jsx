@@ -5,8 +5,6 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIcon from "../../images/icon 36x36.svg";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
-import { modalSelector } from "../../services/selectors/modalSelectors";
-import { toggleModal } from "../../services/redusers/modal-slice";
 import { postOrder } from "../../services/ordersQuery";
 
 import {
@@ -38,12 +36,18 @@ function Order() {
     );
   }, [ingredients, buns]);
 
+  const isOrderReady = React.useMemo(
+    () => !!buns && ingredients.length > 0,
+    [ingredients, buns]
+  );
+
   return (
     <div className={styles.order_container}>
       <div className={styles.order}>
         <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
         <img className={styles.icon} src={burgerIcon} alt="burger" />
         <Button
+          disabled={!isOrderReady}
           onClick={handleClickButton}
           type="primary"
           size="medium"
@@ -55,9 +59,5 @@ function Order() {
     </div>
   );
 }
-
-Order.propTypes = {
-  handleClickButton: PropTypes.func.isRequired,
-};
 
 export default Order;

@@ -7,13 +7,13 @@ import {
 import styles from "../constructor-ingredient/constructor-ingredient.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { changeIngredients } from "../../services/redusers/constructor-slice";
+import PropTypes from "prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 
 function ConstructorIngredient({ children, item, index }) {
   const dispatch = useDispatch();
 
-  const burgerArray = useSelector(
-    (state) => state.constructor_slice.ingredients
-  );
+  const burgerArray = useSelector((state) => state.sandwich.ingredients);
   const findIndex = (item) => {
     return burgerArray.indexOf(item);
   };
@@ -55,5 +55,10 @@ function ConstructorIngredient({ children, item, index }) {
     </li>
   );
 }
+
+ConstructorIngredient.propTypes = {
+  item: ingredientPropType.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default React.memo(ConstructorIngredient);

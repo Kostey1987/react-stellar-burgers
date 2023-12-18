@@ -8,20 +8,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 
 const BurgerIngredients = ({ handleIngredientClick }) => {
-  // const dispatch = useDispatch();
-
-  const [currentTab, setCurrentTab] = React.useState("one");
   const itemsArray = useSelector((state) => state.items.itemsArray);
-
   const baseRef = useRef();
   const bunsRef = useRef();
   const soucesRef = useRef();
   const mainsRef = useRef();
-
-  // const changeIngredient = (id) => {
-  //   setCurrentTab(id);
-  //   document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
-  // };
 
   const handleScrollToBuns = () => {
     bunsRef?.current.scrollIntoView({ behavior: "smooth" });
@@ -119,9 +110,8 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
   );
 };
 
-// BurgerIngredients.propTypes = {
-//   handleClickIngredient: PropTypes.func.isRequired,
-//   ingredients: PropTypes.arrayOf(ingredientPropType).isRequired,
-// };
+BurgerIngredients.propTypes = {
+  handleIngredientClick: PropTypes.func.isRequired,
+};
 
 export default BurgerIngredients;

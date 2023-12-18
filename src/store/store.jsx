@@ -8,6 +8,6 @@ export const store = configureStore({
   reducer: {
     items: itemReducer,
     selected: selectedReducer,
-    constructor_slice: constructorReduser,
+    sandwich: constructorReduser,
   },
 });
