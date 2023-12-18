@@ -55,10 +55,7 @@ function App() {
           <h1 className={`text text_type_main-large mt-10 mb-5`}>
             Соберите бургер
           </h1>
-          <BurgerIngredients
-            ingredients={ingredients}
-            handleIngredientClick={handleIngredientClick}
-          />
+          <BurgerIngredients handleIngredientClick={handleIngredientClick} />
         </section>
         <section
           className={styles.ingredients}
