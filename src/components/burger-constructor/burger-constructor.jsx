@@ -4,79 +4,105 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
+import { nanoid } from "@reduxjs/toolkit";
+import { useDrop } from "react-dnd";
+
+import {
+  bun,
+  addIngredients,
+  delIngredients,
+} from "../../services/redusers/constructor-slice";
+
+import {
+  bunSelector,
+  ingredientSelector,
+} from "../../services/selectors/modalSelectors";
 
 function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const buns = useSelector(bunSelector);
+  const ingredients = useSelector(ingredientSelector);
+  const [{ isDragging }, dropRef] = useDrop({
+    accept: "ingredient",
+    drop: (item) => {
+      if (item.type === "bun") {
+        dispatch(bun(item));
+      } else {
+        dispatch(addIngredients(item));
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isOver(),
+    }),
+  });
+
+  // React.useEffect(() => {
+  //   hardcodedIngredients.forEach((item) => {
+  //     dispatch(addIngredients(item));
+  //   });
+  //   dispatch(bun(hardcodedBun));
+  // }, [dispatch]);
+
   return (
-    <div className={styles.constructor + " mt-25 ml-8 mr-2"}>
-      <div className={styles.components_container}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text="Флюоресцентная булка R2-D3 (верх)"
-          price={988}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-01.png"}
-        />
+    <div
+      className={
+        `${isDragging ? styles.drop : ""}` +
+        " " +
+        styles.constructor +
+        " mt-25 ml-8 mr-2"
+      }
+      ref={dropRef}
+    >
+      <div className={styles.components_container + " ml-8"}>
+        {!!buns && (
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${buns.name} (верх)`}
+            price={buns.price}
+            thumbnail={buns.image}
+          />
+        )}
       </div>
-      <div className={styles.components + " custom-scroll"}>
-        <div className={styles.components_container + " " + "mr-2"}>
-          <DragIcon type="primary" />
+      <ul className={styles.components + " custom-scroll"}>
+        {ingredients.length === 0 && (
+          <p className={styles.paragraph + " text text_type_main-default"}>
+            Выберите ингредиент
+          </p>
+        )}
+        {ingredients.length > 0 &&
+          ingredients.map((item, index) => {
+            return (
+              <ConstructorIngredient
+                key={item.constructorId}
+                item={item}
+                index={index}
+              >
+                <ConstructorElement
+                  text={item.name}
+                  thumbnail={item.image}
+                  price={item.price}
+                  handleClose={() => {
+                    dispatch(delIngredients(item));
+                  }}
+                />
+                <DragIcon type="primary" />
+              </ConstructorIngredient>
+            );
+          })}
+      </ul>
+      <div className={styles.components_container + " ml-8"}>
+        {!!buns && (
           <ConstructorElement
-            text="Кристаллы марсианских альфа-сахаридов"
-            price={762}
-            thumbnail={"https://code.s3.yandex.net/react/code/core.png"}
+            type="bottom"
+            isLocked={true}
+            text={`${buns.name} (низ)`}
+            price={buns.price}
+            thumbnail={buns.image}
           />
-        </div>
-        <div className={styles.components_container + " " + "mr-2"}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Хрустящие минеральные кольца"
-            price={300}
-            thumbnail={
-              "https://code.s3.yandex.net/react/code/mineral_rings.png"
-            }
-          />
-        </div>
-        <div className={styles.components_container + " " + "mr-2"}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Сыр с астероидной плесенью"
-            price={4142}
-            thumbnail={"https://code.s3.yandex.net/react/code/cheese.png"}
-          />
-        </div>
-        <div className={styles.components_container + " " + "mr-2"}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Соус фирменный Space Sauce"
-            price={80}
-            thumbnail={"https://code.s3.yandex.net/react/code/sauce-04.png"}
-          />
-        </div>
-        <div className={styles.components_container + " " + "mr-2"}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Мясо бессмертных моллюсков Protostomia"
-            price={1337}
-            thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-          />
-        </div>
-        <div className={styles.components_container + " " + "mr-2"}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Сыр с астероидной плесенью"
-            price={4142}
-            thumbnail={"https://code.s3.yandex.net/react/code/cheese.png"}
-          />
-        </div>
-      </div>
-      <div className={styles.components_container}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text="Флюоресцентная булка R2-D3 (низ)"
-          price={988}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-01.png"}
-        />
+        )}
       </div>
     </div>
   );

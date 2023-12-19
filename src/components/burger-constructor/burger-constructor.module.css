@@ -1,7 +1,7 @@
 .constructor {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  /* gap: 16px; */
 }
 
 .components {
@@ -10,11 +10,21 @@
   gap: 16px;
   height: 464px;
   overflow-y: auto;
+  margin-right: 60px;
+  padding: 0;
 }
 
 .components_container {
   width: 568px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
+}
+
+.paragraph {
+  text-align: center;
+}
+
+.drop {
+  outline: solid 3px rebeccapurple;
 }

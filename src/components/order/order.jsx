@@ -5,14 +5,49 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIcon from "../../images/icon 36x36.svg";
 import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
+import { postOrder } from "../../services/ordersQuery";
 
-function Order({ handleClickButton }) {
+import {
+  bunSelector,
+  ingredientSelector,
+} from "../../services/selectors/modalSelectors";
+
+import { useDispatch, useSelector } from "react-redux";
+
+function Order() {
+  const dispatch = useDispatch();
+
+  const buns = useSelector(bunSelector);
+  const ingredients = useSelector(ingredientSelector);
+
+  const handleClickButton = () => {
+    const orderIds = ingredients.map((i) => i._id);
+    orderIds.push(buns._id);
+    dispatch(postOrder({ ingredients: orderIds }));
+    // dispatch(toggleModal());
+  };
+
+  const totalPrice = React.useMemo(() => {
+    return ingredients.reduce(
+      (acc, curr) => {
+        return acc + curr.price;
+      },
+      buns ? buns.price * 2 : 0
+    );
+  }, [ingredients, buns]);
+
+  const isOrderReady = React.useMemo(
+    () => !!buns && ingredients.length > 0,
+    [ingredients, buns]
+  );
+
   return (
     <div className={styles.order_container}>
       <div className={styles.order}>
-        <p className="text text_type_digits-medium mr-2">12 739</p>
+        <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
         <img className={styles.icon} src={burgerIcon} alt="burger" />
         <Button
+          disabled={!isOrderReady}
           onClick={handleClickButton}
           type="primary"
           size="medium"
@@ -24,9 +59,5 @@ function Order({ handleClickButton }) {
     </div>
   );
 }
-
-Order.propTypes = {
-  handleClickButton: PropTypes.func.isRequired,
-};
 
 export default Order;
