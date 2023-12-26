@@ -6,32 +6,44 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../reset-password/reset-password.module.css";
 import AppHeader from "../../components/app-header/app-header";
+import { resetPassword } from "../../utils/api";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 function ResetPassword() {
-  const [password, setPassword] = useState("");
-  const [code, setCode] = useState("");
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const dispatch = useDispatch();
+
+  const [value, setValue] = useState({
+    password: "",
+    token: "",
+  });
+
+  const handleResetPassword = React.useCallback(
+    (evt) => {
+      evt.preventDefault();
+      dispatch(resetPassword(value.password, value.token));
+    },
+    [dispatch]
+  );
 
   return (
     <>
       <AppHeader />
-      <div className={styles.reset} onSubmit={handleSubmit}>
+      <div className={styles.reset}>
         <h2 className={styles.title}>Восстановление пароля</h2>
         <PasswordInput
           name={"password"}
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          onChange={(evt) => setValue({ ...value, password: evt.target.value })}
+          value={value.password}
           extraClass={"mt-6"}
           placeholder={"Введите новый пароль"}
           required={true}
         />
         <Input
-          onChange={(e) => setCode(e.target.value)}
+          onChange={(evt) => setValue({ ...value, token: evt.target.value })}
           placeholder={"Введите код из письма"}
           extraClass={"mt-6"}
-          value={code}
+          value={value.token}
           required={true}
         />
         <Button
@@ -39,6 +51,7 @@ function ResetPassword() {
           type="primary"
           size="medium"
           extraClass={"mt-6"}
+          onClick={handleResetPassword}
         >
           Сохранить
         </Button>
@@ -46,9 +59,11 @@ function ResetPassword() {
           <p className="text text_type_main-default text_color_inactive">
             Вспомнили пароль?
           </p>
-          <Button htmlType="button" type="secondary" size="medium">
-            Войти
-          </Button>
+          <Link to="/login">
+            <Button htmlType="button" type="secondary" size="medium">
+              Войти
+            </Button>
+          </Link>
         </div>
       </div>
     </>

@@ -7,6 +7,7 @@ import {
   setUserRequest,
   setResetConfirmed,
   setResetRequest,
+  setChangePasswordRequest,
 } from "../services/redusers/user-slice";
 
 export const getItems = (setIngredients) => {
@@ -147,18 +148,14 @@ export const logout = () => {
   };
 };
 
-export const register = (email, password, name) => {
+export const register = (data) => {
   return (dispatch) => {
     return fetch("https://norma.nomoreparties.space/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        email,
-        password,
-        name,
-      }),
+      body: JSON.stringify(data),
     })
       .then(checkResponse)
       .then((res) => {
@@ -168,14 +165,14 @@ export const register = (email, password, name) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        dispatch(setUserRequest(false));
       });
-    // .finally(() => {
-    //   dispatch(setUserRequest(false));
-    // });
   };
 };
 
-export const reset = () => {
+export const reset = (email) => {
   return (dispatch) => {
     return fetch("https://norma.nomoreparties.space/api/password-reset", {
       method: "POST",
@@ -183,7 +180,7 @@ export const reset = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "",
+        email: email,
       }),
     })
       .then(checkResponse)
@@ -197,6 +194,30 @@ export const reset = () => {
       })
       .finally(() => {
         dispatch(setResetRequest(false));
+      });
+  };
+};
+
+export const resetPassword = (data) => {
+  return (dispatch) => {
+    return fetch("https://norma.nomoreparties.space/api/password-reset/reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res.success) {
+          dispatch(setChangePasswordRequest(res.success));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        dispatch(setChangePasswordRequest(false));
       });
   };
 };

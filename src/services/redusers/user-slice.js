@@ -12,6 +12,8 @@ const initialState = {
   userRequest: false,
   resetConfirmed: false,
   resetRequest: false,
+  changePassword: false,
+  changePasswordRequest: false,
 };
 
 export const userSlice = createSlice({
@@ -40,6 +42,12 @@ export const userSlice = createSlice({
     setResetRequest: (state, action) => {
       state.resetRequest = action.payload;
     },
+    setChangePassword: (state, action) => {
+      state.changePassword = action.payload;
+    },
+    setChangePasswordRequest: (state, action) => {
+      state.changePasswordRequest = action.payload;
+    },
   },
 });
 
@@ -53,6 +61,8 @@ export const {
   registerUser,
   setResetConfirmed,
   setResetRequest,
+  setChangePassword,
+  setChangePasswordRequest,
 } = userSlice.actions;
 
 export default userSlice.reducer;

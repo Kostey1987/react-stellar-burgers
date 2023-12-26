@@ -14,7 +14,6 @@ import { register } from "../../utils/api";
 function Register() {
   // const success = useSelector((state) => state.user.success);
   const dispatch = useDispatch();
-  const inputRef = React.useRef(null);
   const [value, setValue] = React.useState({
     email: "",
     password: "",
@@ -71,7 +70,6 @@ function Register() {
             type="primary"
             size="medium"
             extraClass="mb-20"
-            // onClick={handleRegister}
           >
             Зарегистрироваться
           </Button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Button,
   EmailInput,
@@ -11,15 +11,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
-  const success = useSelector((state) => state.user.success);
 
-  const [value, setValue] = React.useState("");
-  // const inputRef = React.useRef(null);
+  const [value, setValue] = useState({
+    email: "",
+  });
 
-  const handleReset = React.useCallback(
+  const handleReset = useCallback(
     (evt) => {
       evt.preventDefault();
-      dispatch(reset());
+      dispatch(reset(value.email));
     },
     [dispatch]
   );
@@ -30,10 +30,11 @@ function ForgotPassword() {
       <div className={styles.forgot}>
         <h2 className={styles.title}>Восстановление пароля</h2>
         <EmailInput
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(evt) => setValue({ ...value, email: evt.target.value })}
+          value={value.email}
+          name={"email"}
           placeholder={"Укажите e-mail"}
           extraClass={"mt-6"}
-          value={value}
         />
         <Button
           htmlType="submit"
