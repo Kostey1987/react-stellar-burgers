@@ -16,13 +16,10 @@ function ForgotPassword() {
     email: "",
   });
 
-  const handleReset = useCallback(
-    (evt) => {
-      evt.preventDefault();
-      dispatch(reset(value.email));
-    },
-    [dispatch]
-  );
+  const handleReset = (evt) => {
+    evt.preventDefault();
+    dispatch(reset(value.email));
+  };
 
   return (
     <>

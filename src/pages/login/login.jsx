@@ -4,6 +4,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link } from "react-router-dom";
 import styles from "./login.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { useDispatch } from "react-redux";
@@ -22,9 +23,8 @@ function Login() {
   };
 
   const onClick = () => {
+    console.log(password);
     dispatch(login(email, password));
-    console.log("--------------------------------------------------");
-    console.log(email, password);
   };
 
   return (
@@ -59,9 +59,11 @@ function Login() {
           <p className="text text_type_main-default text_color_inactive ml-6">
             Вы — новый пользователь?
           </p>
-          <Button htmlType="button" type="secondary" size="medium">
-            Зарегистрироваться
-          </Button>
+          <Link to="/register">
+            <Button htmlType="button" type="secondary" size="medium">
+              Зарегистрироваться
+            </Button>
+          </Link>
         </div>
         <div className={`${styles.wrapper} mt-4`}>
           <p className="text text_type_main-default text_color_inactive ml-2">

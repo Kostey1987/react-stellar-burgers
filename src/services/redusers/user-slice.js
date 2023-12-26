@@ -14,6 +14,7 @@ const initialState = {
   resetRequest: false,
   changePassword: false,
   changePasswordRequest: false,
+  updateRequest: false,
 };
 
 export const userSlice = createSlice({
@@ -25,6 +26,8 @@ export const userSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
+      console.log("==============");
+      console.log(action);
     },
     setLogoutUser: (state) => {
       state.userData.email = "";
@@ -48,6 +51,13 @@ export const userSlice = createSlice({
     setChangePasswordRequest: (state, action) => {
       state.changePasswordRequest = action.payload;
     },
+    setUpdateUser: (state, action) => {
+      state.userData.email = action.payload.user.email;
+      state.userData.name = action.payload.user.name;
+    },
+    setUpdateUserRequest: (state, action) => {
+      state.updateRequest = action.payload;
+    },
   },
 });
 
@@ -63,6 +73,8 @@ export const {
   setResetRequest,
   setChangePassword,
   setChangePasswordRequest,
+  setUpdateUser,
+  setUpdateUserRequest,
 } = userSlice.actions;
 
 export default userSlice.reducer;

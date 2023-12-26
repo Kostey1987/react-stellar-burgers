@@ -18,13 +18,10 @@ function ResetPassword() {
     token: "",
   });
 
-  const handleResetPassword = React.useCallback(
-    (evt) => {
-      evt.preventDefault();
-      dispatch(resetPassword(value.password, value.token));
-    },
-    [dispatch]
-  );
+  const handleResetPassword = (evt) => {
+    evt.preventDefault();
+    dispatch(resetPassword(value.password, value.token));
+  };
 
   return (
     <>

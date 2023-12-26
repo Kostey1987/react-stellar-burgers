@@ -8,6 +8,8 @@ import {
   setResetConfirmed,
   setResetRequest,
   setChangePasswordRequest,
+  setUpdateUser,
+  setUpdateUserRequest,
 } from "../services/redusers/user-slice";
 
 export const getItems = (setIngredients) => {
@@ -73,6 +75,7 @@ export const getUser = () => {
       },
     })
       .then((res) => {
+        console.log(res);
         dispatch(setUser(res.user));
       })
       .catch((err) => {
@@ -161,7 +164,7 @@ export const register = (data) => {
       .then((res) => {
         localStorage.setItem("accessToken", res.accessToken);
         localStorage.setItem("refreshToken", res.refreshToken);
-        dispatch(setUser(res));
+        dispatch(setUser(data));
       })
       .catch((err) => {
         console.log(err);
@@ -198,14 +201,17 @@ export const reset = (email) => {
   };
 };
 
-export const resetPassword = (data) => {
+export const resetPassword = (password, token) => {
   return (dispatch) => {
     return fetch("https://norma.nomoreparties.space/api/password-reset/reset", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        password: password,
+        token: token,
+      }),
     })
       .then(checkResponse)
       .then((res) => {
@@ -218,6 +224,34 @@ export const resetPassword = (data) => {
       })
       .finally(() => {
         dispatch(setChangePasswordRequest(false));
+      });
+  };
+};
+
+export const updateUser = (name, email, password) => {
+  return (dispatch) => {
+    return fetch("https://norma.nomoreparties.space/api/auth/user", {
+      method: "PATCH",
+      headers: {
+        authorization: localStorage.getItem("accessToken"),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        console.log(res);
+        dispatch(setUpdateUser(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        dispatch(setUpdateUserRequest(false));
       });
   };
 };

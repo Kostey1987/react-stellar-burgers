@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styles from "../../pages/profile/profile.module.css";
 import { NavLink } from "react-router-dom";
 import AppHeader from "../../components/app-header/app-header";
@@ -6,37 +6,57 @@ import {
   EmailInput,
   Input,
   PasswordInput,
+  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { logout } from "../../utils/api";
-import { useDispatch } from "react-redux";
+import { getUser, logout, updateUser } from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
 
 function Profile() {
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.user.user.name);
+  const userEmail = useSelector((state) => state.user.user.email);
+
+  React.useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  const [value, setValue] = useState({
+    name: userName,
+    email: userEmail,
+    password: "",
+  });
+
+  React.useEffect(() => {
+    setValue({
+      name: userName,
+      email: userEmail,
+      password: "",
+    });
+  }, [userName, userEmail]);
+
+  const updateProfile = (evt) => {
+    evt.preventDefault();
+    dispatch(updateUser(value.name, value.email, value.password));
+    setValue({
+      name: userName,
+      email: userEmail,
+      password: "",
+    });
+  };
 
   const logoutHandleClick = (e) => {
     e.preventDefault();
     dispatch(logout());
   };
 
-  const [current, setCurrent] = useState("profile");
-  const [name, setName] = useState("Марк");
-
-  // const onClickIcon = () => {
-  //   setTimeout(() => inputRef.current.focus(), 0);
-  // };
-
-  const [email, setEmail] = useState("e@email.com");
-  const changeEmail = (e) => {
-    setEmail(e.target.value);
+  const cancelEditing = () => {
+    setValue({
+      name: userName,
+      email: userEmail,
+      password: "",
+    });
   };
-
-  const [password, setPassword] = useState("password");
-  const changePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const inputRef = useRef(null);
 
   const isActiveClass = ({ isActive }) =>
     `${styles.link} ${!isActive ? styles.inactive : ""}`;
@@ -72,19 +92,19 @@ function Profile() {
             <Input
               type="text"
               placeholder={"Имя"}
-              onChange={(e) => setName(e.target.value)}
-              value={"name"}
+              onChange={(evt) => setValue({ ...value, name: evt.target.value })}
+              value={value.name}
               icon={"EditIcon"}
-              ref={inputRef}
-              // onClickIcon={onClickIcon}
             />
           </div>
           <div className="mt-6">
             <EmailInput
               type="email"
-              onChange={changeEmail}
+              onChange={(evt) =>
+                setValue({ ...value, email: evt.target.value })
+              }
               placeholder={"Логин"}
-              value={"e@email.com"}
+              value={value.email}
               icon={"EditIcon"}
             />
           </div>
@@ -92,11 +112,29 @@ function Profile() {
             <PasswordInput
               type="password"
               placeholder={"Пароль"}
-              onChange={changePassword}
-              value={"password"}
-              icon={"EditIcon"}
+              onChange={(evt) =>
+                setValue({ ...value, password: evt.target.value })
+              }
+              value={value.password}
+              // icon={"EditIcon"}
             />
           </div>
+          <Button
+            type="primary"
+            size="medium"
+            htmlType="submit"
+            onClick={updateProfile}
+          >
+            Сохранить
+          </Button>
+          <Button
+            onClick={cancelEditing}
+            htmlType="submit"
+            type="primary"
+            size="medium"
+          >
+            Отмена
+          </Button>
         </div>
       </div>
     </>
