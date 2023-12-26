@@ -48,7 +48,6 @@ function Register() {
               extraClass={"mb-6"}
               value={value.name}
               required={true}
-              ref={inputRef}
             />
 
             <EmailInput
@@ -57,7 +56,6 @@ function Register() {
               extraClass={"mb-6"}
               value={value.email}
               required={true}
-              ref={inputRef}
             />
             <PasswordInput
               name={"password"}
@@ -65,7 +63,6 @@ function Register() {
               value={value.password}
               extraClass={"mb-6"}
               required={true}
-              ref={inputRef}
               placeholder={"Пароль"}
             />
           </div>

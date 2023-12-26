@@ -147,7 +147,7 @@ export const logout = () => {
   };
 };
 
-export const register = () => {
+export const register = (email, password, name) => {
   return (dispatch) => {
     return fetch("https://norma.nomoreparties.space/api/auth/register", {
       method: "POST",
@@ -155,9 +155,9 @@ export const register = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: "",
-        password: "",
-        name: "",
+        email,
+        password,
+        name,
       }),
     })
       .then(checkResponse)
@@ -168,10 +168,10 @@ export const register = () => {
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => {
-        dispatch(setUserRequest(false));
       });
+    // .finally(() => {
+    //   dispatch(setUserRequest(false));
+    // });
   };
 };
 
