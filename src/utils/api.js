@@ -5,6 +5,8 @@ import {
   setLogoutUser,
   setLogoutRequest,
   setUserRequest,
+  setResetConfirmed,
+  setResetRequest,
 } from "../services/redusers/user-slice";
 
 export const getItems = (setIngredients) => {
@@ -169,6 +171,32 @@ export const register = () => {
       })
       .finally(() => {
         dispatch(setUserRequest(false));
+      });
+  };
+};
+
+export const reset = () => {
+  return (dispatch) => {
+    return fetch("https://norma.nomoreparties.space/api/password-reset", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "",
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res.success) {
+          dispatch(setResetConfirmed(res.success));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        dispatch(setResetRequest(false));
       });
   };
 };

@@ -4,14 +4,25 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../../components/app-header/app-header";
-
 import styles from "../forgot-password/forgot-password.module.css";
+import { Link } from "react-router-dom";
+import { reset } from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
 
 function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const dispatch = useDispatch();
+  const success = useSelector((state) => state.user.success);
+
+  const [value, setValue] = React.useState("");
+  // const inputRef = React.useRef(null);
+
+  const handleReset = React.useCallback(
+    (evt) => {
+      evt.preventDefault();
+      dispatch(reset());
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -19,27 +30,29 @@ function ForgotPassword() {
       <div className={styles.forgot}>
         <h2 className={styles.title}>Восстановление пароля</h2>
         <EmailInput
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setValue(e.target.value)}
           placeholder={"Укажите e-mail"}
           extraClass={"mt-6"}
-          value={email}
+          value={value}
         />
         <Button
           htmlType="submit"
           type="primary"
           size="medium"
           extraClass={"mt-6"}
-          onSubmit={handleSubmit}
+          onClick={handleReset}
         >
-          Вход
+          Восстановить
         </Button>
         <div className={styles.wrapper}>
           <p className="text text_type_main-default text_color_inactive">
             Вспомнили пароль?
           </p>
-          <Button htmlType="button" type="secondary" size="medium">
-            Войти
-          </Button>
+          <Link to="/login">
+            <Button htmlType="button" type="secondary" size="medium">
+              Войти
+            </Button>
+          </Link>
         </div>
       </div>
     </>

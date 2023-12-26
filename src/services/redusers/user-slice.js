@@ -10,6 +10,8 @@ const initialState = {
   success: false,
   logoutRequest: false,
   userRequest: false,
+  resetConfirmed: false,
+  resetRequest: false,
 };
 
 export const userSlice = createSlice({
@@ -32,6 +34,12 @@ export const userSlice = createSlice({
     setUserRequest: (state, action) => {
       state.userRequest = action.payload;
     },
+    setResetConfirmed: (state, action) => {
+      state.resetConfirmed = action.payload;
+    },
+    setResetRequest: (state, action) => {
+      state.resetRequest = action.payload;
+    },
   },
 });
 
@@ -43,6 +51,8 @@ export const {
   registerUserReducer,
   setUserRequest,
   registerUser,
+  setResetConfirmed,
+  setResetRequest,
 } = userSlice.actions;
 
 export default userSlice.reducer;
