@@ -7,7 +7,9 @@ const initialState = {
     email: "",
     name: "",
   },
+  success: false,
   logoutRequest: false,
+  userRequest: false,
 };
 
 export const userSlice = createSlice({
@@ -27,10 +29,20 @@ export const userSlice = createSlice({
     setLogoutRequest: (state, action) => {
       state.logoutRequest = action.payload;
     },
+    setUserRequest: (state, action) => {
+      state.userRequest = action.payload;
+    },
   },
 });
 
-export const { setAuthChecked, setUser, setLogoutUser, setLogoutRequest } =
-  userSlice.actions;
+export const {
+  setAuthChecked,
+  setUser,
+  setLogoutUser,
+  setLogoutRequest,
+  registerUserReducer,
+  setUserRequest,
+  registerUser,
+} = userSlice.actions;
 
 export default userSlice.reducer;

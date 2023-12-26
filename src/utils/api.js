@@ -4,6 +4,7 @@ import {
   setUser,
   setLogoutUser,
   setLogoutRequest,
+  setUserRequest,
 } from "../services/redusers/user-slice";
 
 export const getItems = (setIngredients) => {
@@ -140,6 +141,34 @@ export const logout = () => {
       })
       .finally(() => {
         dispatch(setLogoutRequest(false));
+      });
+  };
+};
+
+export const register = () => {
+  return (dispatch) => {
+    return fetch("https://norma.nomoreparties.space/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "",
+        password: "",
+        name: "",
+      }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        dispatch(setUser(res));
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        dispatch(setUserRequest(false));
       });
   };
 };
