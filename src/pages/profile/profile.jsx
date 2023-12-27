@@ -119,22 +119,24 @@ function Profile() {
               // icon={"EditIcon"}
             />
           </div>
-          <Button
-            type="primary"
-            size="medium"
-            htmlType="submit"
-            onClick={updateProfile}
-          >
-            Сохранить
-          </Button>
-          <Button
-            onClick={cancelEditing}
-            htmlType="submit"
-            type="primary"
-            size="medium"
-          >
-            Отмена
-          </Button>
+          <div className={styles.buttonContainer}>
+            <Button
+              type="primary"
+              size="medium"
+              htmlType="submit"
+              onClick={updateProfile}
+            >
+              Сохранить
+            </Button>
+            <Button
+              onClick={cancelEditing}
+              htmlType="submit"
+              type="primary"
+              size="medium"
+            >
+              Отмена
+            </Button>
+          </div>
         </div>
       </div>
     </>

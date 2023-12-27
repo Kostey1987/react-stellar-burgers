@@ -26,8 +26,6 @@ export const userSlice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload;
-      console.log("==============");
-      console.log(action);
     },
     setLogoutUser: (state) => {
       state.userData.email = "";

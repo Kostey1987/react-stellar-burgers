@@ -23,7 +23,6 @@ function Login() {
   };
 
   const onClick = () => {
-    console.log(password);
     dispatch(login(email, password));
   };
 
@@ -69,9 +68,11 @@ function Login() {
           <p className="text text_type_main-default text_color_inactive ml-2">
             Забыли пароль?
           </p>
-          <Button htmlType="button" type="secondary" size="medium">
-            Восстановить пароль
-          </Button>
+          <Link to="/forgot-password">
+            <Button htmlType="button" type="secondary" size="medium">
+              Восстановить пароль
+            </Button>
+          </Link>
         </div>
       </div>
     </>

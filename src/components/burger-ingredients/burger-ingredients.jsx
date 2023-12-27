@@ -6,9 +6,11 @@ import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
+import { Link, useLocation } from "react-router-dom";
 
 const BurgerIngredients = ({ handleIngredientClick }) => {
   const itemsArray = useSelector((state) => state.items.itemsArray);
+  const location = useLocation();
   const baseRef = useRef();
   const bunsRef = useRef();
   const soucesRef = useRef();
@@ -69,11 +71,17 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
         <div className={styles.list + " " + "mt-6"} ref={bunsMonitorRef}>
           {bun.map((item) => {
             return (
-              <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
-                item={item}
+              <Link
+                className={styles.link}
                 key={item._id}
-              />
+                to={`/ingredients/${item._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  handleClickIngredient={handleIngredientClick}
+                  item={item}
+                />
+              </Link>
             );
           })}
         </div>
@@ -83,11 +91,17 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
         <div className={styles.list + " " + "mt-6"} ref={soucesMonitorRef}>
           {suace.map((item) => {
             return (
-              <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
-                item={item}
+              <Link
+                className={styles.link}
                 key={item._id}
-              />
+                to={`/ingredients/${item._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  handleClickIngredient={handleIngredientClick}
+                  item={item}
+                />
+              </Link>
             );
           })}
         </div>
@@ -97,11 +111,18 @@ const BurgerIngredients = ({ handleIngredientClick }) => {
         <div className={styles.list + " " + "mt-6"} ref={mainsMonitorRef}>
           {main.map((item) => {
             return (
-              <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
-                item={item}
+              <Link
+                className={styles.link}
                 key={item._id}
-              />
+                to={`/ingredients/${item._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  handleClickIngredient={handleIngredientClick}
+                  item={item}
+                  key={item._id}
+                />
+              </Link>
             );
           })}
         </div>

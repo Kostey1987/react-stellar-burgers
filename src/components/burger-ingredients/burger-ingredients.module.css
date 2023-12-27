@@ -20,3 +20,8 @@
 .container {
   display: flex;
 }
+
+.link {
+  color: #f2f2f3;
+  text-decoration: none;
+}

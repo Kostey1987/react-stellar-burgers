@@ -8,6 +8,7 @@ import Modal from "../../components/modal/modal";
 import OrderDetails from "../../components/order-details/order-details";
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
 // import { toggleModal } from "../../services/redusers/modal-slice";
 import { fetchIngredients } from "../../services/ingredientsQuery";
 import {
@@ -18,6 +19,9 @@ import { selectedIngredientSelector } from "../../services/selectors/modalSelect
 import { clearConstructor } from "../../services/redusers/constructor-slice";
 
 function Home() {
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
   const dispatch = useDispatch();
   const currentIngredient = useSelector(selectedIngredientSelector);
 

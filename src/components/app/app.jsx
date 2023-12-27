@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Home from "../../pages/home/home";
 import Register from "../../pages/register/register";
 import Login from "../../pages/login/login";
@@ -11,6 +11,7 @@ import Ingredient from "../../pages/ingredient/ingredient";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { checkUserAuth } from "../../utils/api";
 import { useDispatch } from "react-redux";
+import { fetchIngredients } from "../../services/ingredientsQuery";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,10 @@ function App() {
   useEffect(() => {
     dispatch(checkUserAuth());
   }, []);
+
+  React.useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

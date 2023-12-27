@@ -27,3 +27,10 @@
 .inactive {
   color: var(--text-dark-grey-secondary-text, #8585ad);
 }
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 10px;
+}

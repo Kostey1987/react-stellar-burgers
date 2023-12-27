@@ -75,7 +75,6 @@ export const getUser = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         dispatch(setUser(res.user));
       })
       .catch((err) => {
@@ -244,7 +243,6 @@ export const updateUser = (name, email, password) => {
     })
       .then(checkResponse)
       .then((res) => {
-        console.log(res);
         dispatch(setUpdateUser(res));
       })
       .catch((err) => {
