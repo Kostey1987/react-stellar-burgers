@@ -8,6 +8,7 @@ import IngredientDetails from "../../components/ingredient-details/ingredient-de
 
 function Ingredient() {
   const { id } = useParams();
+  console.log(id);
 
   const itemsArray = useSelector((state) => state.items.itemsArray);
 

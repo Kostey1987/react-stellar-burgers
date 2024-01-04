@@ -15,6 +15,9 @@ import { fetchIngredients } from "../../services/ingredientsQuery";
 import AppHeader from "../app-header/app-header";
 
 function App() {
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,37 +30,29 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <AppHeader />
-        <Routes>
-          <Route path={"/"} element={<Home />}></Route>
-          <Route
-            path={"/login"}
-            element={<OnlyUnAuth component={<Login />} />}
-          />
-          <Route
-            path={"/register"}
-            element={<OnlyUnAuth component={<Register />} />}
-          />
-          <Route
-            path={"/forgot-password"}
-            element={<OnlyUnAuth component={<ForgotPassword />} />}
-          />
-          <Route
-            path={"/reset-password"}
-            element={<OnlyUnAuth component={<ResetPassword />} />}
-          />
-          <Route
-            path={"/profile"}
-            element={<OnlyAuth component={<Profile />} />}
-          >
-            <Route index element={<Profile />} />
-            <Route path={"orders"} element={<NotFound />} />
-          </Route>
-          {/* <Route path={"/ingredients/:id"} element={<Ingredient />} /> */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <AppHeader />
+      <Routes location={background || location}>
+        <Route path={"/"} element={<Home />}></Route>
+        <Route path={"/login"} element={<OnlyUnAuth component={<Login />} />} />
+        <Route
+          path={"/register"}
+          element={<OnlyUnAuth component={<Register />} />}
+        />
+        <Route
+          path={"/forgot-password"}
+          element={<OnlyUnAuth component={<ForgotPassword />} />}
+        />
+        <Route
+          path={"/reset-password"}
+          element={<OnlyUnAuth component={<ResetPassword />} />}
+        />
+        <Route path={"/profile"} element={<OnlyAuth component={<Profile />} />}>
+          <Route index element={<Profile />} />
+          <Route path={"orders"} element={<NotFound />} />
+        </Route>
+        <Route path={"/ingredients/:id"} element={<Ingredient />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }
