@@ -64,13 +64,7 @@ function App() {
       </Routes>
       {/* {background && (
         <Routes>
-          <Route path="/ingredients/:id">
-            {!!currentIngredient && (
-              <Modal onClose={handleCloseIngredientModal}>
-                <IngredientDetails item={currentIngredient} />
-              </Modal>
-            )}
-          </Route>
+          <Route path="/ingredients/:id" element={<IngredientDetails />} />
         </Routes>
       )} */}
     </>
