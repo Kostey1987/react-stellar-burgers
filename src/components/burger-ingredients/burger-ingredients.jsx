@@ -6,13 +6,14 @@ import { ingredientPropType } from "../../utils/prop-types";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { selectIngredient } from "../../services/redusers/current-slice";
 
-const BurgerIngredients = () => {
+const BurgerIngredients = ({ item }) => {
   const dispatch = useDispatch();
   const itemsArray = useSelector((state) => state.items.itemsArray);
   const location = useLocation();
+  const navigate = useNavigate();
   const baseRef = useRef();
   const bunsRef = useRef();
   const soucesRef = useRef();
@@ -47,6 +48,7 @@ const BurgerIngredients = () => {
       dispatch(selectIngredient(item));
     },
     [dispatch]
+    // navigate(`/ingredients/${item._id}`, { state: { background: location } })
   );
 
   return (
@@ -80,11 +82,17 @@ const BurgerIngredients = () => {
         <div className={styles.list + " " + "mt-6"} ref={bunsMonitorRef}>
           {bun.map((item) => {
             return (
-              <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
-                item={item}
+              <Link
+                className={styles.link}
                 key={item._id}
-              />
+                to={`/ingredients/${item._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  handleClickIngredient={handleIngredientClick}
+                  item={item}
+                />
+              </Link>
             );
           })}
         </div>
@@ -94,11 +102,17 @@ const BurgerIngredients = () => {
         <div className={styles.list + " " + "mt-6"} ref={soucesMonitorRef}>
           {suace.map((item) => {
             return (
-              <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
-                item={item}
+              <Link
+                className={styles.link}
                 key={item._id}
-              />
+                to={`/ingredients/${item._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  handleClickIngredient={handleIngredientClick}
+                  item={item}
+                />
+              </Link>
             );
           })}
         </div>
@@ -108,11 +122,17 @@ const BurgerIngredients = () => {
         <div className={styles.list + " " + "mt-6"} ref={mainsMonitorRef}>
           {main.map((item) => {
             return (
-              <BurgerIngredient
-                handleClickIngredient={handleIngredientClick}
-                item={item}
+              <Link
+                className={styles.link}
                 key={item._id}
-              />
+                to={`/ingredients/${item._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  handleClickIngredient={handleIngredientClick}
+                  item={item}
+                />
+              </Link>
             );
           })}
         </div>
@@ -265,3 +285,11 @@ export default BurgerIngredients;
 // };
 
 // export default BurgerIngredients;
+
+// return (
+//   <BurgerIngredient
+//     handleClickIngredient={handleIngredientClick}
+//     item={item}
+//     key={item._id}
+//   />
+// );

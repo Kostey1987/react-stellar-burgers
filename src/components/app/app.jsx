@@ -10,15 +10,24 @@ import Profile from "../../pages/profile/profile";
 import Ingredient from "../../pages/ingredient/ingredient";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { checkUserAuth } from "../../utils/api";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchIngredients } from "../../services/ingredientsQuery";
 import AppHeader from "../app-header/app-header";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
+import { clearSelectedIngredient } from "../../services/redusers/current-slice";
 
 function App() {
-  const location = useLocation();
-  const background = location.state && location.state.background;
-
   const dispatch = useDispatch();
+  const location = useLocation();
+  const currentIngredient = useSelector(selectedIngredientSelector);
+
+  const background = location.state && location.state?.background;
+
+  const handleCloseIngredientModal = () => {
+    dispatch(clearSelectedIngredient());
+  };
 
   useEffect(() => {
     dispatch(checkUserAuth());
@@ -53,6 +62,17 @@ function App() {
         <Route path={"/ingredients/:id"} element={<Ingredient />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      {/* {background && (
+        <Routes>
+          <Route path="/ingredients/:id">
+            {!!currentIngredient && (
+              <Modal onClose={handleCloseIngredientModal}>
+                <IngredientDetails item={currentIngredient} />
+              </Modal>
+            )}
+          </Route>
+        </Routes>
+      )} */}
     </>
   );
 }

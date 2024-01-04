@@ -19,13 +19,8 @@ import { selectedIngredientSelector } from "../../services/selectors/modalSelect
 import { clearConstructor } from "../../services/redusers/constructor-slice";
 
 function Home() {
-  const location = useLocation();
-  const background = location.state && location.state.background;
-
   const dispatch = useDispatch();
   const currentIngredient = useSelector(selectedIngredientSelector);
-
-  const ingredients = useSelector((state) => state.items.itemsArray);
   const currentOrder = useSelector((state) => state.sandwich.order);
 
   React.useEffect(() => {
