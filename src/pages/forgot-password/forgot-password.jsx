@@ -5,12 +5,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import AppHeader from "../../components/app-header/app-header";
 import styles from "../forgot-password/forgot-password.module.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { reset } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
+
+  const success = useSelector((state) => state.user.resetConfirmed);
 
   const [value, setValue] = useState({
     email: "",
@@ -21,10 +23,15 @@ function ForgotPassword() {
     dispatch(reset(value.email));
   };
 
+  if (success) {
+    return (
+      <Navigate to="/reset-password" state={{ back: "forgot-password" }} />
+    );
+  }
+
   return (
     <>
-      <AppHeader />
-      <div className={styles.forgot}>
+      <form onSubmit={handleReset} className={styles.forgot}>
         <h2 className={styles.title}>Восстановление пароля</h2>
         <EmailInput
           onChange={(evt) => setValue({ ...value, email: evt.target.value })}
@@ -52,7 +59,7 @@ function ForgotPassword() {
             </Button>
           </Link>
         </div>
-      </div>
+      </form>
     </>
   );
 }

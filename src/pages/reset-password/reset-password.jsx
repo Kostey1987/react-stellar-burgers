@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
@@ -7,11 +7,21 @@ import {
 import styles from "../reset-password/reset-password.module.css";
 import AppHeader from "../../components/app-header/app-header";
 import { resetPassword } from "../../utils/api";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 function ResetPassword() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location?.state?.back) {
+      navigate("/forgot-password");
+    }
+  }, [location]);
+
+  const auth = useSelector((state) => state.user.changePasswordRequest);
 
   const [value, setValue] = useState({
     password: "",
@@ -23,10 +33,13 @@ function ResetPassword() {
     dispatch(resetPassword(value.password, value.token));
   };
 
+  if (auth) {
+    return <Navigate to="/login" />;
+  }
+
   return (
     <>
-      <AppHeader />
-      <div className={styles.reset}>
+      <form onSubmit={handleResetPassword} className={styles.reset}>
         <h2 className={styles.title}>Восстановление пароля</h2>
         <PasswordInput
           name={"password"}
@@ -48,7 +61,6 @@ function ResetPassword() {
           type="primary"
           size="medium"
           extraClass={"mt-6"}
-          onClick={handleResetPassword}
         >
           Сохранить
         </Button>
@@ -62,7 +74,7 @@ function ResetPassword() {
             </Button>
           </Link>
         </div>
-      </div>
+      </form>
     </>
   );
 }

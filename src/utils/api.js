@@ -32,7 +32,7 @@ export function saveOrder(data) {
 }
 
 const refreshToken = () => {
-  return fetch("https://norma.nomoreparties.space/api/auth/token", {
+  return fetch(`${baseUrl}/token `, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const fetchWithRefresh = async (url, options) => {
 
 export const getUser = () => {
   return (dispatch) => {
-    return fetchWithRefresh("https://norma.nomoreparties.space/api/auth/user", {
+    return fetchWithRefresh(`${baseUrl}/auth/user `, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export const getUser = () => {
 
 export const login = (email, password) => {
   return (dispatch) => {
-    return fetch("https://norma.nomoreparties.space/api/auth/login", {
+    return fetch(`${baseUrl}/auth/login `, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export const checkUserAuth = () => {
 
 export const logout = () => {
   return (dispatch) => {
-    return fetch("https://norma.nomoreparties.space/api/auth/logout", {
+    return fetch(`${baseUrl}/auth/logout `, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -152,7 +152,7 @@ export const logout = () => {
 
 export const register = (data) => {
   return (dispatch) => {
-    return fetch("https://norma.nomoreparties.space/api/auth/register", {
+    return fetch(`${baseUrl}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -176,7 +176,7 @@ export const register = (data) => {
 
 export const reset = (email) => {
   return (dispatch) => {
-    return fetch("https://norma.nomoreparties.space/api/password-reset", {
+    return fetch(`${baseUrl}/password-reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -202,7 +202,7 @@ export const reset = (email) => {
 
 export const resetPassword = (password, token) => {
   return (dispatch) => {
-    return fetch("https://norma.nomoreparties.space/api/password-reset/reset", {
+    return fetch(`${baseUrl}/password-reset/reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -229,7 +229,7 @@ export const resetPassword = (password, token) => {
 
 export const updateUser = (name, email, password) => {
   return (dispatch) => {
-    return fetch("https://norma.nomoreparties.space/api/auth/user", {
+    return fetch(`${baseUrl}/auth/user`, {
       method: "PATCH",
       headers: {
         authorization: localStorage.getItem("accessToken"),

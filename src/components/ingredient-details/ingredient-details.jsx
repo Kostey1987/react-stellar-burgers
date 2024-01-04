@@ -11,7 +11,7 @@ function IngredientDetails({ item }) {
       </h2>
       <img className={styles.image} src={item.image_large} alt={item.name} />
       <p className={styles.subtitle + " " + "text text_type_main-medium mt-4"}>
-        Биокотлета из марсианской магнолии
+        {item.name}
       </p>
       <div
         className={

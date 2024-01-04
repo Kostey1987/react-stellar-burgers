@@ -32,12 +32,12 @@ function Home() {
     dispatch(fetchIngredients());
   }, []);
 
-  const handleIngredientClick = React.useCallback(
-    (item) => {
-      dispatch(selectIngredient(item));
-    },
-    [dispatch]
-  );
+  // const handleIngredientClick = React.useCallback(
+  //   (item) => {
+  //     dispatch(selectIngredient(item));
+  //   },
+  //   [dispatch]
+  // );
 
   const handleCloseIngredientModal = () => {
     dispatch(clearSelectedIngredient());
@@ -48,7 +48,6 @@ function Home() {
 
   return (
     <div className={styles.app}>
-      <AppHeader />
       <main className={styles.main}>
         <section
           className={styles.ingredients}
@@ -57,7 +56,7 @@ function Home() {
           <h1 className={`text text_type_main-large mt-10 mb-5`}>
             Соберите бургер
           </h1>
-          <BurgerIngredients handleIngredientClick={handleIngredientClick} />
+          <BurgerIngredients />
         </section>
         <section
           className={styles.ingredients}

@@ -28,8 +28,7 @@ function Login() {
 
   return (
     <>
-      <AppHeader />
-      <div className={styles.login}>
+      <form onSubmit={onClick} className={styles.login}>
         <h2 className="text text_type_main-medium mb-6">Вход</h2>
         <EmailInput
           type="email"
@@ -74,7 +73,7 @@ function Login() {
             </Button>
           </Link>
         </div>
-      </div>
+      </form>
     </>
   );
 }

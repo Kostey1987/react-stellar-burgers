@@ -32,7 +32,6 @@ function Register() {
 
   return (
     <>
-      <AppHeader />
       <form className={styles.main} onSubmit={handleRegister}>
         <div className={styles.register}>
           <h2 className={`${styles.header} text text_type_main-medium mb-6`}>

@@ -13,18 +13,27 @@ import {
 } from "../../services/selectors/modalSelectors";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Order() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const buns = useSelector(bunSelector);
   const ingredients = useSelector(ingredientSelector);
 
   const handleClickButton = () => {
+    const auth = localStorage.getItem("accessToken");
+
+    if (!auth) {
+      // Пользователь не авторизован, перенаправляем на страницу входа
+      navigate("/login");
+      return;
+    }
+
     const orderIds = ingredients.map((i) => i._id);
     orderIds.push(buns._id);
     dispatch(postOrder({ ingredients: orderIds }));
-    // dispatch(toggleModal());
   };
 
   const totalPrice = React.useMemo(() => {
