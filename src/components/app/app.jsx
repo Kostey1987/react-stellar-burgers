@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Home from "../../pages/home/home";
 import Register from "../../pages/register/register";
 import Login from "../../pages/login/login";
@@ -25,8 +31,11 @@ function App() {
 
   const background = location.state && location.state?.background;
 
+  const navigate = useNavigate();
+
   const handleCloseIngredientModal = () => {
     dispatch(clearSelectedIngredient());
+    if (background) navigate(background);
   };
 
   useEffect(() => {
@@ -62,11 +71,18 @@ function App() {
         <Route path={"/ingredients/:id"} element={<Ingredient />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* {background && (
+      {background && (
         <Routes>
-          <Route path="/ingredients/:id" element={<IngredientDetails />} />
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal onClose={handleCloseIngredientModal}>
+                <Ingredient />
+              </Modal>
+            }
+          />
         </Routes>
-      )} */}
+      )}
     </>
   );
 }

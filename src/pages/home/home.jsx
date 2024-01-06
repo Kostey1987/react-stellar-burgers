@@ -61,11 +61,11 @@ function Home() {
           <Order />
         </section>
       </main>
-      {!!currentIngredient && (
+      {/* {!!currentIngredient && (
         <Modal onClose={handleCloseIngredientModal}>
           <IngredientDetails item={currentIngredient} />
         </Modal>
-      )}
+      )} */}
       {currentOrder && (
         <Modal onClose={handleCloseCurrentOrderModal}>
           <OrderDetails />
