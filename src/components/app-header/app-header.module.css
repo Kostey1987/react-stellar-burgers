@@ -1,6 +1,5 @@
 .header {
   display: flex;
-  /* width: 100%; */
   max-width: 1920px;
   height: 88px;
   justify-content: center;
@@ -45,5 +44,9 @@
 }
 
 .link_active {
+  color: #f2f2f3;
+}
+
+.inActive {
   color: #f2f2f3;
 }

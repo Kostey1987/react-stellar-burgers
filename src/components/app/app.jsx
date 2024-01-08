@@ -1,81 +1,89 @@
-import React, { useCallback, useState } from "react";
-import styles from "./app.module.css";
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import Order from "../order/order";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleModal } from "../../services/redusers/modal-slice";
-import { fetchIngredients } from "../../services/ingredientsQuery";
+import React, { useCallback, useEffect, useState } from "react";
 import {
-  selectIngredient,
-  clearSelectedIngredient,
-} from "../../services/redusers/current-slice";
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import Home from "../../pages/home/home";
+import Register from "../../pages/register/register";
+import Login from "../../pages/login/login";
+import ForgotPassword from "../../pages/forgot-password/forgot-password";
+import ResetPassword from "../../pages/reset-password/reset-password";
+import NotFound from "../../pages/not-found/not-found";
+import Profile from "../../pages/profile/profile";
+import Ingredient from "../../pages/ingredient/ingredient";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import { checkUserAuth } from "../../utils/api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredients } from "../../services/ingredientsQuery";
+import AppHeader from "../app-header/app-header";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
-import { clearConstructor } from "../../services/redusers/constructor-slice";
+import { clearSelectedIngredient } from "../../services/redusers/current-slice";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const currentIngredient = useSelector(selectedIngredientSelector);
 
-  const ingredients = useSelector((state) => state.items.itemsArray);
-  const currentOrder = useSelector((state) => state.sandwich.order);
+  const background = location.state && location.state?.background;
 
-  React.useEffect(() => {
-    dispatch(fetchIngredients());
-  }, []);
-
-  const closeModal = useCallback(() => dispatch(toggleModal()), []);
-
-  const handleIngredientClick = React.useCallback(
-    (item) => {
-      dispatch(selectIngredient(item));
-    },
-    [dispatch]
-  );
+  const navigate = useNavigate();
 
   const handleCloseIngredientModal = () => {
     dispatch(clearSelectedIngredient());
-  };
-  const handleCloseCurrentOrderModal = () => {
-    dispatch(clearConstructor());
+    if (background) navigate(background);
   };
 
+  useEffect(() => {
+    dispatch(checkUserAuth());
+  }, []);
+
+  React.useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
   return (
-    <div className={styles.app}>
+    <>
       <AppHeader />
-      <main className={styles.main}>
-        <section
-          className={styles.ingredients}
-          aria-label={`Ингредиенты бутерброда`}
-        >
-          <h1 className={`text text_type_main-large mt-10 mb-5`}>
-            Соберите бургер
-          </h1>
-          <BurgerIngredients handleIngredientClick={handleIngredientClick} />
-        </section>
-        <section
-          className={styles.ingredients}
-          aria-label={`Компоненты бутерброда`}
-        >
-          <BurgerConstructor />
-          <Order />
-        </section>
-      </main>
-      {!!currentIngredient && (
-        <Modal onClose={handleCloseIngredientModal}>
-          <IngredientDetails item={currentIngredient} />
-        </Modal>
+      <Routes location={background || location}>
+        <Route path={"/"} element={<Home />}></Route>
+        <Route path={"/login"} element={<OnlyUnAuth component={<Login />} />} />
+        <Route
+          path={"/register"}
+          element={<OnlyUnAuth component={<Register />} />}
+        />
+        <Route
+          path={"/forgot-password"}
+          element={<OnlyUnAuth component={<ForgotPassword />} />}
+        />
+        <Route
+          path={"/reset-password"}
+          element={<OnlyUnAuth component={<ResetPassword />} />}
+        />
+        <Route path={"/profile"} element={<OnlyAuth component={<Profile />} />}>
+          <Route index element={<Profile />} />
+          <Route path={"orders"} element={<NotFound />} />
+        </Route>
+        <Route path={"/ingredients/:id"} element={<Ingredient />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal onClose={handleCloseIngredientModal}>
+                <Ingredient />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
-      {currentOrder && (
-        <Modal onClose={handleCloseCurrentOrderModal}>
-          <OrderDetails />
-        </Modal>
-      )}
-    </div>
+    </>
   );
 }
 

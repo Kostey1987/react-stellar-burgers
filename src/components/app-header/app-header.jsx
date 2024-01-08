@@ -6,41 +6,75 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
 
 const AppHeader = () => {
+  const isActiveClass = ({ isActive }) =>
+    isActive ? styles.link_active : styles.link;
+
   return (
     <header className={`${styles.header} m-10 pb-4 pt-4`}>
       <nav className={styles.nav}>
-        <a
-          href="#"
-          className={
-            styles.link +
-            " " +
-            styles.link_active +
-            " " +
-            "pl-5 pr-5 pb-4 pt-4 mr-2"
-          }
+        <NavLink
+          to={"/"}
+          className={styles.link + " " + "pl-5 pr-5 pb-4 pt-4 mr-2"}
         >
-          <div className={styles.icon + " " + "mr-2"}>
-            <BurgerIcon type="primary" />
-          </div>
-          <p className={`text text_type_main-default`}>Конструктор</p>
-        </a>
-        <a href="#" className={styles.link + " " + "pl-5 pr-5 pb-4 pt-4"}>
-          <div className={styles.icon + " " + "mr-2"}>
-            <ListIcon type="secondary" />
-          </div>
-          <p className={`text text_type_main-default`}>Лента заказов</p>
-        </a>
+          {({ isActive }) => (
+            <>
+              <div className={styles.icon + " " + "mr-2"}>
+                <BurgerIcon type={isActive ? "primary" : "secondary"} />
+              </div>
+              <p
+                className={`text text_type_main-default ${
+                  !isActive ? "" : styles.inActive
+                }`}
+              >
+                Конструктор
+              </p>
+            </>
+          )}
+        </NavLink>
+        <NavLink
+          to={"/feed"}
+          className={styles.link + " " + "pl-5 pr-5 pb-4 pt-4"}
+        >
+          {({ isActive }) => (
+            <>
+              <div className={styles.icon + " " + "mr-2"}>
+                <ListIcon type={isActive ? "primary" : "secondary"} />
+              </div>
+              <p
+                className={`text text_type_main-default ${
+                  !isActive ? "" : styles.inActive
+                }`}
+              >
+                Лента заказов
+              </p>
+            </>
+          )}
+        </NavLink>
         <div className={styles.logo}>
           <Logo />
         </div>
-        <a href="#" className={styles.link + " " + "pl-5 pr-5 pb-4 pt-4"}>
-          <div className={styles.icon + " " + "mr-2"}>
-            <ProfileIcon type="secondary" />
-          </div>
-          <p className={`text text_type_main-default`}>Личный кабинет</p>
-        </a>
+        <NavLink
+          to={"/profile"}
+          className={styles.link + " " + "pl-5 pr-5 pb-4 pt-4"}
+        >
+          {({ isActive }) => (
+            <>
+              <div className={styles.icon + " " + "mr-2"}>
+                <ProfileIcon type={isActive ? "primary" : "secondary"} />
+              </div>
+              <p
+                className={`text text_type_main-default ${
+                  !isActive ? "" : styles.inActive
+                }`}
+              >
+                Личный кабинет
+              </p>
+            </>
+          )}
+        </NavLink>
       </nav>
     </header>
   );

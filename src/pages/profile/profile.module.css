@@ -1,0 +1,36 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  margin-right: 560px;
+}
+
+.linkContainer {
+  width: 100%;
+  max-width: 320px;
+  height: 64px;
+  margin-right: 60px;
+}
+
+.inputContainer {
+  width: 100%;
+  max-width: 320px;
+}
+
+.link {
+  margin: 0;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  color: #f2f2f3;
+}
+
+.inactive {
+  color: var(--text-dark-grey-secondary-text, #8585ad);
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 10px;
+}
