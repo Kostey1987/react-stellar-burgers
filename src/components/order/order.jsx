@@ -1,21 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIcon from "../../images/icon 36x36.svg";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
+// import { ingredientPropType } from "../../utils/prop-types";
+// import PropTypes from "prop-types";
 import { postOrder } from "../../services/ordersQuery";
 
 import {
   bunSelector,
   ingredientSelector,
-} from "../../services/selectors/modalSelectors";
+} from "../../services/selectors/selectors";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { TIngredientType } from "../../services/types/types";
 
-function Order() {
+const Order: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,19 +27,18 @@ function Order() {
     const auth = localStorage.getItem("accessToken");
 
     if (!auth) {
-      // Пользователь не авторизован, перенаправляем на страницу входа
       navigate("/login");
       return;
     }
 
-    const orderIds = ingredients.map((i) => i._id);
+    const orderIds = ingredients.map((i: TIngredientType) => i._id);
     orderIds.push(buns._id);
     dispatch(postOrder({ ingredients: orderIds }));
   };
 
   const totalPrice = React.useMemo(() => {
     return ingredients.reduce(
-      (acc, curr) => {
+      (acc: number, curr: TIngredientType) => {
         return acc + curr.price;
       },
       buns ? buns.price * 2 : 0
@@ -67,6 +67,6 @@ function Order() {
       </div>
     </div>
   );
-}
+};
 
 export default Order;

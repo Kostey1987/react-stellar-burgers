@@ -1,10 +1,19 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, RouteProps } from "react-router-dom";
+import { FC, ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
-import { setAuthChecked } from "../../services/redusers/user-slice";
+import { setAuthChecked } from "../../services/slices/user-slice";
 import { checkUserAuth } from "../../utils/api";
 
-const Protected = ({ onlyUnAuth = false, component }) => {
+interface ProtectedRouterProps {
+  onlyUnAuth?: boolean;
+  component: ReactElement;
+}
+
+const Protected: FC<ProtectedRouterProps> = ({
+  onlyUnAuth = false,
+  component,
+}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -12,8 +21,8 @@ const Protected = ({ onlyUnAuth = false, component }) => {
     dispatch(checkUserAuth());
   }, [dispatch]);
 
-  const isAuthChecked = useSelector((state) => state.user.isAuthChecked);
-  const user = useSelector((state) => state.user.user);
+  const isAuthChecked = useSelector((state: any) => state.user.isAuthChecked);
+  const user = useSelector((state: any) => state.user.user);
   const location = useLocation();
 
   if (!isAuthChecked) {
@@ -37,5 +46,11 @@ const Protected = ({ onlyUnAuth = false, component }) => {
   return component;
 };
 
-export const OnlyAuth = (props) => <Protected onlyUnAuth={false} {...props} />;
-export const OnlyUnAuth = (props) => <Protected onlyUnAuth={true} {...props} />;
+export const OnlyAuth = (
+  props: JSX.IntrinsicAttributes &
+    ProtectedRouterProps & { children?: React.ReactNode }
+) => <Protected onlyUnAuth={false} {...props} />;
+export const OnlyUnAuth = (
+  props: JSX.IntrinsicAttributes &
+    ProtectedRouterProps & { children?: React.ReactNode }
+) => <Protected onlyUnAuth={true} {...props} />;

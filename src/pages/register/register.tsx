@@ -10,6 +10,7 @@ import AppHeader from "../../components/app-header/app-header";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../utils/api";
+import { userRegister } from "../../services/thunks";
 
 function Register() {
   // const success = useSelector((state) => state.user.success);
@@ -20,14 +21,14 @@ function Register() {
     name: "",
   });
 
-  const handleRegister = (evt) => {
+  const handleRegister = (evt: React.FormEvent) => {
     evt.preventDefault();
     const user = {
       name: value.name,
       email: value.email,
       password: value.password,
     };
-    dispatch(register(user));
+    dispatch(userRegister(user));
   };
 
   return (

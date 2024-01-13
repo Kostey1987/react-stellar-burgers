@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { postOrder } from "../../services/ordersQuery";
+import { postOrder } from "../ordersQuery";
 
 import { nanoid } from "@reduxjs/toolkit";
 

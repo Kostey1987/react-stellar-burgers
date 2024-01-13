@@ -1,32 +1,31 @@
-import React, { useRef, useState } from "react";
+import React, { FC, useRef } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
+// import { ingredientPropType } from "../../utils/prop-types";
+// import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { selectIngredient } from "../../services/redusers/current-slice";
+import { TIngredientType } from "../../services/types/types";
 
-const BurgerIngredients = ({ item }) => {
-  const dispatch = useDispatch();
-  const itemsArray = useSelector((state) => state.items.itemsArray);
+const BurgerIngredients: FC = () => {
+  const itemsArray = useSelector((state: any) => state.items.itemsArray);
   const location = useLocation();
-  const navigate = useNavigate();
-  const baseRef = useRef();
-  const bunsRef = useRef();
-  const soucesRef = useRef();
-  const mainsRef = useRef();
+
+  const baseRef = useRef<HTMLParagraphElement>(null);
+  const bunsRef = useRef<HTMLParagraphElement>(null);
+  const soucesRef = useRef<HTMLParagraphElement>(null);
+  const mainsRef = useRef<HTMLParagraphElement>(null);
 
   const handleScrollToBuns = () => {
-    bunsRef?.current.scrollIntoView({ behavior: "smooth" });
+    bunsRef?.current?.scrollIntoView({ behavior: "smooth" });
   };
   const handleScrollToSouses = () => {
-    soucesRef?.current.scrollIntoView({ behavior: "smooth" });
+    soucesRef?.current?.scrollIntoView({ behavior: "smooth" });
   };
   const handleScrollToMains = () => {
-    mainsRef?.current.scrollIntoView({ behavior: "smooth" });
+    mainsRef?.current!.scrollIntoView({ behavior: "smooth" });
   };
 
   const [bunsMonitorRef, isBunsInView] = useInView({
@@ -39,16 +38,12 @@ const BurgerIngredients = ({ item }) => {
   });
   const [mainsMonitorRef, isMainsInView] = useInView({ root: baseRef.current });
 
-  const bun = itemsArray.filter((item) => item.type == "bun");
-  const suace = itemsArray.filter((item) => item.type == "sauce");
-  const main = itemsArray.filter((item) => item.type == "main");
-
-  const handleIngredientClick = React.useCallback(
-    (item) => {
-      dispatch(selectIngredient(item));
-    },
-    [dispatch]
-    // navigate(`/ingredients/${item._id}`, { state: { background: location } })
+  const bun = itemsArray.filter((item: TIngredientType) => item.type == "bun");
+  const suace = itemsArray.filter(
+    (item: TIngredientType) => item.type == "sauce"
+  );
+  const main = itemsArray.filter(
+    (item: TIngredientType) => item.type == "main"
   );
 
   return (
@@ -80,7 +75,7 @@ const BurgerIngredients = ({ item }) => {
           Булки
         </h2>
         <div className={styles.list + " " + "mt-6"} ref={bunsMonitorRef}>
-          {bun.map((item) => {
+          {bun.map((item: TIngredientType) => {
             return (
               <Link
                 className={styles.link}
@@ -88,10 +83,7 @@ const BurgerIngredients = ({ item }) => {
                 to={`/ingredients/${item._id}`}
                 state={{ background: location }}
               >
-                <BurgerIngredient
-                  handleClickIngredient={handleIngredientClick}
-                  item={item}
-                />
+                <BurgerIngredient item={item} />
               </Link>
             );
           })}
@@ -100,7 +92,7 @@ const BurgerIngredients = ({ item }) => {
           Соусы
         </h2>
         <div className={styles.list + " " + "mt-6"} ref={soucesMonitorRef}>
-          {suace.map((item) => {
+          {suace.map((item: TIngredientType) => {
             return (
               <Link
                 className={styles.link}
@@ -108,10 +100,7 @@ const BurgerIngredients = ({ item }) => {
                 to={`/ingredients/${item._id}`}
                 state={{ background: location }}
               >
-                <BurgerIngredient
-                  handleClickIngredient={handleIngredientClick}
-                  item={item}
-                />
+                <BurgerIngredient item={item} />
               </Link>
             );
           })}
@@ -120,7 +109,7 @@ const BurgerIngredients = ({ item }) => {
           Начинка
         </h2>
         <div className={styles.list + " " + "mt-6"} ref={mainsMonitorRef}>
-          {main.map((item) => {
+          {main.map((item: TIngredientType) => {
             return (
               <Link
                 className={styles.link}
@@ -128,10 +117,7 @@ const BurgerIngredients = ({ item }) => {
                 to={`/ingredients/${item._id}`}
                 state={{ background: location }}
               >
-                <BurgerIngredient
-                  handleClickIngredient={handleIngredientClick}
-                  item={item}
-                />
+                <BurgerIngredient item={item} />
               </Link>
             );
           })}
@@ -141,9 +127,9 @@ const BurgerIngredients = ({ item }) => {
   );
 };
 
-BurgerIngredients.propTypes = {
-  handleIngredientClick: PropTypes.func.isRequired,
-};
+// BurgerIngredients.propTypes = {
+//   handleIngredientClick: PropTypes.func.isRequired,
+// };
 
 export default BurgerIngredients;
 

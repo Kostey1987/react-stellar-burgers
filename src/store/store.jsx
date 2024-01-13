@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "../services/redusers/modal-slice";
-import itemReducer from "../services/redusers/ingredient-slice";
-import selectedReducer from "../services/redusers/current-slice";
-import constructorReduser from "../services/redusers/constructor-slice";
-import userSliceReduser from "../services/redusers/user-slice";
+import modalReducer from "../services/slices/modal-slice";
+import itemReducer from "../services/slices/ingredient-slice";
+import selectedReducer from "../services/slices/current-slice";
+import constructorReduser from "../services/slices/constructor-slice";
+import userSliceReduser from "../services/slices/user-slice";
 
 export const store = configureStore({
   reducer: {

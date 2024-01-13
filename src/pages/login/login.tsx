@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -6,24 +6,23 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import styles from "./login.module.css";
-import AppHeader from "../../components/app-header/app-header";
 import { useDispatch } from "react-redux";
-import { login } from "../../utils/api";
+import { userLogin } from "../../services/thunks";
 
-function Login() {
+const Login: FC = () => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState("password");
-  const onChangePass = (e) => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
   const [email, setEmail] = useState("email");
-  const onChangeEmail = (e) => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
   const onClick = () => {
-    dispatch(login(email, password));
+    dispatch(userLogin(email, password));
   };
 
   return (
@@ -31,7 +30,6 @@ function Login() {
       <form onSubmit={onClick} className={styles.login}>
         <h2 className="text text_type_main-medium mb-6">Вход</h2>
         <EmailInput
-          type="email"
           value={email}
           name={"email"}
           placeholder="E-mail"
@@ -76,7 +74,7 @@ function Login() {
       </form>
     </>
   );
-}
+};
 
 export default Login;
 

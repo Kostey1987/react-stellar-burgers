@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./app-header.module.css";
 import {
   BurgerIcon,
@@ -8,9 +8,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
 
-const AppHeader = () => {
-  const isActiveClass = ({ isActive }) =>
-    isActive ? styles.link_active : styles.link;
+const AppHeader: FC = () => {
+  // const isActiveClass = ({isActive}: { isActive: boolean }) =>
+  //   isActive ? styles.link_active : styles.link;
 
   return (
     <header className={`${styles.header} m-10 pb-4 pt-4`}>

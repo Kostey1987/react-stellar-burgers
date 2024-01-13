@@ -1,18 +1,8 @@
-import { baseUrl } from "../utils/constants";
-import {
-  setAuthChecked,
-  setUser,
-  setLogoutUser,
-  setLogoutRequest,
-  setUserRequest,
-  setResetConfirmed,
-  setResetRequest,
-  setChangePasswordRequest,
-  setUpdateUser,
-  setUpdateUserRequest,
-} from "../services/redusers/user-slice";
+import { baseUrl } from "./constants";
+import { setAuthChecked, setUser } from "../services/slices/user-slice";
+import { string } from "prop-types";
 
-export const getItems = (setIngredients) => {
+export const getItems = () => {
   return fetch(`${baseUrl}/ingredients `).then(checkResponse);
 };
 
@@ -43,6 +33,21 @@ const refreshToken = () => {
     }),
   }).then(checkResponse);
 };
+
+// const refreshToken = () => {
+//   const token = localStorage.getItem("accessToken");
+//   const headers: Record<string, string> = {
+//     "Content-Type": "application/json",
+//   };
+//   if (!!token) {
+//     headers.Authorization = token;
+//   }
+//   return fetch(`${baseUrl}/token `, {
+//     method: "POST",
+//     headers,
+//     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
+//   }).then(checkResponse);
+// };
 
 const fetchWithRefresh = async (url, options) => {
   try {
@@ -84,28 +89,16 @@ export const getUser = () => {
 };
 
 export const login = (email, password) => {
-  return (dispatch) => {
-    return fetch(`${baseUrl}/auth/login `, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        if (res.success) {
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
-          dispatch(setUser(res.user));
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => dispatch(setAuthChecked(true)));
-  };
+  return fetch(`${baseUrl}/auth/login `, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  }).then(checkResponse);
 };
 
 export const checkUserAuth = () => {
@@ -125,131 +118,63 @@ export const checkUserAuth = () => {
 };
 
 export const logout = () => {
-  return (dispatch) => {
-    return fetch(`${baseUrl}/auth/logout `, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token: localStorage.getItem("refreshToken"),
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        dispatch(setLogoutUser());
-        localStorage.removeItem("refreshToken");
-        localStorage.removeItem("accessToken");
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        dispatch(setLogoutRequest(false));
-      });
-  };
+  return fetch(`${baseUrl}/auth/logout `, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  }).then(checkResponse);
 };
 
 export const register = (data) => {
-  return (dispatch) => {
-    return fetch(`${baseUrl}/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        localStorage.setItem("accessToken", res.accessToken);
-        localStorage.setItem("refreshToken", res.refreshToken);
-        dispatch(setUser(data));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        dispatch(setUserRequest(false));
-      });
-  };
+  return fetch(`${baseUrl}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then(checkResponse);
 };
 
 export const reset = (email) => {
-  return (dispatch) => {
-    return fetch(`${baseUrl}/password-reset`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        if (res.success) {
-          dispatch(setResetConfirmed(res.success));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        dispatch(setResetRequest(false));
-      });
-  };
+  return fetch(`${baseUrl}/password-reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  }).then(checkResponse);
 };
 
 export const resetPassword = (password, token) => {
-  return (dispatch) => {
-    return fetch(`${baseUrl}/password-reset/reset`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password: password,
-        token: token,
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        if (res.success) {
-          dispatch(setChangePasswordRequest(res.success));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        dispatch(setChangePasswordRequest(false));
-      });
-  };
+  return fetch(`${baseUrl}/password-reset/reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: password,
+      token: token,
+    }),
+  }).then(checkResponse);
 };
 
 export const updateUser = (name, email, password) => {
-  return (dispatch) => {
-    return fetch(`${baseUrl}/auth/user`, {
-      method: "PATCH",
-      headers: {
-        authorization: localStorage.getItem("accessToken"),
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-      }),
-    })
-      .then(checkResponse)
-      .then((res) => {
-        dispatch(setUpdateUser(res));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        dispatch(setUpdateUserRequest(false));
-      });
-  };
+  return fetch(`${baseUrl}/auth/user`, {
+    method: "PATCH",
+    headers: {
+      authorization: localStorage.getItem("accessToken"),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      password: password,
+    }),
+  }).then(checkResponse);
 };

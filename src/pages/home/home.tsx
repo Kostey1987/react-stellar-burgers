@@ -1,12 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import styles from "./home.module.css";
-import AppHeader from "../../components/app-header/app-header";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import Order from "../../components/order/order";
 import Modal from "../../components/modal/modal";
 import OrderDetails from "../../components/order-details/order-details";
-import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 // import { toggleModal } from "../../services/redusers/modal-slice";
@@ -14,18 +12,19 @@ import { fetchIngredients } from "../../services/ingredientsQuery";
 import {
   selectIngredient,
   clearSelectedIngredient,
-} from "../../services/redusers/current-slice";
-import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
-import { clearConstructor } from "../../services/redusers/constructor-slice";
+} from "../../services/slices/current-slice";
+import { selectedIngredientSelector } from "../../services/selectors/selectors";
+import { clearConstructor } from "../../services/slices/constructor-slice";
+import { any } from "prop-types";
 
-function Home() {
+const Home: FC = () => {
   const dispatch = useDispatch();
-  const currentIngredient = useSelector(selectedIngredientSelector);
-  const currentOrder = useSelector((state) => state.sandwich.order);
+  // const currentIngredient = useSelector(selectedIngredientSelector);
+  const currentOrder = useSelector((state: any) => state.sandwich.order);
 
-  React.useEffect(() => {
-    dispatch(fetchIngredients());
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(fetchIngredients());
+  // }, []);
 
   // const handleIngredientClick = React.useCallback(
   //   (item) => {
@@ -38,7 +37,7 @@ function Home() {
     dispatch(clearSelectedIngredient());
   };
   const handleCloseCurrentOrderModal = () => {
-    dispatch(clearConstructor());
+    dispatch(clearConstructor({}));
   };
 
   return (
@@ -73,6 +72,6 @@ function Home() {
       )}
     </div>
   );
-}
+};
 
 export default Home;

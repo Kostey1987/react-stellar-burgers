@@ -4,7 +4,7 @@ import imgDone from "../../images/done.png";
 import { useSelector } from "react-redux";
 
 function OrderDetails() {
-  const orderNumber = useSelector((state) => state.sandwich.order);
+  const orderNumber = useSelector((state: any) => state.sandwich.order);
 
   return (
     <div className={styles.orderDetails + " " + "mt-30"}>

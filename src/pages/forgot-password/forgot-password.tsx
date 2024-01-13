@@ -1,26 +1,26 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeader from "../../components/app-header/app-header";
 import styles from "../forgot-password/forgot-password.module.css";
 import { Link, Navigate } from "react-router-dom";
 import { reset } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
+import { userReset } from "../../services/thunks";
 
-function ForgotPassword() {
+const ForgotPassword: FC = () => {
   const dispatch = useDispatch();
 
-  const success = useSelector((state) => state.user.resetConfirmed);
+  const success = useSelector((state: any) => state.user.resetConfirmed);
 
   const [value, setValue] = useState({
     email: "",
   });
 
-  const handleReset = (evt) => {
+  const handleReset = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    dispatch(reset(value.email));
+    dispatch(userReset(value.email));
   };
 
   if (success) {
@@ -62,6 +62,6 @@ function ForgotPassword() {
       </form>
     </>
   );
-}
+};
 
 export default ForgotPassword;

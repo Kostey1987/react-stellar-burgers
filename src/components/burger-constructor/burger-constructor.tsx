@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   ConstructorElement,
   DragIcon,
@@ -13,20 +13,21 @@ import {
   bun,
   addIngredients,
   delIngredients,
-} from "../../services/redusers/constructor-slice";
+} from "../../services/slices/constructor-slice";
 
 import {
   bunSelector,
   ingredientSelector,
-} from "../../services/selectors/modalSelectors";
+} from "../../services/selectors/selectors";
+import { TIngredientType, TItem } from "../../services/types/types";
 
-function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const buns = useSelector(bunSelector);
   const ingredients = useSelector(ingredientSelector);
   const [{ isDragging }, dropRef] = useDrop({
     accept: "ingredient",
-    drop: (item) => {
+    drop: (item: TItem) => {
       if (item.type === "bun") {
         dispatch(bun(item));
       } else {
@@ -73,7 +74,7 @@ function BurgerConstructor() {
           </p>
         )}
         {ingredients.length > 0 &&
-          ingredients.map((item, index) => {
+          ingredients.map((item: TIngredientType, index: number) => {
             return (
               <ConstructorIngredient
                 key={item.constructorId}
@@ -106,6 +107,6 @@ function BurgerConstructor() {
       </div>
     </div>
   );
-}
+};
 
 export default BurgerConstructor;

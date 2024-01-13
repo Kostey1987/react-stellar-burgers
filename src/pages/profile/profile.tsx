@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import styles from "../../pages/profile/profile.module.css";
 import { NavLink, Navigate } from "react-router-dom";
 import {
@@ -8,13 +8,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { getUser, logout, updateUser } from "../../utils/api";
+import { getUser, updateUser } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
+import { update, userLogout } from "../../services/thunks";
 
-function Profile() {
+const Profile: FC = () => {
   const dispatch = useDispatch();
-  const userName = useSelector((state) => state.user.user.name);
-  const userEmail = useSelector((state) => state.user.user.email);
+  const userName = useSelector((state: any) => state.user.user.name);
+  const userEmail = useSelector((state: any) => state.user.user.email);
 
   React.useEffect(() => {
     dispatch(getUser());
@@ -34,9 +35,9 @@ function Profile() {
     });
   }, [userName, userEmail]);
 
-  const updateProfile = (evt) => {
+  const updateProfile = (evt: React.FormEvent) => {
     evt.preventDefault();
-    dispatch(updateUser(value.name, value.email, value.password));
+    dispatch(update(value.name, value.email, value.password));
     setValue({
       name: userName,
       email: userEmail,
@@ -44,9 +45,9 @@ function Profile() {
     });
   };
 
-  const logoutHandleClick = (e) => {
+  const logoutHandleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(userLogout());
   };
 
   const cancelEditing = () => {
@@ -57,7 +58,7 @@ function Profile() {
     });
   };
 
-  const isActiveClass = ({ isActive }) =>
+  const isActiveClass = ({ isActive }: { isActive: boolean }) =>
     `${styles.link} ${!isActive ? styles.inactive : ""}`;
   return (
     <>
@@ -97,18 +98,16 @@ function Profile() {
           </div>
           <div className="mt-6">
             <EmailInput
-              type="email"
               onChange={(evt) =>
                 setValue({ ...value, email: evt.target.value })
               }
               placeholder={"Логин"}
               value={value.email}
-              icon={"EditIcon"}
+              // icon={"EditIcon"}
             />
           </div>
           <div className="mt-6 mb-6">
             <PasswordInput
-              type="password"
               placeholder={"Пароль"}
               onChange={(evt) =>
                 setValue({ ...value, password: evt.target.value })
@@ -134,6 +133,6 @@ function Profile() {
       </form>
     </>
   );
-}
+};
 
 export default Profile;

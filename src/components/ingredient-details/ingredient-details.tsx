@@ -1,9 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./ingredient-details.module.css";
-import { ingredientPropType } from "../../utils/prop-types";
-import PropTypes from "prop-types";
+// import { ingredientPropType } from "../../utils/prop-types";
+// import PropTypes from "prop-types";
+import { TIngredientType } from "../../services/types/types";
 
-function IngredientDetails({ item }) {
+interface IProps {
+  item: TIngredientType;
+}
+
+const IngredientDetails: FC<IProps> = ({ item }) => {
   return (
     <>
       <h2 className={styles.title + " " + "text text_type_main-large mt-10"}>
@@ -53,10 +58,6 @@ function IngredientDetails({ item }) {
       </div>
     </>
   );
-}
-
-IngredientDetails.propTypes = {
-  item: ingredientPropType.isRequired,
 };
 
 export default IngredientDetails;

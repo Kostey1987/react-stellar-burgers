@@ -9,6 +9,7 @@ import AppHeader from "../../components/app-header/app-header";
 import { resetPassword } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { userResetPassword } from "../../services/thunks";
 
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -21,16 +22,16 @@ function ResetPassword() {
     }
   }, [location]);
 
-  const auth = useSelector((state) => state.user.changePasswordRequest);
+  const auth = useSelector((state: any) => state.user.changePasswordRequest);
 
   const [value, setValue] = useState({
     password: "",
     token: "",
   });
 
-  const handleResetPassword = (evt) => {
+  const handleResetPassword = (evt: React.FormEvent) => {
     evt.preventDefault();
-    dispatch(resetPassword(value.password, value.token));
+    dispatch(userResetPassword(value.password, value.token));
   };
 
   if (auth) {

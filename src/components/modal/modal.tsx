@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { FC, ReactElement, ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 
-const modalElement = document.getElementById("modal");
+const modalElement = document.getElementById("modal") as HTMLElement;
 
-function Modal({ children, onClose }) {
+interface IProps {
+  onClose: () => void;
+  children: ReactNode;
+}
+
+const Modal: FC<IProps> = ({ children, onClose }) => {
   useEffect(() => {
-    function onEsc(evt) {
+    function onEsc(evt: KeyboardEvent) {
       if (evt.code === "Escape") {
         onClose();
       }
@@ -29,7 +34,7 @@ function Modal({ children, onClose }) {
     </ModalOverlay>,
     modalElement
   );
-}
+};
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,

@@ -1,11 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "../../pages/home/home";
 import Register from "../../pages/register/register";
 import Login from "../../pages/login/login";
@@ -20,14 +14,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchIngredients } from "../../services/ingredientsQuery";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { selectedIngredientSelector } from "../../services/selectors/modalSelectors";
-import { clearSelectedIngredient } from "../../services/redusers/current-slice";
+import { clearSelectedIngredient } from "../../services/slices/current-slice";
 
-function App() {
+const App: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const currentIngredient = useSelector(selectedIngredientSelector);
+  // const currentIngredient = useSelector(selectedIngredientSelector);
 
   const background = location.state && location.state?.background;
 
@@ -85,6 +77,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
 export default App;
