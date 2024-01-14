@@ -3,8 +3,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import styles from "./order.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIcon from "../../images/icon 36x36.svg";
-// import { ingredientPropType } from "../../utils/prop-types";
-// import PropTypes from "prop-types";
 import { postOrder } from "../../services/ordersQuery";
 
 import {

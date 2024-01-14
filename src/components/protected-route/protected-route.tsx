@@ -3,7 +3,7 @@ import { FC, ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import { setAuthChecked } from "../../services/slices/user-slice";
-import { checkUserAuth } from "../../utils/api";
+import { checkUserAuth } from "../../utils/utility";
 
 interface ProtectedRouterProps {
   onlyUnAuth?: boolean;

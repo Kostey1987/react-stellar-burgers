@@ -1,21 +1,20 @@
 import React, { FC, useState } from "react";
 import styles from "../../pages/profile/profile.module.css";
-import { NavLink, Navigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   EmailInput,
   Input,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
-import { getUser, updateUser } from "../../utils/api";
-import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../utils/api";
 import { update, userLogout } from "../../services/thunks";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const Profile: FC = () => {
-  const dispatch = useDispatch();
-  const userName = useSelector((state: any) => state.user.user.name);
-  const userEmail = useSelector((state: any) => state.user.user.email);
+  const dispatch = useAppDispatch();
+  const userName = useAppSelector((state: any) => state.user.user.name);
+  const userEmail = useAppSelector((state: any) => state.user.user.email);
 
   React.useEffect(() => {
     dispatch(getUser());
@@ -35,8 +34,8 @@ const Profile: FC = () => {
     });
   }, [userName, userEmail]);
 
-  const updateProfile = (evt: React.FormEvent) => {
-    evt.preventDefault();
+  const updateProfile = (e: React.FormEvent) => {
+    e.preventDefault();
     dispatch(update(value.name, value.email, value.password));
     setValue({
       name: userName,

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "../../pages/home/home";
 import Register from "../../pages/register/register";
@@ -9,17 +9,16 @@ import NotFound from "../../pages/not-found/not-found";
 import Profile from "../../pages/profile/profile";
 import Ingredient from "../../pages/ingredient/ingredient";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
-import { checkUserAuth } from "../../utils/api";
-import { useDispatch, useSelector } from "react-redux";
+import { checkUserAuth } from "../../utils/utility";
+import { useAppDispatch } from "../../hooks/typed-hooks";
 import { fetchIngredients } from "../../services/ingredientsQuery";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import { clearSelectedIngredient } from "../../services/slices/current-slice";
 
 const App: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
-  // const currentIngredient = useSelector(selectedIngredientSelector);
 
   const background = location.state && location.state?.background;
 

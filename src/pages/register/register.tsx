@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -6,15 +6,13 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css";
-import AppHeader from "../../components/app-header/app-header";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../utils/api";
 import { userRegister } from "../../services/thunks";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
-function Register() {
-  // const success = useSelector((state) => state.user.success);
-  const dispatch = useDispatch();
+const Register: FC = () => {
+  // const success = useAppSelector((state) => state.user.success);
+  const dispatch = useAppDispatch();
   const [value, setValue] = React.useState({
     email: "",
     password: "",
@@ -87,6 +85,6 @@ function Register() {
       </form>
     </>
   );
-}
+};
 
 export default Register;

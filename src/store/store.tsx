@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "../services/slices/modal-slice";
 import itemReducer from "../services/slices/ingredient-slice";
 import selectedReducer from "../services/slices/current-slice";
 import constructorReduser from "../services/slices/constructor-slice";
@@ -13,3 +12,6 @@ export const store = configureStore({
     user: userSliceReduser,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>; //Получаем типизацию store.getState
+export type AppDispatch = typeof store.dispatch; //Получаем типизацию store.dispatch

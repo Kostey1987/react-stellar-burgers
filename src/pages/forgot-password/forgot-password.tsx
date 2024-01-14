@@ -5,20 +5,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../forgot-password/forgot-password.module.css";
 import { Link, Navigate } from "react-router-dom";
-import { reset } from "../../utils/api";
-import { useDispatch, useSelector } from "react-redux";
 import { userReset } from "../../services/thunks";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const ForgotPassword: FC = () => {
-  const dispatch = useDispatch();
-
-  const success = useSelector((state: any) => state.user.resetConfirmed);
+  const dispatch = useAppDispatch();
+  const success = useAppSelector((state) => state.user.resetConfirmed);
 
   const [value, setValue] = useState({
     email: "",
   });
 
-  const handleReset = (evt: React.SyntheticEvent) => {
+  const handleReset = (evt: React.FormEvent) => {
     evt.preventDefault();
     dispatch(userReset(value.email));
   };
@@ -45,7 +43,6 @@ const ForgotPassword: FC = () => {
           type="primary"
           size="medium"
           extraClass={"mt-6"}
-          onClick={handleReset}
         >
           Восстановить
         </Button>

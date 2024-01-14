@@ -1,41 +1,17 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC } from "react";
 import styles from "./home.module.css";
 import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import Order from "../../components/order/order";
 import Modal from "../../components/modal/modal";
 import OrderDetails from "../../components/order-details/order-details";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
-// import { toggleModal } from "../../services/redusers/modal-slice";
-import { fetchIngredients } from "../../services/ingredientsQuery";
-import {
-  selectIngredient,
-  clearSelectedIngredient,
-} from "../../services/slices/current-slice";
-import { selectedIngredientSelector } from "../../services/selectors/selectors";
 import { clearConstructor } from "../../services/slices/constructor-slice";
-import { any } from "prop-types";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const Home: FC = () => {
-  const dispatch = useDispatch();
-  // const currentIngredient = useSelector(selectedIngredientSelector);
-  const currentOrder = useSelector((state: any) => state.sandwich.order);
+  const dispatch = useAppDispatch();
+  const currentOrder = useAppSelector((state) => state.sandwich.order);
 
-  // React.useEffect(() => {
-  //   dispatch(fetchIngredients());
-  // }, []);
-
-  // const handleIngredientClick = React.useCallback(
-  //   (item) => {
-  //     dispatch(selectIngredient(item));
-  //   },
-  //   [dispatch]
-  // );
-
-  const handleCloseIngredientModal = () => {
-    dispatch(clearSelectedIngredient());
-  };
   const handleCloseCurrentOrderModal = () => {
     dispatch(clearConstructor({}));
   };
@@ -60,11 +36,6 @@ const Home: FC = () => {
           <Order />
         </section>
       </main>
-      {/* {!!currentIngredient && (
-        <Modal onClose={handleCloseIngredientModal}>
-          <IngredientDetails item={currentIngredient} />
-        </Modal>
-      )} */}
       {currentOrder && (
         <Modal onClose={handleCloseCurrentOrderModal}>
           <OrderDetails />

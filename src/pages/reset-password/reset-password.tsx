@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import {
   Button,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "../reset-password/reset-password.module.css";
-import AppHeader from "../../components/app-header/app-header";
-import { resetPassword } from "../../utils/api";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { userResetPassword } from "../../services/thunks";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
-function ResetPassword() {
-  const dispatch = useDispatch();
+const ResetPassword: FC = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,7 +20,7 @@ function ResetPassword() {
     }
   }, [location]);
 
-  const auth = useSelector((state: any) => state.user.changePasswordRequest);
+  const auth = useAppSelector((state) => state.user.changePasswordRequest);
 
   const [value, setValue] = useState({
     password: "",
@@ -78,6 +76,6 @@ function ResetPassword() {
       </form>
     </>
   );
-}
+};
 
 export default ResetPassword;

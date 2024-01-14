@@ -1,6 +1,5 @@
 import { baseUrl } from "./constants";
-import { setAuthChecked, setUser } from "../services/slices/user-slice";
-import { string } from "prop-types";
+import { setUser } from "../services/slices/user-slice";
 
 export const getItems = () => {
   return fetch(`${baseUrl}/ingredients `).then(checkResponse);
@@ -78,13 +77,9 @@ export const getUser = () => {
         "Content-Type": "application/json",
         Authorization: localStorage.getItem("accessToken"),
       },
-    })
-      .then((res) => {
-        dispatch(setUser(res.user));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      dispatch(setUser(res.user));
+    });
   };
 };
 
@@ -99,22 +94,6 @@ export const login = (email, password) => {
       password: password,
     }),
   }).then(checkResponse);
-};
-
-export const checkUserAuth = () => {
-  return (dispatch) => {
-    if (localStorage.getItem("accessToken")) {
-      dispatch(getUser())
-        .catch((error) => {
-          localStorage.removeItem("accessToken");
-          dispatch(setUser(null));
-        })
-        .finally(() => dispatch(setAuthChecked(true)));
-    } else {
-      dispatch(setAuthChecked(true));
-      dispatch(setUser(null));
-    }
-  };
 };
 
 export const logout = () => {

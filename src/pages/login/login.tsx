@@ -6,11 +6,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import styles from "./login.module.css";
-import { useDispatch } from "react-redux";
 import { userLogin } from "../../services/thunks";
+import { useAppDispatch } from "../../hooks/typed-hooks";
 
 const Login: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [password, setPassword] = useState("password");
   const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -21,13 +21,14 @@ const Login: FC = () => {
     setEmail(e.target.value);
   };
 
-  const onClick = () => {
+  const onSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
     dispatch(userLogin(email, password));
   };
 
   return (
     <>
-      <form onSubmit={onClick} className={styles.login}>
+      <form onSubmit={onSubmit} className={styles.login}>
         <h2 className="text text_type_main-medium mb-6">Вход</h2>
         <EmailInput
           value={email}
@@ -43,12 +44,7 @@ const Login: FC = () => {
           name={"password"}
           extraClass="mb-6"
         />
-        <Button
-          htmlType="button"
-          type="primary"
-          size="medium"
-          onClick={onClick}
-        >
+        <Button htmlType="submit" type="primary" size="medium">
           Войти
         </Button>
         <div className={`${styles.wrapper} mt-20`}>
@@ -77,13 +73,3 @@ const Login: FC = () => {
 };
 
 export default Login;
-
-// {
-//   "success": true,
-//   "user": {
-//       "email": "2@a.a",
-//       "name": "1"
-//   },
-//   "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ODhkZDE4ODc4OTljMDAxYjgyNTQyNyIsImlhdCI6MTcwMzQ2ODMxMiwiZXhwIjoxNzAzNDY5NTEyfQ.Bq8fkSFyQ08l0_jwa92_zX2fSoVasVXT2KoWfvYfJkQ",
-//   "refreshToken": "f29fb473a35a6fb9e1a09e7a14d334a1424903798a8362e535c9f2396ed0c59d910f6076ab0bc2c1"
-// }
