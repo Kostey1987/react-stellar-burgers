@@ -1,5 +1,4 @@
 import React, { FC, ReactElement } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   ConstructorElement,
   DragIcon,
@@ -7,13 +6,12 @@ import {
 import styles from "../constructor-ingredient/constructor-ingredient.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { changeIngredients } from "../../services/slices/constructor-slice";
-// import PropTypes from "prop-types";
-// import { ingredientPropType } from "../../utils/prop-types";
 import {
   TCollectedProps,
   TDragItem,
   TIngredientType,
 } from "../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 interface IProps {
   item: TIngredientType;
@@ -22,9 +20,11 @@ interface IProps {
 }
 
 const ConstructorIngredient: FC<IProps> = ({ children, item, index }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const burgerArray = useSelector((state: any) => state.sandwich.ingredients);
+  const burgerArray = useAppSelector(
+    (state: any) => state.sandwich.ingredients
+  );
   const findIndex = (item: TIngredientType) => {
     return burgerArray.indexOf(item);
   };

@@ -4,7 +4,6 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
 import { nanoid } from "@reduxjs/toolkit";
 import { useDrop } from "react-dnd";
@@ -20,11 +19,13 @@ import {
   ingredientSelector,
 } from "../../services/selectors/selectors";
 import { TIngredientType, TItem } from "../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const BurgerConstructor: FC = () => {
-  const dispatch = useDispatch();
-  const buns = useSelector(bunSelector);
-  const ingredients = useSelector(ingredientSelector);
+  const dispatch = useAppDispatch();
+  const buns = useAppSelector(bunSelector);
+  const ingredients = useAppSelector(ingredientSelector);
+
   const [{ isDragging }, dropRef] = useDrop({
     accept: "ingredient",
     drop: (item: TItem) => {

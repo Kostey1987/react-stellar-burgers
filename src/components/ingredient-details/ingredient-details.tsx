@@ -1,7 +1,5 @@
 import React, { FC } from "react";
 import styles from "./ingredient-details.module.css";
-// import { ingredientPropType } from "../../utils/prop-types";
-// import PropTypes from "prop-types";
 import { TIngredientType } from "../../services/types/types";
 
 interface IProps {

@@ -4,20 +4,18 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-// import PropTypes from "prop-types";
-// import { ingredientPropType } from "../../utils/prop-types";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { TIngredientType } from "../../services/types/types";
 import { selectIngredient } from "../../services/slices/current-slice";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 interface IProps {
   item: TIngredientType;
 }
 
 const BurgerIngredient: FC<IProps> = memo(function BurgerIngredient({ item }) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "ingredient",
@@ -34,7 +32,7 @@ const BurgerIngredient: FC<IProps> = memo(function BurgerIngredient({ item }) {
     [dispatch]
   );
 
-  const { ingredients, bun } = useSelector((state: any) => state.sandwich);
+  const { ingredients, bun } = useAppSelector((state: any) => state.sandwich);
   const count = React.useMemo(() => {
     if (item.type === "bun") {
       return !!bun && bun._id === item._id ? 1 : 0;
@@ -61,10 +59,5 @@ const BurgerIngredient: FC<IProps> = memo(function BurgerIngredient({ item }) {
     </div>
   );
 });
-
-// BurgerIngredient.propTypes = {
-//   item: ingredientPropType.isRequired,
-//   handleClickIngredient: PropTypes.func.isRequired,
-// };
 
 export default BurgerIngredient;

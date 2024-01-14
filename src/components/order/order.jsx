@@ -10,16 +10,19 @@ import {
   ingredientSelector,
 } from "../../services/selectors/selectors";
 
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { TIngredientType } from "../../services/types/types";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
+import { string } from "prop-types";
 
 const Order: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const buns = useSelector(bunSelector);
-  const ingredients = useSelector(ingredientSelector);
+  const buns = useAppSelector(bunSelector);
+  const ingredients = useAppSelector(
+    (state: any) => state.sandwich.ingredients
+  );
 
   const handleClickButton = () => {
     const auth = localStorage.getItem("accessToken");

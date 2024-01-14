@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./order-details.module.css";
 import imgDone from "../../images/done.png";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/typed-hooks";
 
 function OrderDetails() {
-  const orderNumber = useSelector((state: any) => state.sandwich.order);
+  const orderNumber = useAppSelector((state) => state.sandwich.order);
 
   return (
     <div className={styles.orderDetails + " " + "mt-30"}>
