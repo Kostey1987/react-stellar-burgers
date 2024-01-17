@@ -1,13 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { postOrder } from "../ordersQuery";
 
 import { nanoid } from "@reduxjs/toolkit";
+import { TConstructorIngredient, TIngredientType } from "../types/types";
 
-const initialState = {
+interface IConstructorState {
+  bun: TIngredientType | null;
+  ingredients: TIngredientType[];
+  order: number | null;
+  name: string | null;
+}
+
+interface IDragIngredient {
+  indexFrom: number;
+  indexTo: number;
+  ingredient: TIngredientType;
+}
+
+interface IDelIngredient {
+  constructorId: string;
+  item: TIngredientType;
+}
+
+const initialState: IConstructorState = {
   order: null,
   bun: null,
   ingredients: [],
+  name: null,
 };
 
 const constructorSlice = createSlice({
@@ -15,23 +35,23 @@ const constructorSlice = createSlice({
   initialState,
   reducers: {
     bun: {
-      prepare: function (item) {
+      prepare: function (item: TConstructorIngredient) {
         return {
           payload: { ...item, constructorId: nanoid(12) },
         };
       },
-      reducer: function (state, action) {
+      reducer: function (state, action: PayloadAction<TIngredientType>) {
         state.bun = action.payload;
       },
     },
 
     addIngredients: {
-      prepare: function (item) {
+      prepare: function (item: TConstructorIngredient) {
         return {
           payload: { ...item, constructorId: nanoid(12) },
         };
       },
-      reducer: function (state, action) {
+      reducer: function (state, action: PayloadAction<TIngredientType>) {
         state.ingredients.push(action.payload);
       },
     },
@@ -40,13 +60,13 @@ const constructorSlice = createSlice({
       state.ingredients = [];
       state.order = null;
     },
-    changeIngredients: (store, action) => {
+    changeIngredients: (store, action: PayloadAction<IDragIngredient>) => {
       const { indexFrom, indexTo, ingredient } = action.payload;
       store.ingredients.splice(indexFrom, 1);
       store.ingredients.splice(indexTo, 0, ingredient);
     },
 
-    delIngredients: (state, action) => {
+    delIngredients: (state, action: PayloadAction<TIngredientType>) => {
       state.ingredients = [...state.ingredients].filter(
         (item) => item.constructorId != action.payload.constructorId
       );

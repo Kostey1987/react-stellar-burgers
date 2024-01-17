@@ -18,7 +18,11 @@ import {
   bunSelector,
   ingredientSelector,
 } from "../../services/selectors/selectors";
-import { TIngredientType, TItem } from "../../services/types/types";
+import {
+  TConstructorIngredient,
+  TIngredientType,
+  TItem,
+} from "../../services/types/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const BurgerConstructor: FC = () => {
@@ -28,7 +32,7 @@ const BurgerConstructor: FC = () => {
 
   const [{ isDragging }, dropRef] = useDrop({
     accept: "ingredient",
-    drop: (item: TItem) => {
+    drop: (item: TConstructorIngredient) => {
       if (item.type === "bun") {
         dispatch(bun(item));
       } else {

@@ -1,6 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TIngredientType, TItem } from "../types/types";
 
-const initialState = {
+interface ICurrentState {
+  ingredient: TIngredientType | null;
+}
+
+const initialState: ICurrentState = {
   ingredient: null,
 };
 
@@ -8,7 +13,7 @@ const selectedSlice = createSlice({
   name: "selected",
   initialState,
   reducers: {
-    selectIngredient(state, action) {
+    selectIngredient(state, action: PayloadAction<ICurrentState>) {
       state.ingredient = action.payload;
     },
     clearSelectedIngredient(state) {

@@ -17,13 +17,12 @@ export type TIngredientType = {
   image_mobile?: string;
   image_large?: string;
   __v?: number;
-  constructorId?: string;
+  constructorId: string;
 };
 
-// export type TConstructorIngredient = {
-//   item: TIngredientType;
-//   constructorId: string | undefined;
-// };
+export type TConstructorIngredient = TIngredientType & {
+  constructorId: string;
+};
 
 export type TDragItem = {
   ingredient: TIngredientType;

@@ -13,7 +13,7 @@ const Home: FC = () => {
   const currentOrder = useAppSelector((state) => state.sandwich.order);
 
   const handleCloseCurrentOrderModal = () => {
-    dispatch(clearConstructor({}));
+    dispatch(clearConstructor());
   };
 
   return (

@@ -1,9 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchIngredients } from "../ingredientsQuery";
 
-const initialState = {
+interface IItemState {
+  itemsArray: [];
+  isLoading: boolean;
+  error: string;
+}
+
+const initialState: IItemState = {
   itemsArray: [],
-  isloading: false,
+  isLoading: false,
   error: "",
 };
 
