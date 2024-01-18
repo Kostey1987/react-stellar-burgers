@@ -1,39 +1,41 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchIngredients } from "../ingredientsQuery";
+import { TError, TIngredientType } from "../types/types";
 
 interface IItemState {
-  itemsArray: [];
+  itemsArray: TIngredientType[];
   isLoading: boolean;
-  error: string;
+  error: TError | undefined;
 }
 
 const initialState: IItemState = {
   itemsArray: [],
   isLoading: false,
-  error: "",
+  error: undefined,
 };
 
 const itemSlice = createSlice({
   name: "items",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredients.fulfilled.type, (state, action) => {
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.isLoading = false;
         state.itemsArray = action.payload.data;
-        state.error = "";
+        state.error = undefined;
       })
-      .addCase(fetchIngredients.pending.type, (state) => {
-        state.isloading = true;
-        state.error = "";
+      .addCase(fetchIngredients.pending, (state) => {
+        state.isLoading = true;
+        state.error = undefined;
       })
-      .addCase(fetchIngredients.rejected.type, (state, action) => {
+      .addCase(fetchIngredients.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
       });
   },
 });
 
-export const { itemsUploading, itemsLoaded, itemsError } = itemSlice.actions;
+// export const { itemsUploading, itemsLoaded, itemsError } = itemSlice.actions;
 
 export default itemSlice.reducer;

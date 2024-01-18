@@ -1,12 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface IModaltate {
+  modalState: boolean;
+}
+
+const initialState: IModaltate = {
+  modalState: false,
+};
+
 export const modalSlice = createSlice({
   name: "Modal",
-  initialState: {
-    modalState: false,
-  },
+  initialState,
   reducers: {
-    toggleModal: (state, action) => {
+    toggleModal: (state) => {
       state.modalState = !state.modalState;
     },
   },
