@@ -4,9 +4,10 @@ import { TError, TOrder } from "./types/types";
 
 export const postOrder = createAsyncThunk<
   TOrder,
-  string,
+  string[],
   { rejectValue: TError }
 >("type/postData", async (data) => {
+  console.log(data);
   const res = await saveOrder(data);
   return res;
 });

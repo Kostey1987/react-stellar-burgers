@@ -1,7 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TUser, TUserRegister, TUserUpdate } from "../types/types";
 
-const initialState = {
-  user: null,
+const initialState: TUser = {
+  user: {
+    name: "",
+    email: "",
+    password: "",
+  },
   isAuthChecked: false,
   userData: {
     email: "",
@@ -21,39 +26,39 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setAuthChecked: (state, action) => {
+    setAuthChecked: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload;
     },
-    setUser: (state, action) => {
+    setUser: (state, action: PayloadAction<TUserRegister>) => {
       state.user = action.payload;
     },
     setLogoutUser: (state) => {
       state.userData.email = "";
       state.userData.name = "";
     },
-    setLogoutRequest: (state, action) => {
+    setLogoutRequest: (state, action: PayloadAction<boolean>) => {
       state.logoutRequest = action.payload;
     },
-    setUserRequest: (state, action) => {
+    setUserRequest: (state, action: PayloadAction<boolean>) => {
       state.userRequest = action.payload;
     },
-    setResetConfirmed: (state, action) => {
+    setResetConfirmed: (state, action: PayloadAction<boolean>) => {
       state.resetConfirmed = action.payload;
     },
-    setResetRequest: (state, action) => {
+    setResetRequest: (state, action: PayloadAction<boolean>) => {
       state.resetRequest = action.payload;
     },
-    setChangePassword: (state, action) => {
+    setChangePassword: (state, action: PayloadAction<boolean>) => {
       state.changePassword = action.payload;
     },
-    setChangePasswordRequest: (state, action) => {
+    setChangePasswordRequest: (state, action: PayloadAction<boolean>) => {
       state.changePasswordRequest = action.payload;
     },
-    setUpdateUser: (state, action) => {
-      state.userData.email = action.payload.user.email;
-      state.userData.name = action.payload.user.name;
+    setUpdateUser: (state, action: PayloadAction<TUserUpdate>) => {
+      state.userData.email = action.payload.email;
+      state.userData.name = action.payload.name;
     },
-    setUpdateUserRequest: (state, action) => {
+    setUpdateUserRequest: (state, action: PayloadAction<boolean>) => {
       state.updateRequest = action.payload;
     },
   },
@@ -64,9 +69,7 @@ export const {
   setUser,
   setLogoutUser,
   setLogoutRequest,
-  registerUserReducer,
   setUserRequest,
-  registerUser,
   setResetConfirmed,
   setResetRequest,
   setChangePassword,
@@ -76,3 +79,5 @@ export const {
 } = userSlice.actions;
 
 export default userSlice.reducer;
+
+type TUserActions = typeof userSlice.actions;

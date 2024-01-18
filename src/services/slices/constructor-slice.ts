@@ -18,10 +18,10 @@ interface IDragIngredient {
   ingredient: TIngredientType;
 }
 
-interface IDelIngredient {
-  constructorId: string;
-  item: TIngredientType;
-}
+// interface IDelIngredient {
+//   constructorId: string;
+//   item: TIngredientType;
+// }
 
 const initialState: IConstructorState = {
   order: null,
@@ -91,3 +91,5 @@ export const {
 } = constructorSlice.actions;
 
 export default constructorSlice.reducer;
+
+export type TConstrucorActions = typeof constructorSlice.actions;

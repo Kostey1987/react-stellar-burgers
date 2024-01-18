@@ -1,58 +1,66 @@
 import { baseUrl } from "./constants";
 import { setUser } from "../services/slices/user-slice";
+import { TError, TUserRegister } from "../services/types/types";
 
 export const getItems = () => {
   return fetch(`${baseUrl}/ingredients `).then(checkResponse);
 };
 
-function checkResponse(res) {
+function checkResponse(res: Response) {
   if (res.ok) {
     return res.json();
   }
   return res.json().then((err) => Promise.reject(err));
 }
 
-export function saveOrder(data) {
+export function saveOrder(data: string[]) {
+  const token = localStorage.getItem("accessToken");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (!!token) {
+    headers.Authorization = token;
+  }
   return fetch(`${baseUrl}/orders`, {
-    headers: { "Content-Type": "application/json" },
+    headers,
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify({ ingredients: data }),
   }).then(checkResponse);
 }
 
-const refreshToken = () => {
-  return fetch(`${baseUrl}/token `, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: localStorage.getItem("accessToken"),
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-  }).then(checkResponse);
-};
-
 // const refreshToken = () => {
-//   const token = localStorage.getItem("accessToken");
-//   const headers: Record<string, string> = {
-//     "Content-Type": "application/json",
-//   };
-//   if (!!token) {
-//     headers.Authorization = token;
-//   }
 //   return fetch(`${baseUrl}/token `, {
 //     method: "POST",
-//     headers,
-//     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: localStorage.getItem("accessToken"),
+//     },
+//     body: JSON.stringify({
+//       token: localStorage.getItem("refreshToken"),
+//     }),
 //   }).then(checkResponse);
 // };
 
-const fetchWithRefresh = async (url, options) => {
+const refreshToken = () => {
+  const token = localStorage.getItem("accessToken");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (!!token) {
+    headers.Authorization = token;
+  }
+  return fetch(`${baseUrl}/token `, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
+  }).then(checkResponse);
+};
+
+const fetchWithRefresh = async (url: string, options: RequestInit) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
@@ -60,7 +68,8 @@ const fetchWithRefresh = async (url, options) => {
       }
       localStorage.setItem("accessToken", refreshData.accessToken);
       localStorage.setItem("refreshToken", refreshData.refreshToken);
-      options.Authorization = refreshData.accessToken;
+      (options.headers as { [key: string]: string }).authorization =
+        refreshData.accessToken;
       const res = await fetch(url, options);
       return await checkResponse(res);
     } else {
@@ -70,20 +79,26 @@ const fetchWithRefresh = async (url, options) => {
 };
 
 export const getUser = () => {
-  return (dispatch) => {
+  return (
+    dispatch: (arg0: { payload: TUserRegister; type: "user/setUser" }) => void
+  ) => {
+    const token = localStorage.getItem("accessToken");
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+    if (!!token) {
+      headers.Authorization = token;
+    }
     return fetchWithRefresh(`${baseUrl}/auth/user `, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("accessToken"),
-      },
+      headers,
     }).then((res) => {
       dispatch(setUser(res.user));
     });
   };
 };
 
-export const login = (email, password) => {
+export const login = (email: string, password: string) => {
   return fetch(`${baseUrl}/auth/login `, {
     method: "POST",
     headers: {
@@ -108,7 +123,7 @@ export const logout = () => {
   }).then(checkResponse);
 };
 
-export const register = (data) => {
+export const register = (data: TUserRegister) => {
   return fetch(`${baseUrl}/auth/register`, {
     method: "POST",
     headers: {
@@ -118,7 +133,7 @@ export const register = (data) => {
   }).then(checkResponse);
 };
 
-export const reset = (email) => {
+export const reset = (email: string) => {
   return fetch(`${baseUrl}/password-reset`, {
     method: "POST",
     headers: {
@@ -130,7 +145,7 @@ export const reset = (email) => {
   }).then(checkResponse);
 };
 
-export const resetPassword = (password, token) => {
+export const resetPassword = (password: string, token: string) => {
   return fetch(`${baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -143,13 +158,17 @@ export const resetPassword = (password, token) => {
   }).then(checkResponse);
 };
 
-export const updateUser = (name, email, password) => {
+export const updateUser = (name: string, email: string, password: string) => {
+  const token = localStorage.getItem("accessToken");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (!!token) {
+    headers.Authorization = token;
+  }
   return fetch(`${baseUrl}/auth/user`, {
     method: "PATCH",
-    headers: {
-      authorization: localStorage.getItem("accessToken"),
-      "Content-Type": "application/json",
-    },
+    headers,
     body: JSON.stringify({
       name: name,
       email: email,

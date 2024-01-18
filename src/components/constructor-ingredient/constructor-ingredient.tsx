@@ -22,9 +22,7 @@ interface IProps {
 const ConstructorIngredient: FC<IProps> = ({ children, item, index }) => {
   const dispatch = useAppDispatch();
 
-  const burgerArray = useAppSelector(
-    (state: any) => state.sandwich.ingredients
-  );
+  const burgerArray = useAppSelector((state) => state.sandwich.ingredients);
   const findIndex = (item: TIngredientType) => {
     return burgerArray.indexOf(item);
   };

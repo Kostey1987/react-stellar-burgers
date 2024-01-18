@@ -43,3 +43,34 @@ export type TError = {
   message?: string;
   status?: number;
 };
+
+export type TUserRegister = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type TUser = {
+  user: TUserRegister;
+  isAuthChecked: boolean;
+  userData: {
+    email: string;
+    name: string;
+  };
+  success: boolean;
+  logoutRequest: boolean;
+  userRequest: boolean;
+  resetConfirmed: boolean;
+  resetRequest: boolean;
+  changePassword: boolean;
+  changePasswordRequest: boolean;
+  updateRequest: boolean;
+};
+
+export type TUserUpdate = {
+  user: string;
+  email: string;
+  name: string;
+};
+
+export type TActionTypes = {};

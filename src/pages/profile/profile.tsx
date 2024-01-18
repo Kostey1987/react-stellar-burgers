@@ -13,8 +13,8 @@ import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const Profile: FC = () => {
   const dispatch = useAppDispatch();
-  const userName = useAppSelector((state: any) => state.user.user.name);
-  const userEmail = useAppSelector((state: any) => state.user.user.email);
+  const userName = useAppSelector((state) => state.user.user.name);
+  const userEmail = useAppSelector((state) => state.user.user.email);
 
   React.useEffect(() => {
     dispatch(getUser());

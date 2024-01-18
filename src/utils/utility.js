@@ -1,3 +1,4 @@
+import { ThunkAction } from "@reduxjs/toolkit";
 import { setAuthChecked, setUser } from "../services/slices/user-slice";
 import { getUser } from "./api";
 

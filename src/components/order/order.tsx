@@ -20,9 +20,7 @@ const Order: FC = () => {
   const navigate = useNavigate();
 
   const buns = useAppSelector(bunSelector);
-  const ingredients = useAppSelector(
-    (state: any) => state.sandwich.ingredients
-  );
+  const ingredients = useAppSelector((state) => state.sandwich.ingredients);
 
   const handleClickButton = () => {
     const auth = localStorage.getItem("accessToken");
@@ -34,7 +32,8 @@ const Order: FC = () => {
 
     const orderIds = ingredients.map((i: TIngredientType) => i._id);
     orderIds.push(buns._id);
-    dispatch(postOrder({ ingredients: orderIds }));
+    orderIds.push(buns._id);
+    dispatch(postOrder(orderIds));
   };
 
   const totalPrice = React.useMemo(() => {

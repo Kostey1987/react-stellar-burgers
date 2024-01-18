@@ -39,3 +39,5 @@ const itemSlice = createSlice({
 // export const { itemsUploading, itemsLoaded, itemsError } = itemSlice.actions;
 
 export default itemSlice.reducer;
+
+type TItemActions = typeof itemSlice.actions;

@@ -26,13 +26,13 @@ const BurgerIngredient: FC<IProps> = memo(function BurgerIngredient({ item }) {
   });
 
   const handleIngredientClick = React.useCallback(
-    (item) => {
+    (item: TIngredientType) => {
       dispatch(selectIngredient(item));
     },
     [dispatch]
   );
 
-  const { ingredients, bun } = useAppSelector((state: any) => state.sandwich);
+  const { ingredients, bun } = useAppSelector((state) => state.sandwich);
   const count = React.useMemo(() => {
     if (item.type === "bun") {
       return !!bun && bun._id === item._id ? 1 : 0;
