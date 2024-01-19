@@ -1,3 +1,8 @@
+// import { TCheckActions } from "../slices/check-slice";
+import { TBurgerConstructorActions } from "../slices/constructor-slice";
+import { TModalActions } from "../slices/modal-slice";
+import { TUserActions } from "../slices/user-slice";
+
 export type TItem = {
   id: string;
   ingredient: TIngredientType;
@@ -51,7 +56,8 @@ export type TUserRegister = {
 };
 
 export type TUser = {
-  user: TUserRegister;
+  modalState: boolean; //----------------------------
+  user: TUserRegister | null;
   isAuthChecked: boolean;
   userData: {
     email: string;
@@ -73,4 +79,8 @@ export type TUserUpdate = {
   name: string;
 };
 
-export type TActionTypes = {};
+export type AppActions =
+  | TBurgerConstructorActions
+  | TUserActions
+  | TModalActions;
+// | TCheckActions;

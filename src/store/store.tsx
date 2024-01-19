@@ -3,6 +3,7 @@ import itemReducer from "../services/slices/ingredient-slice";
 import selectedReducer from "../services/slices/current-slice";
 import constructorReduser from "../services/slices/constructor-slice";
 import userSliceReduser from "../services/slices/user-slice";
+import modalSliceReduser from "../services/slices/user-slice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     selected: selectedReducer,
     sandwich: constructorReduser,
     user: userSliceReduser,
+    modal: modalSliceReduser,
   },
 });
 

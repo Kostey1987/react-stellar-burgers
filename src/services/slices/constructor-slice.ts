@@ -5,11 +5,12 @@ import { postOrder } from "../ordersQuery";
 import { nanoid } from "@reduxjs/toolkit";
 import { TConstructorIngredient, TIngredientType } from "../types/types";
 
-interface IConstructorState {
+interface IConstructor {
   bun: TIngredientType | null;
   ingredients: TIngredientType[];
   order: number | null;
   name: string | null;
+  number: number | null;
 }
 
 interface IDragIngredient {
@@ -18,16 +19,12 @@ interface IDragIngredient {
   ingredient: TIngredientType;
 }
 
-// interface IDelIngredient {
-//   constructorId: string;
-//   item: TIngredientType;
-// }
-
-const initialState: IConstructorState = {
+const initialState: IConstructor = {
   order: null,
   bun: null,
   ingredients: [],
   name: null,
+  number: null,
 };
 
 const constructorSlice = createSlice({
@@ -74,10 +71,8 @@ const constructorSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(postOrder.fulfilled, (state, action) => {
-      // state.isLoading = false;
       state.name = action.payload.name;
       state.order = action.payload.order.number;
-      // state.error = "";
     });
   },
 });
@@ -92,4 +87,8 @@ export const {
 
 export default constructorSlice.reducer;
 
-export type TConstrucorActions = typeof constructorSlice.actions;
+export type TConstructorActionCreators = typeof constructorSlice.actions;
+
+export type TBurgerConstructorActions = ReturnType<
+  TConstructorActionCreators[keyof TConstructorActionCreators]
+>;

@@ -31,8 +31,10 @@ const Order: FC = () => {
     }
 
     const orderIds = ingredients.map((i: TIngredientType) => i._id);
-    orderIds.push(buns._id);
-    orderIds.push(buns._id);
+    if (!!buns) {
+      orderIds.push(buns._id);
+      orderIds.push(buns._id);
+    }
     dispatch(postOrder(orderIds));
   };
 

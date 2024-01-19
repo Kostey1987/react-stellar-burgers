@@ -26,4 +26,4 @@ export const { selectIngredient, clearSelectedIngredient } =
   selectedSlice.actions;
 export default selectedSlice.reducer;
 
-export type TSelectedActions = typeof selectedSlice.actions;
+export const TSelectedActions = typeof selectedSlice.actions;

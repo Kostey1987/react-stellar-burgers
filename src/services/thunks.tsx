@@ -18,20 +18,15 @@ import {
   setUser,
   setUserRequest,
 } from "./slices/user-slice";
-import { TUserRegister, TUserUpdate } from "./types/types";
+import { AppActions, TUserRegister } from "./types/types";
 import { RootState } from "../store/store";
 import { Action } from "redux";
 
 export const userLogin = (
   email: string,
   password: string
-): ThunkAction<Promise<void>, RootState, unknown, Action<string>> => {
-  return (
-    dispatch: (arg0: {
-      payload: TUserRegister | boolean;
-      type: "user/setUser" | "user/setAuthChecked";
-    }) => void
-  ) =>
+): ThunkAction<Promise<void>, RootState, unknown, AppActions> => {
+  return (dispatch) =>
     login(email, password)
       .then((res) => {
         if (res.success) {
@@ -44,13 +39,13 @@ export const userLogin = (
       .finally(() => dispatch(setAuthChecked(true)));
 };
 
-export function userLogout() {
-  return (
-    dispatch: (arg0: {
-      payload: boolean;
-      type: "user/setLogoutRequest";
-    }) => void
-  ) => {
+export const userLogout = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AppActions
+> => {
+  return (dispatch) => {
     logout()
       .then((res) => {
         dispatch(setLogoutRequest(true));
@@ -64,15 +59,12 @@ export function userLogout() {
         dispatch(setLogoutRequest(false));
       });
   };
-}
+};
 
-export function userRegister(data: TUserRegister) {
-  return (
-    dispatch: (arg0: {
-      payload: TUserRegister | boolean;
-      type: "user/setUser" | "user/setUserRequest";
-    }) => void
-  ) => {
+export const userRegister = (
+  data: TUserRegister
+): ThunkAction<void, RootState, unknown, AppActions> => {
+  return (dispatch) => {
     register(data)
       .then((res) => {
         localStorage.setItem("accessToken", res.accessToken);
@@ -86,15 +78,12 @@ export function userRegister(data: TUserRegister) {
         dispatch(setUserRequest(false));
       });
   };
-}
+};
 
-export function userReset(email: string) {
-  return (
-    dispatch: (arg0: {
-      payload: boolean;
-      type: "user/setResetConfirmed" | "user/setResetRequest";
-    }) => void
-  ) => {
+export const userReset = (
+  email: string
+): ThunkAction<void, RootState, unknown, AppActions> => {
+  return (dispatch) => {
     reset(email)
       .then((res) => {
         if (res.success) {
@@ -108,15 +97,13 @@ export function userReset(email: string) {
         dispatch(setResetRequest(false));
       });
   };
-}
+};
 
-export function userResetPassword(password: string, token: string) {
-  return (
-    dispatch: (arg0: {
-      payload: boolean;
-      type: "user/setChangePasswordRequest";
-    }) => void
-  ) => {
+export const userResetPassword = (
+  password: string,
+  token: string
+): ThunkAction<void, RootState, unknown, AppActions> => {
+  return (dispatch) => {
     resetPassword(password, token)
       .then((res) => {
         if (res.success) {
@@ -130,15 +117,14 @@ export function userResetPassword(password: string, token: string) {
         dispatch(setChangePasswordRequest(false));
       });
   };
-}
+};
 
-export function update(name: string, email: string, password: string) {
-  return (
-    dispatch: (arg0: {
-      payload: boolean | TUserUpdate;
-      type: "user/setUpdateUser" | "user/setUpdateUserRequest";
-    }) => void
-  ) => {
+export const update = (
+  name: string,
+  email: string,
+  password: string
+): ThunkAction<void, RootState, unknown, AppActions> => {
+  return (dispatch) => {
     updateUser(name, email, password)
       .then((res) => {
         dispatch(setUpdateUser(res));
@@ -150,4 +136,4 @@ export function update(name: string, email: string, password: string) {
         dispatch(setUpdateUserRequest(false));
       });
   };
-}
+};

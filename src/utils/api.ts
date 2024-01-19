@@ -49,7 +49,7 @@ const refreshToken = () => {
   if (!!token) {
     headers.Authorization = token;
   }
-  return fetch(`${baseUrl}/token `, {
+  return fetch(`${baseUrl}/auth/token `, {
     method: "POST",
     headers,
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
@@ -61,7 +61,10 @@ const fetchWithRefresh = async (url: string, options: RequestInit) => {
     const res = await fetch(url, options);
     return await checkResponse(res);
   } catch (err: any) {
-    if (err.message === "jwt expired") {
+    if (
+      err.message === "jwt expired" ||
+      err.message === "You should be authorised"
+    ) {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -80,7 +83,10 @@ const fetchWithRefresh = async (url: string, options: RequestInit) => {
 
 export const getUser = () => {
   return (
-    dispatch: (arg0: { payload: TUserRegister; type: "user/setUser" }) => void
+    dispatch: (arg0: {
+      payload: TUserRegister | null;
+      type: "user/setUser";
+    }) => void
   ) => {
     const token = localStorage.getItem("accessToken");
     const headers: Record<string, string> = {
@@ -92,8 +98,6 @@ export const getUser = () => {
     return fetchWithRefresh(`${baseUrl}/auth/user `, {
       method: "GET",
       headers,
-    }).then((res) => {
-      dispatch(setUser(res.user));
     });
   };
 };

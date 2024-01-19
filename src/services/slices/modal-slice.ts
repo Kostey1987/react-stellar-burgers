@@ -9,7 +9,7 @@ const initialState: IModaltate = {
 };
 
 export const modalSlice = createSlice({
-  name: "Modal",
+  name: "modal",
   initialState,
   reducers: {
     toggleModal: (state) => {
@@ -21,4 +21,8 @@ export const modalSlice = createSlice({
 export const { toggleModal } = modalSlice.actions;
 export default modalSlice.reducer;
 
-type TModalActions = typeof modalSlice.actions;
+export type TModalActionCreators = typeof modalSlice.actions;
+
+export type TModalActions = ReturnType<
+  TModalActionCreators[keyof TModalActionCreators]
+>;

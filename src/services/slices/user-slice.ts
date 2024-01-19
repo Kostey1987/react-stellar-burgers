@@ -2,11 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TUser, TUserRegister, TUserUpdate } from "../types/types";
 
 const initialState: TUser = {
-  user: {
-    name: "",
-    email: "",
-    password: "",
-  },
+  user: null,
   isAuthChecked: false,
   userData: {
     email: "",
@@ -20,6 +16,7 @@ const initialState: TUser = {
   changePassword: false,
   changePasswordRequest: false,
   updateRequest: false,
+  modalState: false,
 };
 
 export const userSlice = createSlice({
@@ -29,7 +26,7 @@ export const userSlice = createSlice({
     setAuthChecked: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload;
     },
-    setUser: (state, action: PayloadAction<TUserRegister>) => {
+    setUser: (state, action: PayloadAction<TUserRegister | null>) => {
       state.user = action.payload;
     },
     setLogoutUser: (state) => {
@@ -80,4 +77,8 @@ export const {
 
 export default userSlice.reducer;
 
-type TUserActions = typeof userSlice.actions;
+export type TUserActionCreators = typeof userSlice.actions;
+
+export type TUserActions = ReturnType<
+  TUserActionCreators[keyof TUserActionCreators]
+>;

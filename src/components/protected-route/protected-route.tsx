@@ -27,10 +27,12 @@ const Protected: FC<ProtectedRouterProps> = ({
 
   if (!isAuthChecked) {
     // Запрос еще выполняется
+
     return null; // или прелоадер
   }
 
   if (onlyUnAuth && user) {
+    //в теории лучше сравнивать с булевым значением но пока оставлю так
     // Пользователь авторизован, но запрос предназначен только для неавторизованных пользователей
     // Нужно сделать редирект на главную страницу или на тот адрес, что записан в location.state.from
     const { from } = location.state || { from: { pathname: "/" } };
