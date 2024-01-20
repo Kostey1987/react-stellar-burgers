@@ -84,3 +84,9 @@ export type AppActions =
   | TUserActions
   | TModalActions;
 // | TCheckActions;
+
+export type TRefreshData = {
+  refreshToken: string;
+  success: boolean;
+  accessToken: string;
+};

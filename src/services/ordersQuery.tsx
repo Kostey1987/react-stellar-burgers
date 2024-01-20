@@ -7,7 +7,8 @@ export const postOrder = createAsyncThunk<
   string[],
   { rejectValue: TError }
 >("type/postData", async (data) => {
-  console.log(data);
+  //console.log(data);
   const res = await saveOrder(data);
+  console.log(res);
   return res;
 });

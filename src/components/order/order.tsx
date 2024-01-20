@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -14,11 +14,18 @@ import { useNavigate } from "react-router-dom";
 import { TIngredientType } from "../../services/types/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 import { string } from "prop-types";
+import { checkUserAuth } from "../../utils/utility";
 
 const Order: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   dispatch(checkUserAuth());
+  // }, []);
+  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
+  // console.log("-------------------------------------------");
+  // console.log(isAuthChecked);
   const buns = useAppSelector(bunSelector);
   const ingredients = useAppSelector((state) => state.sandwich.ingredients);
 

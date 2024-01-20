@@ -44,13 +44,6 @@ const BurgerConstructor: FC = () => {
     }),
   });
 
-  // React.useEffect(() => {
-  //   hardcodedIngredients.forEach((item) => {
-  //     dispatch(addIngredients(item));
-  //   });
-  //   dispatch(bun(hardcodedBun));
-  // }, [dispatch]);
-
   return (
     <div
       className={
