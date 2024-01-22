@@ -1,6 +1,6 @@
 import { baseUrl } from "./constants";
 import { setUser } from "../services/slices/user-slice";
-import { TError, TRefreshData, TUserRegister } from "../services/types/types";
+import { TRefreshData, TUserRegister } from "../services/types/types";
 
 export const getItems = () => {
   return fetch(`${baseUrl}/ingredients `).then(checkResponse);
@@ -15,7 +15,6 @@ function checkResponse(res: Response) {
 
 export function saveOrder(data: string[]) {
   const token = localStorage.getItem("accessToken");
-  // const token = "false";
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
@@ -27,7 +26,6 @@ export function saveOrder(data: string[]) {
     method: "POST",
     body: JSON.stringify({ ingredients: data }),
   });
-  //.then(checkResponse);
 }
 
 const refreshToken = () => {
@@ -109,7 +107,6 @@ export const getUser = () => {
     }) => void
   ) => {
     const token = localStorage.getItem("accessToken");
-    // const token = localStorage.getItem("accessToken");
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
     };

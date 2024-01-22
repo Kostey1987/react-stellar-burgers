@@ -36,7 +36,6 @@ export const checkUserAuth = (): ThunkAction<
   unknown,
   AppActions
 > => {
-  console.log("asdfasd");
   return (dispatch) => {
     if (localStorage.getItem("accessToken")) {
       dispatch(getUser())

@@ -15,6 +15,7 @@ import { fetchIngredients } from "../../services/ingredientsQuery";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import { clearSelectedIngredient } from "../../services/slices/current-slice";
+import Feed from "../../pages/feed/feed";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -47,6 +48,7 @@ const App: FC = () => {
           path={"/register"}
           element={<OnlyUnAuth component={<Register />} />}
         />
+        <Route path={"/feed"} element={<OnlyAuth component={<Feed />} />} />
         <Route
           path={"/forgot-password"}
           element={<OnlyUnAuth component={<ForgotPassword />} />}

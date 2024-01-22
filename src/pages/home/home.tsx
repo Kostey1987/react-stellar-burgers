@@ -17,7 +17,7 @@ const Home: FC = () => {
   };
 
   return (
-    <div className={styles.app}>
+    <div className={styles.container}>
       <main className={styles.main}>
         <section
           className={styles.ingredients}
