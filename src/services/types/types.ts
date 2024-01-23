@@ -36,13 +36,6 @@ export type TCollectedProps = {
   isDragging: boolean;
 };
 
-export type TOrder = {
-  order: {
-    number: number | null;
-  };
-  name: string | null;
-};
-
 export type TError = {
   success?: boolean;
   message?: string;
@@ -89,4 +82,29 @@ export type TRefreshData = {
   refreshToken: string;
   success: boolean;
   accessToken: string;
+};
+
+export type TOrder = {
+  order: {
+    number: number | null;
+  };
+  name: string | null;
+};
+
+interface IOrderOwner {
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+}
+
+export type TOrders = {
+  _id: string;
+  ingredients: (string | null)[];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  owner?: IOrderOwner;
 };

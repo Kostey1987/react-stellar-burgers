@@ -3,7 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { postOrder } from "../ordersQuery";
 
 import { nanoid } from "@reduxjs/toolkit";
-import { TConstructorIngredient, TIngredientType } from "../types/types";
+import {
+  TConstructorIngredient,
+  TIngredientType,
+  TOrder,
+} from "../types/types";
+import { orderList } from "../../utils/data";
 
 interface IConstructor {
   bun: TIngredientType | null;
