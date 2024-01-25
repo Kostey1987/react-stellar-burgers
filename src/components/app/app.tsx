@@ -17,6 +17,7 @@ import Modal from "../modal/modal";
 import { clearSelectedIngredient } from "../../services/slices/current-slice";
 import Feed from "../../pages/feed/feed";
 import OrderInfo from "../order-info/order-info";
+import OrdersHistory from "../../pages/orders-history/orders-history";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,10 @@ const App: FC = () => {
 
   const handleCloseIngredientModal = () => {
     dispatch(clearSelectedIngredient());
+    if (background) navigate(background);
+  };
+  const handleCloseOrderInfoModal = () => {
+    // dispatch(clearSelectedIngredient());
     if (background) navigate(background);
   };
 
@@ -65,7 +70,7 @@ const App: FC = () => {
         />
         <Route path={"/profile"} element={<OnlyAuth component={<Profile />} />}>
           <Route index element={<Profile />} />
-          <Route path={"orders"} element={<NotFound />} />
+          <Route path={"/profile/orders"} element={<OrdersHistory />} />
         </Route>
         <Route path={"/ingredients/:id"} element={<Ingredient />} />
         <Route path="*" element={<NotFound />} />
@@ -77,6 +82,14 @@ const App: FC = () => {
             element={
               <Modal onClose={handleCloseIngredientModal}>
                 <Ingredient />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={handleCloseOrderInfoModal}>
+                <OrderInfo />
               </Modal>
             }
           />

@@ -1,6 +1,7 @@
 .constructor {
   display: flex;
   flex-direction: column;
+  max-height: 464px;
   /* gap: 16px; */
 }
 

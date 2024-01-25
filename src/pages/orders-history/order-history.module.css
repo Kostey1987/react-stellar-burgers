@@ -1,13 +1,21 @@
 .container {
   display: flex;
   flex-direction: column;
-  max-height: 600px;
+  height: 750px;
   background-color: #131316;
   color: #f2f2f3;
   width: 100%;
   color: #f2f2f3;
   margin: 0 auto;
   max-width: 1920px;
+  overflow: hidden;
+}
+
+.title {
+  width: 1240px;
+  text-align: start;
+  margin-left: 380px;
+  margin-right: 380px;
 }
 
 .main {
@@ -16,5 +24,17 @@
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  height: 600px;
+  height: 912px;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  overflow: auto;
+}
+
+.link {
+  color: #f2f2f3;
+  text-decoration: none;
 }

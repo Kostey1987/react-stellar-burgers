@@ -50,6 +50,18 @@ const OrderCard: FC<IProps> = ({ item }) => {
       >
         {item.name}
       </p>
+      <h2
+        className={
+          styles.status + " " + "text text_type_main-default ml-6 mt-2"
+        }
+      >
+        {item?.status === "done" ? (
+          <p className={styles.status_done}>Выполнен</p>
+        ) : (
+          <p>Готовится</p>
+        )}
+      </h2>
+
       <div className={styles.details + " " + "mt-6 mb-6"}>
         <div className={styles.ingredients}>
           <ul className={styles.list}>

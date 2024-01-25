@@ -16,6 +16,13 @@
   text-align: start;
 }
 
+.status {
+  text-align: start;
+}
+.status_done {
+  color: var(--interface-success, #0cc);
+}
+
 .details {
   display: flex;
   justify-content: space-between;
@@ -43,9 +50,8 @@
   background: linear-gradient(black, black) padding-box,
     linear-gradient(to right, rgba(76, 76, 255, 1), rgba(128, 26, 178, 1))
       border-box;
-  border: 2px solid transparent;
-
   z-index: 3;
+  border: 2px solid transparent;
 }
 
 .image {
