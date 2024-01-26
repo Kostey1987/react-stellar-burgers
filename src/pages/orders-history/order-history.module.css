@@ -1,13 +1,23 @@
 .container {
   display: flex;
+  justify-content: center;
+}
+
+.menuContainer {
+  display: flex;
+  margin-left: 306px;
+}
+
+.feedContainer {
+  display: flex;
   flex-direction: column;
   height: 750px;
   background-color: #131316;
   color: #f2f2f3;
   width: 100%;
   color: #f2f2f3;
-  margin: 0 auto;
-  max-width: 1920px;
+  margin-right: 395px;
+  max-width: 844px;
   overflow: hidden;
 }
 
@@ -30,7 +40,7 @@
 .feed {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 844px;
   overflow: auto;
 }
 

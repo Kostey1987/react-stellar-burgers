@@ -32,7 +32,6 @@ const App: FC = () => {
     if (background) navigate(background);
   };
   const handleCloseOrderInfoModal = () => {
-    // dispatch(clearSelectedIngredient());
     if (background) navigate(background);
   };
 
@@ -54,7 +53,6 @@ const App: FC = () => {
           path={"/register"}
           element={<OnlyUnAuth component={<Register />} />}
         />
-        {/* <Route path={"/feed"} element={<OnlyAuth component={<Feed />} />} /> */}
         <Route path={"/feed"}>
           <Route index element={<Feed />} />
           <Route path={":id"} element={<OrderInfo />} />
@@ -68,10 +66,42 @@ const App: FC = () => {
           path={"/reset-password"}
           element={<OnlyUnAuth component={<ResetPassword />} />}
         />
-        <Route path={"/profile"} element={<OnlyAuth component={<Profile />} />}>
-          <Route index element={<Profile />} />
-          <Route path={"/profile/orders"} element={<OrdersHistory />} />
-        </Route>
+        <Route
+          path="/profile"
+          element={
+            <OnlyAuth
+              component={
+                <React.Fragment>
+                  <Profile />
+                </React.Fragment>
+              }
+            />
+          }
+        />
+        <Route
+          path="/profile/orders"
+          element={
+            <OnlyAuth
+              component={
+                <React.Fragment>
+                  <OrdersHistory />
+                </React.Fragment>
+              }
+            />
+          }
+        />
+        <Route
+          path="/profile/orders/:id"
+          element={
+            <OnlyAuth
+              component={
+                <React.Fragment>
+                  <OrderInfo />
+                </React.Fragment>
+              }
+            />
+          }
+        />
         <Route path={"/ingredients/:id"} element={<Ingredient />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -87,6 +117,14 @@ const App: FC = () => {
           />
           <Route
             path="/feed/:id"
+            element={
+              <Modal onClose={handleCloseOrderInfoModal}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
             element={
               <Modal onClose={handleCloseOrderInfoModal}>
                 <OrderInfo />
