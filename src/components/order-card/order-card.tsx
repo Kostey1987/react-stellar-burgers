@@ -1,27 +1,31 @@
 import React, { FC, useCallback, useState } from "react";
 import styles from "../order-card/order-card.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TOrders } from "../../services/types/types";
+import { TIngredientType, TOrders } from "../../services/types/types";
 import { useAppSelector } from "../../hooks/typed-hooks";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { bunSelector } from "../../services/selectors/selectors";
 
 interface IProps {
   item: TOrders;
+  displayStatus: boolean;
 }
 
-const OrderCard: FC<IProps> = ({ item }) => {
+const OrderCard: FC<IProps> = ({ item, displayStatus }) => {
   const ingredientsArray = useAppSelector((state) => state.items.itemsArray);
 
   const orderIngredients = ingredientsArray.filter((ingredient) =>
     item?.ingredients.includes(ingredient._id)
   );
-
   const overflowingIngredients = orderIngredients.slice(6);
 
-  const totalPrice = orderIngredients.reduce(
-    (acc, ingredient) => acc + ingredient.price,
-    0
-  );
+  const arrayPrice = item.ingredients.map((id) => {
+    return ingredientsArray.find((item) => item._id === id);
+  });
+
+  const totalPrice = arrayPrice.reduce(function (acc: any, ingredient) {
+    return ingredient && acc + ingredient.price;
+  }, 0);
 
   return (
     <div className={styles.card + " " + "mb-4"}>
@@ -55,11 +59,12 @@ const OrderCard: FC<IProps> = ({ item }) => {
           styles.status + " " + "text text_type_main-default ml-6 mt-2"
         }
       >
-        {item?.status === "done" ? (
-          <p className={styles.status_done}>Выполнен</p>
-        ) : (
-          <p>Готовится</p>
-        )}
+        {displayStatus &&
+          (item?.status === "done" ? (
+            <p className={styles.status_done}>Выполнен</p>
+          ) : (
+            <p>Готовится</p>
+          ))}
       </h2>
 
       <div className={styles.details + " " + "mt-6 mb-6"}>

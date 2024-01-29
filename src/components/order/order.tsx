@@ -19,15 +19,11 @@ import { checkUserAuth } from "../../utils/utility";
 const Order: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   dispatch(checkUserAuth());
-  // }, []);
-  const isAuthChecked = useAppSelector((state) => state.user.isAuthChecked);
-  // console.log("-------------------------------------------");
-  // console.log(isAuthChecked);
   const buns = useAppSelector(bunSelector);
   const ingredients = useAppSelector((state) => state.sandwich.ingredients);
+  const orderPending = useAppSelector((state) => state.sandwich.isOrderPending);
+
+  console.log(orderPending);
 
   const handleClickButton = () => {
     const auth = localStorage.getItem("accessToken");
@@ -54,10 +50,7 @@ const Order: FC = () => {
     );
   }, [ingredients, buns]);
 
-  const isOrderReady = React.useMemo(
-    () => !!buns && ingredients.length > 0,
-    [ingredients, buns]
-  );
+  const isOrderReady = !buns || ingredients.length === 0 || orderPending;
 
   return (
     <div className={styles.order_container}>
@@ -65,7 +58,7 @@ const Order: FC = () => {
         <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
         <img className={styles.icon} src={burgerIcon} alt="burger" />
         <Button
-          disabled={!isOrderReady}
+          disabled={isOrderReady}
           onClick={handleClickButton}
           type="primary"
           size="medium"

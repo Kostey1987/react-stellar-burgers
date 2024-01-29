@@ -5,7 +5,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
-import { nanoid } from "@reduxjs/toolkit";
 import { useDrop } from "react-dnd";
 
 import {

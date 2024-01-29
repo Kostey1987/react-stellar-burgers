@@ -43,32 +43,6 @@ const refreshToken = () => {
   }).then(checkResponse);
 };
 
-// const fetchWithRefresh = async (url: string, options: RequestInit) => {
-//   try {
-//     const res = await fetch(url, options);
-//     return await checkResponse(res);
-//   } catch (err: any) {
-//     if (
-//       err.message === "jwt expired" ||
-//       err.message === "invalid signature"
-//       err.message === "You should be authorised"
-//     ) {
-//       const refreshData = await refreshToken();
-//       if (!refreshData.success) {
-//         return Promise.reject(refreshData);
-//       }
-//       localStorage.setItem("accessToken", refreshData.accessToken);
-//       localStorage.setItem("refreshToken", refreshData.refreshToken);
-//       (options.headers as { [key: string]: string }).authorization =
-//         refreshData.accessToken;
-//       const res = await fetch(url, options);
-//       return await checkResponse(res);
-//     } else {
-//       return Promise.reject(err);
-//     }
-//   }
-// };
-
 const fetchWithRefresh = async (
   url: string | URL | Request,
   options: RequestInit
@@ -81,7 +55,8 @@ const fetchWithRefresh = async (
       err.message === "jwt expired" ||
       err.message === "invalid signature" ||
       err.message === "invalid token" ||
-      err.message === "You should be authorised"
+      err.message === "You should be authorised" ||
+      err.message === "Invalid or missing token"
     ) {
       const refreshData: TRefreshData = await refreshToken();
       if (!refreshData.success) {
@@ -205,4 +180,13 @@ export const updateUser = (name: string, email: string, password: string) => {
       password: password,
     }),
   }).then(checkResponse);
+};
+
+export const getOrders = async (number: string) => {
+  return fetchWithRefresh(`${baseUrl}/orders/${number}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
 };

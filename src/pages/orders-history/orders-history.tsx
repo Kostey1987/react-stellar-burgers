@@ -1,16 +1,35 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "../orders-history/order-history.module.css";
-import { orderList } from "../../utils/data";
 import OrderCard from "../../components/order-card/order-card";
 import { TOrders } from "../../services/types/types";
 import { Link, useLocation } from "react-router-dom";
 import ProfileMenu from "../profile-menu/profile-menu";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
+import {
+  websocketConnection,
+  websocketOffline,
+} from "../../services/slices/feed-slice";
+import { baseWss } from "../../utils/constants";
 
 export const OrdersHistory: FC = () => {
   const location = useLocation();
-  const [orders, setOrders] = useState(orderList);
-  console.log("==============================================");
+  const orders = useAppSelector((state) => state.feed?.orders);
+  const dispatch = useAppDispatch();
+  const accessToken = localStorage.getItem("accessToken");
+
+  console.log("------------------------------------");
   console.log(orders);
+
+  useEffect(() => {
+    dispatch(
+      websocketConnection(
+        `${baseWss}/orders?token=${accessToken?.split(" ")[1]}`
+      )
+    );
+    return () => {
+      dispatch(websocketOffline());
+    };
+  }, [dispatch]);
 
   return (
     <>
@@ -22,18 +41,20 @@ export const OrdersHistory: FC = () => {
         <section className={styles.feedContainer}>
           <div className={styles.main}>
             <section className={styles.feed + " " + " custom-scroll"}>
-              {orders.orders.map((item: TOrders) => {
-                return (
-                  <Link
-                    className={styles.link}
-                    key={item._id}
-                    to={`/profile/orders/${item._id}`}
-                    state={{ background: location }}
-                  >
-                    <OrderCard item={item} />
-                  </Link>
-                );
-              })}
+              {orders
+                ? [...orders.orders].reverse().map((item: TOrders) => {
+                    return (
+                      <Link
+                        className={styles.link}
+                        key={item._id}
+                        to={`/profile/orders/${item._id}`}
+                        state={{ background: location }}
+                      >
+                        <OrderCard item={item} displayStatus={true} />
+                      </Link>
+                    );
+                  })
+                : null}
             </section>
           </div>
         </section>
@@ -43,3 +64,6 @@ export const OrdersHistory: FC = () => {
 };
 
 export default OrdersHistory;
+function useRouteMatch(): { url: any } {
+  throw new Error("Function not implemented.");
+}

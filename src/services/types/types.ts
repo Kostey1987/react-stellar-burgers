@@ -1,5 +1,5 @@
-// import { TCheckActions } from "../slices/check-slice";
 import { TBurgerConstructorActions } from "../slices/constructor-slice";
+import { TFeedActions } from "../slices/feed-slice";
 import { TModalActions } from "../slices/modal-slice";
 import { TUserActions } from "../slices/user-slice";
 
@@ -49,7 +49,7 @@ export type TUserRegister = {
 };
 
 export type TUser = {
-  modalState: boolean; //----------------------------
+  modalState: boolean;
   user: TUserRegister | null;
   isAuthChecked: boolean;
   userData: {
@@ -75,8 +75,8 @@ export type TUserUpdate = {
 export type AppActions =
   | TBurgerConstructorActions
   | TUserActions
-  | TModalActions;
-// | TCheckActions;
+  | TModalActions
+  | TFeedActions;
 
 export type TRefreshData = {
   refreshToken: string;
@@ -107,4 +107,20 @@ export type TOrders = {
   updatedAt: string;
   number: number;
   owner?: IOrderOwner;
+};
+
+export type TwsActions = {
+  wsConnection: string;
+  wsOffline: string;
+  wsOpen: string;
+  wsError: string;
+  wsMessage: string;
+  wsClose: string;
+};
+
+export type TFeedOrders = {
+  success: boolean;
+  orders: Array<TOrders>;
+  total: number;
+  totalToday: number;
 };

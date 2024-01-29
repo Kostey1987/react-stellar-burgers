@@ -1,35 +1,44 @@
-import React, { FC, ReactNode, useCallback, useState } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "../feed/feed.module.css";
-import { orderList } from "../../utils/data";
 import OrderCard from "../../components/order-card/order-card";
-import { TOrders } from "../../services/types/types";
+import { TFeedOrders, TOrders } from "../../services/types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
+import {
+  websocketConnection,
+  websocketOffline,
+} from "../../services/slices/feed-slice";
+import { baseWss } from "../../utils/constants";
 
 export const Feed: FC = () => {
   const location = useLocation();
-  const [orders, setOrders] = useState(orderList);
-  console.log("==============================================");
-  console.log(orders);
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector((state) => state.feed?.orders);
+
+  useEffect(() => {
+    dispatch(websocketConnection(`${baseWss}/orders/all`));
+    return;
+  }, [dispatch]);
 
   const total = orders?.total;
   const totalToday = orders?.totalToday;
 
-  const orderListWithDoneStatus = orders.orders.filter(
+  const orderListWithDoneStatus = orders?.orders.filter(
     (order) => order.status == "done"
   );
 
-  const orderListWithOtherStatus = orders.orders.filter(
+  const orderListWithOtherStatus = orders?.orders.filter(
     (order) => order.status !== "done"
   );
 
-  return (
+  return orders ? (
     <div className={styles.container}>
       <h2 className={`text text_type_main-large  ${styles.title} mt-10 mb-5`}>
         Лента заказов
       </h2>
       <div className={styles.main}>
         <section className={styles.feed + " " + " custom-scroll"}>
-          {orders.orders.map((item: TOrders) => {
+          {orders?.orders.map((item: TOrders) => {
             return (
               <Link
                 className={styles.link}
@@ -37,7 +46,7 @@ export const Feed: FC = () => {
                 to={`/feed/${item._id}`}
                 state={{ background: location }}
               >
-                <OrderCard item={item} />
+                <OrderCard item={item} displayStatus={false} />
               </Link>
             );
           })}
@@ -53,15 +62,19 @@ export const Feed: FC = () => {
               >
                 Готовы:
               </p>
-              <ul
-                className={
-                  styles.number_ready + " " + "text text_type_digits-default"
-                }
-              >
-                {orderListWithDoneStatus.map((orders, index) => {
-                  return <li key={orders._id}>{orders.number}</li>;
-                })}
-              </ul>
+              <section className={styles.orderBox}>
+                <ul
+                  className={
+                    styles.number_ready +
+                    " " +
+                    "text text_type_digits-default mr-2"
+                  }
+                >
+                  {orderListWithDoneStatus?.map((orders, index) => {
+                    return <li key={orders._id}>{orders.number}</li>;
+                  })}
+                </ul>
+              </section>
             </div>
             <div className={`${styles.work} custom-scroll`}>
               <p className="text text_type_main-medium mb-6">В работе:</p>
@@ -70,7 +83,7 @@ export const Feed: FC = () => {
                   styles.number_work + " " + "text text_type_digits-default"
                 }
               >
-                {orderListWithOtherStatus.map((orders) => {
+                {orderListWithOtherStatus?.map((orders) => {
                   return <li key={orders._id}>{orders.number}</li>;
                 })}
               </ul>
@@ -95,6 +108,10 @@ export const Feed: FC = () => {
         </section>
       </div>
     </div>
+  ) : (
+    <span className={styles.loader + " " + "text text_type_digits-default"}>
+      загрузка
+    </span>
   );
 };
 

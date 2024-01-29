@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { saveOrder } from "../utils/api";
-import { TError, TOrder } from "./types/types";
+import { getOrders, saveOrder } from "../utils/api";
+import { TError, TFeedOrders, TOrder } from "./types/types";
 
 export const postOrder = createAsyncThunk<
   TOrder,
@@ -10,4 +10,20 @@ export const postOrder = createAsyncThunk<
   const res = await saveOrder(data);
   console.log(res);
   return res;
+});
+
+export const fetchOrder = createAsyncThunk<
+  TFeedOrders,
+  string,
+  { rejectValue: TError }
+>("data/onFetchOrder", async function (number, { rejectWithValue }) {
+  const response = await getOrders(number);
+  if (!response.ok) {
+    return rejectWithValue({
+      status: response.status,
+      message: "Error",
+    });
+  }
+  const data: TFeedOrders = await response.json();
+  return data;
 });

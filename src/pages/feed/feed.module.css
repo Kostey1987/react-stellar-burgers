@@ -45,6 +45,11 @@
   justify-content: space-between;
 }
 
+.orderBox {
+  display: flex;
+  flex-direction: row;
+}
+
 .ready {
   width: 280px;
   height: 206px;
@@ -61,21 +66,26 @@
 }
 
 .number_ready {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(10, 20px);
+  grid-auto-flow: column;
+  justify-content: start;
   color: var(--interface-success, #0cc);
   list-style-type: none;
-  flex-wrap: nowrap;
   gap: 8px;
+  list-style-type: none;
 }
 
 .number_work {
-  display: flex;
-  flex-direction: column;
   color: var(--text-primary-light-standart-text, #f2f2f3);
+  display: grid;
+  grid-template-rows: repeat(10, 20px);
+  grid-auto-flow: column;
+  justify-content: start;
+  color: var(--interface-success, #0cc);
   list-style-type: none;
-  flex-wrap: nowrap;
   gap: 8px;
+  list-style-type: none;
 }
 
 .text_box {
@@ -88,4 +98,11 @@
 .link {
   color: #f2f2f3;
   text-decoration: none;
+}
+
+.loader {
+  width: 1240px;
+  text-align: start;
+  margin-left: 380px;
+  margin-right: 380px;
 }
