@@ -53,10 +53,6 @@ const App: FC = () => {
           path={"/register"}
           element={<OnlyUnAuth component={<Register />} />}
         />
-        {/* <Route path={"/feed"}>
-          <Route index element={<Feed />} />
-          <Route path={":id"} element={<OrderInfo />} />
-        </Route> */}
 
         <Route
           path={"/forgot-password"}

@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchOrder, orderFetch } from "../ordersQuery";
-import { TError, TFeedOrders, TOrders } from "../types/types";
+import { createSlice } from "@reduxjs/toolkit";
+import { oneOrderFetch } from "../ordersQuery";
+import { TError, TOrders } from "../types/types";
 
 export type TOrderState = {
   success: boolean;
@@ -21,15 +21,15 @@ export const orderSlice = createSlice({
   initialState: feedState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(orderFetch.pending, (state) => {
+    builder.addCase(oneOrderFetch.pending, (state) => {
       state.fetchRequest = true;
     });
-    builder.addCase(orderFetch.fulfilled, (state, action) => {
+    builder.addCase(oneOrderFetch.fulfilled, (state, action) => {
       state.order = action.payload;
       state.fetchRequest = false;
       state.fetchError = null;
     });
-    builder.addCase(orderFetch.rejected, (state, action) => {
+    builder.addCase(oneOrderFetch.rejected, (state, action) => {
       state.fetchError = action.payload;
       state.fetchRequest = false;
     });

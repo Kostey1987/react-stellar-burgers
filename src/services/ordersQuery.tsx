@@ -28,7 +28,7 @@ export const fetchOrder = createAsyncThunk<
   return data;
 });
 
-export const orderFetch = createAsyncThunk<
+export const oneOrderFetch = createAsyncThunk<
   TOrders,
   string,
   { rejectValue: TError }
@@ -40,19 +40,6 @@ export const orderFetch = createAsyncThunk<
       message: "Error",
     });
   }
-  const data: TOrders = await response.json();
-  return data;
+  const data = await response.json();
+  return data.orders[0] as TOrders;
 });
-
-// export interface IIngredients {
-//   data: TIngredientType[];
-// }
-
-// export const getOrderThunk = createAsyncThunk<
-//   IIngredients,
-//   undefined,
-//   { rejectValue: TError }
-// >("items/get", async () => {
-//   const res = await getOrders();
-//   return res;
-// });

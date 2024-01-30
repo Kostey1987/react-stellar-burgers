@@ -43,11 +43,11 @@ export const OrdersHistory: FC = () => {
                     return (
                       <Link
                         className={styles.link}
-                        key={item._id}
+                        key={item.number}
                         to={`/profile/orders/${item._id}`}
                         state={{ background: location }}
                       >
-                        <OrderCard item={item} displayStatus={true} />
+                        <OrderCard item={item} displayStatus={false} />
                       </Link>
                     );
                   })

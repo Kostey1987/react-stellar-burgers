@@ -1,17 +1,11 @@
-import React, { FC, useCallback, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "../order-info/order-info.module.css";
 import { TIngredientType, TOrders } from "../../services/types/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 import { useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  websocketConnection,
-  websocketOffline,
-} from "../../services/slices/feed-slice";
-import { baseWss } from "../../utils/constants";
-import { fetchOrder, orderFetch } from "../../services/ordersQuery";
-import { getOrders } from "../../utils/api";
+import { oneOrderFetch } from "../../services/ordersQuery";
 
 interface IProps {
   item: TOrders;
@@ -28,21 +22,16 @@ const OrderInfo: FC = () => {
   const { id } = useParams<TId>();
   const actualId: string = id!;
   const ingredientsArray = useAppSelector((state) => state.items.itemsArray);
-  const orders = useAppSelector((state) => state.feed?.orders?.orders);
+  const order = useAppSelector((state) => state.order.order);
+  const isUploading = useAppSelector((state) => state.order.fetchRequest);
 
   useEffect(() => {
-    dispatch(orderFetch(actualId));
+    dispatch(oneOrderFetch(actualId));
   }, [dispatch]);
 
-  const order = orders?.find((item) => item.number.toString() === actualId);
-
-  // console.log("---------------------");
-  // console.log(order);
-
-  // useEffect(() => {
-  //   dispatch(websocketConnection(`${baseWss}/orders/all`));
-  //   return;
-  // }, []);
+  if (isUploading) {
+    return <h2 className={styles.subtitle}>ЗАГРУЗКА</h2>;
+  }
 
   const orderIngredients = ingredientsArray.filter((ingredient) =>
     order?.ingredients.includes(ingredient._id)
@@ -52,9 +41,9 @@ const OrderInfo: FC = () => {
     return ingredientsArray.find((item) => item._id === id);
   });
 
-  // if (!order) {
-  //   return null;
-  // }
+  if (!order) {
+    return null;
+  }
   const arrayPrice = order?.ingredients.map((id) => {
     return ingredientsArray.find((item) => item._id === id);
   });
@@ -107,7 +96,7 @@ const OrderInfo: FC = () => {
       </ul>
       <div className={styles.box + " " + "mt-6 mb-6"}>
         <p className={`text text_color_inactive text_type_main-default  mr-2`}>
-          {/* <FormattedDate date={new Date(order.createdAt)} /> */}
+          <FormattedDate date={new Date(order.createdAt)} />
         </p>
         <div className={styles.price}>
           <p className="text text_type_digits-default mr-2 ">{totalPrice}</p>
