@@ -1,17 +1,10 @@
 import React, { FC, useEffect } from "react";
 import styles from "../order-info/order-info.module.css";
-import { TIngredientType, TOrders } from "../../services/types/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 import { useParams } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { oneOrderFetch } from "../../services/ordersQuery";
-
-interface IProps {
-  item: TOrders;
-  ingredientsArray: TIngredientType;
-  orders: TOrders;
-}
 
 export type TId = {
   id: string;

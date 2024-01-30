@@ -44,7 +44,7 @@ export const OrdersHistory: FC = () => {
                       <Link
                         className={styles.link}
                         key={item.number}
-                        to={`/profile/orders/${item._id}`}
+                        to={`/profile/orders/${item.number}`}
                         state={{ background: location }}
                       >
                         <OrderCard item={item} displayStatus={false} />
