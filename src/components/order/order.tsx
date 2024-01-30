@@ -64,7 +64,7 @@ const Order: FC = () => {
           size="medium"
           htmlType="submit"
         >
-          Оформить заказ
+          {!isOrderReady ? "Оформить заказ" : "Оформление"}
         </Button>
       </div>
     </div>

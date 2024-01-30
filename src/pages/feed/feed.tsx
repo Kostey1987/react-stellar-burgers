@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import styles from "../feed/feed.module.css";
 import OrderCard from "../../components/order-card/order-card";
-import { TFeedOrders, TOrders } from "../../services/types/types";
+import { TOrders } from "../../services/types/types";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 import {
@@ -17,8 +17,10 @@ export const Feed: FC = () => {
 
   useEffect(() => {
     dispatch(websocketConnection(`${baseWss}/orders/all`));
-    return;
-  }, [dispatch]);
+    return () => {
+      dispatch(websocketOffline());
+    };
+  }, [location.pathname]);
 
   const total = orders?.total;
   const totalToday = orders?.totalToday;
@@ -42,8 +44,8 @@ export const Feed: FC = () => {
             return (
               <Link
                 className={styles.link}
-                key={item._id}
-                to={`/feed/${item._id}`}
+                key={item.number}
+                to={`/feed/${item.number}`}
                 state={{ background: location }}
               >
                 <OrderCard item={item} displayStatus={false} />
@@ -70,7 +72,7 @@ export const Feed: FC = () => {
                     "text text_type_digits-default mr-2"
                   }
                 >
-                  {orderListWithDoneStatus?.map((orders, index) => {
+                  {orderListWithDoneStatus?.map((orders) => {
                     return <li key={orders._id}>{orders.number}</li>;
                   })}
                 </ul>

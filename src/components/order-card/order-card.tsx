@@ -1,10 +1,10 @@
-import React, { FC, useCallback, useState } from "react";
+import React, { FC } from "react";
 import styles from "../order-card/order-card.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredientType, TOrders } from "../../services/types/types";
+import { TOrders } from "../../services/types/types";
 import { useAppSelector } from "../../hooks/typed-hooks";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { bunSelector } from "../../services/selectors/selectors";
+import { useLocation } from "react-router";
 
 interface IProps {
   item: TOrders;

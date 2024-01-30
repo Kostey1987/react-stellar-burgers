@@ -5,6 +5,7 @@ import constructorReduser from "../services/slices/constructor-slice";
 import userSliceReduser from "../services/slices/user-slice";
 import modalSliceReduser from "../services/slices/user-slice";
 import feedSliceReduser from "../services/slices/feed-slice";
+import orderSliceReduser from "../services/slices/order-slice";
 import { socketMiddleware } from "../services/middlewares/middlewares";
 
 const wsActions = {
@@ -24,6 +25,7 @@ export const store = configureStore({
     feed: feedSliceReduser,
     user: userSliceReduser,
     modal: modalSliceReduser,
+    order: orderSliceReduser,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(socketMiddleware(wsActions)),

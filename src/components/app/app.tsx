@@ -39,7 +39,7 @@ const App: FC = () => {
     dispatch(checkUserAuth());
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
@@ -53,10 +53,10 @@ const App: FC = () => {
           path={"/register"}
           element={<OnlyUnAuth component={<Register />} />}
         />
-        <Route path={"/feed"}>
+        {/* <Route path={"/feed"}>
           <Route index element={<Feed />} />
           <Route path={":id"} element={<OrderInfo />} />
-        </Route>
+        </Route> */}
 
         <Route
           path={"/forgot-password"}
@@ -102,6 +102,8 @@ const App: FC = () => {
             />
           }
         />
+        <Route path={"/feed/"} element={<Feed />} />
+        <Route path={"/feed/:id"} element={<OrderInfo />} />
         <Route path={"/ingredients/:id"} element={<Ingredient />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

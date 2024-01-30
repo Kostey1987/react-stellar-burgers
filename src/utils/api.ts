@@ -183,10 +183,14 @@ export const updateUser = (name: string, email: string, password: string) => {
 };
 
 export const getOrders = async (number: string) => {
-  return fetchWithRefresh(`${baseUrl}/orders/${number}`, {
+  return fetch(`${baseUrl}/orders/${number}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
   });
+};
+
+export const getItem = (number: string) => {
+  return fetch(`${baseUrl}/orders/${number}`).then(checkResponse);
 };

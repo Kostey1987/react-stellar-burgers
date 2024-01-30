@@ -17,9 +17,6 @@ export const OrdersHistory: FC = () => {
   const dispatch = useAppDispatch();
   const accessToken = localStorage.getItem("accessToken");
 
-  console.log("------------------------------------");
-  console.log(orders);
-
   useEffect(() => {
     dispatch(
       websocketConnection(

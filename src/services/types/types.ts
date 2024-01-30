@@ -1,6 +1,7 @@
 import { TBurgerConstructorActions } from "../slices/constructor-slice";
 import { TFeedActions } from "../slices/feed-slice";
 import { TModalActions } from "../slices/modal-slice";
+import { TOrderAction } from "../slices/order-slice";
 import { TUserActions } from "../slices/user-slice";
 
 export type TItem = {
@@ -76,7 +77,8 @@ export type AppActions =
   | TBurgerConstructorActions
   | TUserActions
   | TModalActions
-  | TFeedActions;
+  | TFeedActions
+  | TOrderAction;
 
 export type TRefreshData = {
   refreshToken: string;

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchOrder } from "../ordersQuery";
-import { TError, TFeedOrders } from "../types/types";
+import { TError, TFeedOrders, TOrders } from "../types/types";
 
 export type TFeedState = {
   success: boolean;
@@ -17,8 +17,8 @@ export type TFeedState = {
 export const feedState: TFeedState = {
   success: false,
   errorMessage: null,
-  wsOpen: false,
   wsUrl: "",
+  wsOpen: false,
   wsConnectionStatus: true,
   wsError: null,
   fetchError: null,
@@ -54,20 +54,20 @@ export const feedSlice = createSlice({
       state.orders = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchOrder.pending, (state) => {
-      state.fetchRequest = true;
-    });
-    builder.addCase(fetchOrder.fulfilled, (state, action) => {
-      state.orders = action.payload;
-      state.fetchRequest = false;
-      state.fetchError = null;
-    });
-    builder.addCase(fetchOrder.rejected, (state, action) => {
-      state.fetchError = action.payload;
-      state.fetchRequest = false;
-    });
-  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(fetchOrder.pending, (state) => {
+  //     state.fetchRequest = true;
+  //   });
+  //   builder.addCase(fetchOrder.fulfilled, (state, action) => {
+  //     state.orders = action.payload;
+  //     state.fetchRequest = false;
+  //     state.fetchError = null;
+  //   });
+  //   builder.addCase(fetchOrder.rejected, (state, action) => {
+  //     state.fetchError = action.payload;
+  //     state.fetchRequest = false;
+  //   });
+  // },
 });
 
 export const {
