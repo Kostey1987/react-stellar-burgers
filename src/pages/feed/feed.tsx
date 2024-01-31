@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 import styles from "../feed/feed.module.css";
 import OrderCard from "../../components/order-card/order-card";
-import { TOrders } from "../../services/types/types";
 import { Link, useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 import {
@@ -20,7 +19,7 @@ export const Feed: FC = () => {
     return () => {
       dispatch(websocketOffline());
     };
-  }, [location.pathname]);
+  }, [dispatch]);
 
   const total = orders?.total;
   const totalToday = orders?.totalToday;
@@ -40,7 +39,7 @@ export const Feed: FC = () => {
       </h2>
       <div className={styles.main}>
         <section className={styles.feed + " " + " custom-scroll"}>
-          {orders?.orders.map((item: TOrders) => {
+          {orders?.orders.map((item) => {
             return (
               <Link
                 className={styles.link}

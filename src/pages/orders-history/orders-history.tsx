@@ -1,7 +1,6 @@
 import React, { FC, useEffect } from "react";
 import styles from "../orders-history/order-history.module.css";
 import OrderCard from "../../components/order-card/order-card";
-import { TOrders } from "../../services/types/types";
 import { Link, useLocation } from "react-router-dom";
 import ProfileMenu from "../profile-menu/profile-menu";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
@@ -39,7 +38,7 @@ export const OrdersHistory: FC = () => {
           <div className={styles.main}>
             <section className={styles.feed + " " + " custom-scroll"}>
               {orders
-                ? [...orders.orders].reverse().map((item: TOrders) => {
+                ? [...orders.orders].reverse().map((item) => {
                     return (
                       <Link
                         className={styles.link}
@@ -61,6 +60,3 @@ export const OrdersHistory: FC = () => {
 };
 
 export default OrdersHistory;
-function useRouteMatch(): { url: any } {
-  throw new Error("Function not implemented.");
-}

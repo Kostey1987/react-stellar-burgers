@@ -190,7 +190,3 @@ export const getOrders = async (number: string) => {
     },
   });
 };
-
-export const getItem = (number: string) => {
-  return fetch(`${baseUrl}/orders/${number}`).then(checkResponse);
-};

@@ -8,10 +8,14 @@ const modalElement = document.getElementById("modal") as HTMLElement;
 
 interface IProps {
   onClose: () => void;
-  children: ReactNode;
+  children: React.ReactElement;
 }
 
 const Modal: FC<IProps> = ({ children, onClose }) => {
+  const stopPropagation = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   useEffect(() => {
     function onEsc(evt: KeyboardEvent) {
       if (evt.code === "Escape") {
@@ -23,8 +27,8 @@ const Modal: FC<IProps> = ({ children, onClose }) => {
   }, []);
 
   return createPortal(
-    <ModalOverlay onClose={onClose}>
-      <div className={styles.modal}>
+    <ModalOverlay onclick={onClose}>
+      <div className={styles.modal} onClick={stopPropagation}>
         <button className={styles.closeButton} onClick={onClose}>
           <CloseIcon type="primary" />
         </button>

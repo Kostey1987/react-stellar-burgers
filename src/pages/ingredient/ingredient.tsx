@@ -12,7 +12,7 @@ const Ingredient: FC = () => {
   const itemsArray = useAppSelector((state) => state.items.itemsArray);
 
   const item = itemsArray
-    ? itemsArray.filter((e: TIngredientType) => e._id == id).shift()
+    ? itemsArray.filter((i) => i._id == id).shift()
     : false;
 
   return (

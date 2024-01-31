@@ -1,8 +1,11 @@
+import exp from "constants";
 import { TBurgerConstructorActions } from "../slices/constructor-slice";
 import { TFeedActions } from "../slices/feed-slice";
 import { TModalActions } from "../slices/modal-slice";
 import { TOrderAction } from "../slices/order-slice";
 import { TUserActions } from "../slices/user-slice";
+import { ThunkAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store/store";
 
 export type TItem = {
   id: string;
@@ -126,3 +129,5 @@ export type TFeedOrders = {
   total: number;
   totalToday: number;
 };
+
+export type AppThunk = ThunkAction<void, RootState, unknown, AppActions>;

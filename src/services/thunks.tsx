@@ -18,14 +18,11 @@ import {
   setUser,
   setUserRequest,
 } from "./slices/user-slice";
-import { AppActions, TUserRegister } from "./types/types";
+import { AppActions, AppThunk, TUserRegister } from "./types/types";
 import { RootState } from "../store/store";
 import { Action } from "redux";
 
-export const userLogin = (
-  email: string,
-  password: string
-): ThunkAction<Promise<void>, RootState, unknown, AppActions> => {
+export const userLogin = (email: string, password: string): AppThunk => {
   return (dispatch) =>
     login(email, password)
       .then((res) => {
@@ -39,12 +36,7 @@ export const userLogin = (
       .finally(() => dispatch(setAuthChecked(true)));
 };
 
-export const userLogout = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  AppActions
-> => {
+export const userLogout = (): AppThunk => {
   return (dispatch) => {
     logout()
       .then((res) => {
@@ -61,9 +53,7 @@ export const userLogout = (): ThunkAction<
   };
 };
 
-export const userRegister = (
-  data: TUserRegister
-): ThunkAction<void, RootState, unknown, AppActions> => {
+export const userRegister = (data: TUserRegister): AppThunk => {
   return (dispatch) => {
     register(data)
       .then((res) => {
@@ -80,9 +70,7 @@ export const userRegister = (
   };
 };
 
-export const userReset = (
-  email: string
-): ThunkAction<void, RootState, unknown, AppActions> => {
+export const userReset = (email: string): AppThunk => {
   return (dispatch) => {
     reset(email)
       .then((res) => {
@@ -102,7 +90,7 @@ export const userReset = (
 export const userResetPassword = (
   password: string,
   token: string
-): ThunkAction<void, RootState, unknown, AppActions> => {
+): AppThunk => {
   return (dispatch) => {
     resetPassword(password, token)
       .then((res) => {
@@ -123,7 +111,7 @@ export const update = (
   name: string,
   email: string,
   password: string
-): ThunkAction<void, RootState, unknown, AppActions> => {
+): AppThunk => {
   return (dispatch) => {
     updateUser(name, email, password)
       .then((res) => {

@@ -71,7 +71,7 @@ const BurgerConstructor: FC = () => {
           </p>
         )}
         {ingredients.length > 0 &&
-          ingredients.map((item: TIngredientType, index: number) => {
+          ingredients.map((item, index) => {
             return (
               <ConstructorIngredient
                 key={item.constructorId}

@@ -11,7 +11,6 @@ import { userRegister } from "../../services/thunks";
 import { useAppDispatch, useAppSelector } from "../../hooks/typed-hooks";
 
 const Register: FC = () => {
-  // const success = useAppSelector((state) => state.user.success);
   const dispatch = useAppDispatch();
   const [value, setValue] = React.useState({
     email: "",
