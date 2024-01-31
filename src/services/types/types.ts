@@ -1,7 +1,11 @@
-// import { TCheckActions } from "../slices/check-slice";
+import exp from "constants";
 import { TBurgerConstructorActions } from "../slices/constructor-slice";
+import { TFeedActions } from "../slices/feed-slice";
 import { TModalActions } from "../slices/modal-slice";
+import { TOrderAction } from "../slices/order-slice";
 import { TUserActions } from "../slices/user-slice";
+import { ThunkAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store/store";
 
 export type TItem = {
   id: string;
@@ -36,13 +40,6 @@ export type TCollectedProps = {
   isDragging: boolean;
 };
 
-export type TOrder = {
-  order: {
-    number: number | null;
-  };
-  name: string | null;
-};
-
 export type TError = {
   success?: boolean;
   message?: string;
@@ -56,7 +53,7 @@ export type TUserRegister = {
 };
 
 export type TUser = {
-  modalState: boolean; //----------------------------
+  modalState: boolean;
   user: TUserRegister | null;
   isAuthChecked: boolean;
   userData: {
@@ -82,5 +79,55 @@ export type TUserUpdate = {
 export type AppActions =
   | TBurgerConstructorActions
   | TUserActions
-  | TModalActions;
-// | TCheckActions;
+  | TModalActions
+  | TFeedActions
+  | TOrderAction;
+
+export type TRefreshData = {
+  refreshToken: string;
+  success: boolean;
+  accessToken: string;
+};
+
+export type TOrder = {
+  order: {
+    number: number | null;
+  };
+  name: string | null;
+};
+
+interface IOrderOwner {
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+}
+
+export type TOrders = {
+  _id: string;
+  ingredients: (string | null)[];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  owner?: IOrderOwner;
+};
+
+export type TwsActions = {
+  wsConnection: string;
+  wsOffline: string;
+  wsOpen: string;
+  wsError: string;
+  wsMessage: string;
+  wsClose: string;
+};
+
+export type TFeedOrders = {
+  success: boolean;
+  orders: Array<TOrders>;
+  total: number;
+  totalToday: number;
+};
+
+export type AppThunk = ThunkAction<void, RootState, unknown, AppActions>;

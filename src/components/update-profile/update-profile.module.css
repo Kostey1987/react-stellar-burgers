@@ -1,4 +1,4 @@
-.container {
+.profile {
   display: flex;
   justify-content: center;
   margin-right: 560px;
@@ -13,7 +13,7 @@
 
 .inputContainer {
   width: 100%;
-  max-width: 320px;
+  /* max-width: 320px; */
 }
 
 .link {

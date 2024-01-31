@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.menuContainer {
+  display: flex;
+  margin-left: 306px;
+}
+
+.feedContainer {
+  display: flex;
+  flex-direction: column;
+  height: 750px;
+  background-color: #131316;
+  color: #f2f2f3;
+  width: 100%;
+  color: #f2f2f3;
+  margin-right: 395px;
+  max-width: 844px;
+  overflow: hidden;
+}
+
+.title {
+  width: 1240px;
+  text-align: start;
+  margin-left: 380px;
+  margin-right: 380px;
+}
+
+.main {
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 912px;
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  width: 844px;
+  overflow: auto;
+}
+
+.link {
+  color: #f2f2f3;
+  text-decoration: none;
+}

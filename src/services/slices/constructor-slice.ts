@@ -11,6 +11,7 @@ interface IConstructor {
   order: number | null;
   name: string | null;
   number: number | null;
+  isOrderPending: boolean;
 }
 
 interface IDragIngredient {
@@ -25,6 +26,7 @@ const initialState: IConstructor = {
   ingredients: [],
   name: null,
   number: null,
+  isOrderPending: false,
 };
 
 const constructorSlice = createSlice({
@@ -70,9 +72,13 @@ const constructorSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(postOrder.pending, (state) => {
+      state.isOrderPending = true;
+    });
     builder.addCase(postOrder.fulfilled, (state, action) => {
       state.name = action.payload.name;
       state.order = action.payload.order.number;
+      state.isOrderPending = false;
     });
   },
 });

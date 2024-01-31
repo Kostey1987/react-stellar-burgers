@@ -37,8 +37,7 @@ const BurgerIngredient: FC<IProps> = memo(function BurgerIngredient({ item }) {
     if (item.type === "bun") {
       return !!bun && bun._id === item._id ? 1 : 0;
     } else {
-      return ingredients.filter((el: TIngredientType) => el._id === item._id)
-        .length;
+      return ingredients.filter((i) => i._id === item._id).length;
     }
   }, [ingredients, bun]);
   return (

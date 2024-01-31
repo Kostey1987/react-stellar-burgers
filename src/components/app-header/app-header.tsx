@@ -9,9 +9,6 @@ import {
 import { NavLink } from "react-router-dom";
 
 const AppHeader: FC = () => {
-  // const isActiveClass = ({isActive}: { isActive: boolean }) =>
-  //   isActive ? styles.link_active : styles.link;
-
   return (
     <header className={`${styles.header} m-10 pb-4 pt-4`}>
       <nav className={styles.nav}>

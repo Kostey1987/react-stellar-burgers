@@ -1,6 +1,6 @@
 import { baseUrl } from "./constants";
 import { setUser } from "../services/slices/user-slice";
-import { TError, TUserRegister } from "../services/types/types";
+import { TRefreshData, TUserRegister } from "../services/types/types";
 
 export const getItems = () => {
   return fetch(`${baseUrl}/ingredients `).then(checkResponse);
@@ -21,25 +21,12 @@ export function saveOrder(data: string[]) {
   if (!!token) {
     headers.Authorization = token;
   }
-  return fetch(`${baseUrl}/orders`, {
+  return fetchWithRefresh(`${baseUrl}/orders`, {
     headers,
     method: "POST",
     body: JSON.stringify({ ingredients: data }),
-  }).then(checkResponse);
+  });
 }
-
-// const refreshToken = () => {
-//   return fetch(`${baseUrl}/token `, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: localStorage.getItem("accessToken"),
-//     },
-//     body: JSON.stringify({
-//       token: localStorage.getItem("refreshToken"),
-//     }),
-//   }).then(checkResponse);
-// };
 
 const refreshToken = () => {
   const token = localStorage.getItem("accessToken");
@@ -56,22 +43,28 @@ const refreshToken = () => {
   }).then(checkResponse);
 };
 
-const fetchWithRefresh = async (url: string, options: RequestInit) => {
+const fetchWithRefresh = async (
+  url: string | URL | Request,
+  options: RequestInit
+) => {
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
   } catch (err: any) {
     if (
       err.message === "jwt expired" ||
-      err.message === "You should be authorised"
+      err.message === "invalid signature" ||
+      err.message === "invalid token" ||
+      err.message === "You should be authorised" ||
+      err.message === "Invalid or missing token"
     ) {
-      const refreshData = await refreshToken();
+      const refreshData: TRefreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
       localStorage.setItem("accessToken", refreshData.accessToken);
       localStorage.setItem("refreshToken", refreshData.refreshToken);
-      (options.headers as { [key: string]: string }).authorization =
+      (options.headers as { [key: string]: string }).Authorization =
         refreshData.accessToken;
       const res = await fetch(url, options);
       return await checkResponse(res);
@@ -95,10 +88,18 @@ export const getUser = () => {
     if (!!token) {
       headers.Authorization = token;
     }
-    return fetchWithRefresh(`${baseUrl}/auth/user `, {
-      method: "GET",
-      headers,
-    });
+    {
+      return fetchWithRefresh(`${baseUrl}/auth/user `, {
+        method: "GET",
+        headers,
+      })
+        .then((res) => {
+          dispatch(setUser(res.user));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 };
 
@@ -179,4 +180,13 @@ export const updateUser = (name: string, email: string, password: string) => {
       password: password,
     }),
   }).then(checkResponse);
+};
+
+export const getOrders = async (number: string) => {
+  return fetch(`${baseUrl}/orders/${number}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
 };

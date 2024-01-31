@@ -5,7 +5,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import ConstructorIngredient from "../constructor-ingredient/constructor-ingredient";
-import { nanoid } from "@reduxjs/toolkit";
 import { useDrop } from "react-dnd";
 
 import {
@@ -44,13 +43,6 @@ const BurgerConstructor: FC = () => {
     }),
   });
 
-  // React.useEffect(() => {
-  //   hardcodedIngredients.forEach((item) => {
-  //     dispatch(addIngredients(item));
-  //   });
-  //   dispatch(bun(hardcodedBun));
-  // }, [dispatch]);
-
   return (
     <div
       className={
@@ -79,7 +71,7 @@ const BurgerConstructor: FC = () => {
           </p>
         )}
         {ingredients.length > 0 &&
-          ingredients.map((item: TIngredientType, index: number) => {
+          ingredients.map((item, index) => {
             return (
               <ConstructorIngredient
                 key={item.constructorId}

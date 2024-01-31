@@ -36,13 +36,9 @@ const BurgerIngredients: FC = () => {
   });
   const [mainsMonitorRef, isMainsInView] = useInView({ root: baseRef.current });
 
-  const bun = itemsArray.filter((item: TIngredientType) => item.type == "bun");
-  const suace = itemsArray.filter(
-    (item: TIngredientType) => item.type == "sauce"
-  );
-  const main = itemsArray.filter(
-    (item: TIngredientType) => item.type == "main"
-  );
+  const bun = itemsArray.filter((item) => item.type == "bun");
+  const suace = itemsArray.filter((item) => item.type == "sauce");
+  const main = itemsArray.filter((item) => item.type == "main");
 
   return (
     <>
@@ -73,7 +69,7 @@ const BurgerIngredients: FC = () => {
           Булки
         </h2>
         <div className={styles.list + " " + "mt-6"} ref={bunsMonitorRef}>
-          {bun.map((item: TIngredientType) => {
+          {bun.map((item) => {
             return (
               <Link
                 className={styles.link}
@@ -90,7 +86,7 @@ const BurgerIngredients: FC = () => {
           Соусы
         </h2>
         <div className={styles.list + " " + "mt-6"} ref={soucesMonitorRef}>
-          {suace.map((item: TIngredientType) => {
+          {suace.map((item) => {
             return (
               <Link
                 className={styles.link}
@@ -107,7 +103,7 @@ const BurgerIngredients: FC = () => {
           Начинка
         </h2>
         <div className={styles.list + " " + "mt-6"} ref={mainsMonitorRef}>
-          {main.map((item: TIngredientType) => {
+          {main.map((item) => {
             return (
               <Link
                 className={styles.link}

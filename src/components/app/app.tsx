@@ -15,6 +15,9 @@ import { fetchIngredients } from "../../services/ingredientsQuery";
 import AppHeader from "../app-header/app-header";
 import Modal from "../modal/modal";
 import { clearSelectedIngredient } from "../../services/slices/current-slice";
+import Feed from "../../pages/feed/feed";
+import OrderInfo from "../order-info/order-info";
+import OrdersHistory from "../../pages/orders-history/orders-history";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -28,12 +31,15 @@ const App: FC = () => {
     dispatch(clearSelectedIngredient());
     if (background) navigate(background);
   };
+  const handleCloseOrderInfoModal = () => {
+    if (background) navigate(background);
+  };
 
   useEffect(() => {
     dispatch(checkUserAuth());
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
@@ -47,6 +53,7 @@ const App: FC = () => {
           path={"/register"}
           element={<OnlyUnAuth component={<Register />} />}
         />
+
         <Route
           path={"/forgot-password"}
           element={<OnlyUnAuth component={<ForgotPassword />} />}
@@ -55,10 +62,44 @@ const App: FC = () => {
           path={"/reset-password"}
           element={<OnlyUnAuth component={<ResetPassword />} />}
         />
-        <Route path={"/profile"} element={<OnlyAuth component={<Profile />} />}>
-          <Route index element={<Profile />} />
-          <Route path={"orders"} element={<NotFound />} />
-        </Route>
+        <Route
+          path="/profile"
+          element={
+            <OnlyAuth
+              component={
+                <React.Fragment>
+                  <Profile />
+                </React.Fragment>
+              }
+            />
+          }
+        />
+        <Route
+          path="/profile/orders"
+          element={
+            <OnlyAuth
+              component={
+                <React.Fragment>
+                  <OrdersHistory />
+                </React.Fragment>
+              }
+            />
+          }
+        />
+        <Route
+          path="/profile/orders/:id"
+          element={
+            <OnlyAuth
+              component={
+                <React.Fragment>
+                  <OrderInfo />
+                </React.Fragment>
+              }
+            />
+          }
+        />
+        <Route path={"/feed/"} element={<Feed />} />
+        <Route path={"/feed/:id"} element={<OrderInfo />} />
         <Route path={"/ingredients/:id"} element={<Ingredient />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -69,6 +110,22 @@ const App: FC = () => {
             element={
               <Modal onClose={handleCloseIngredientModal}>
                 <Ingredient />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={handleCloseOrderInfoModal}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onClose={handleCloseOrderInfoModal}>
+                <OrderInfo />
               </Modal>
             }
           />
