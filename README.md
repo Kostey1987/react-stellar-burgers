@@ -38,4 +38,4 @@ _7.WebSocket — протокол для установления двунапр
 
 ## Ссылка на репозиторий: https://github.com/Kostey1987/react-stellar-burgers
 
-## Ссылка на GitHub Pages:
+## Ссылка на GitHub Pages: https://kostey1987.github.io/react-stellar-burgers/
