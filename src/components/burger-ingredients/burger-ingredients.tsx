@@ -4,7 +4,6 @@ import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import styles from "./burger-ingredients.module.css";
 import { useInView } from "react-intersection-observer";
 import { Link, useLocation } from "react-router-dom";
-import { TIngredientType } from "../../services/types/types";
 import { useAppSelector } from "../../hooks/typed-hooks";
 
 const BurgerIngredients: FC = () => {
