@@ -9,7 +9,7 @@ export type TOrderState = {
   order: null | TOrders;
 };
 
-export const feedState: TOrderState = {
+export const initialState: TOrderState = {
   success: false,
   fetchError: null,
   fetchRequest: false,
@@ -18,7 +18,7 @@ export const feedState: TOrderState = {
 
 export const orderSlice = createSlice({
   name: "order",
-  initialState: feedState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(oneOrderFetch.pending, (state) => {

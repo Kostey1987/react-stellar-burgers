@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1OGE4ZDc5ODc4OTljMDAxYjgyNTgyZiIsImlhdCI6MTcwNjg1NTA2NCwiZXhwIjoxNzA2ODU2MjY0fQ.WN0JQfwqOVcWXXjaPzd-CBxgWvAkHA2tzBo01IQ8Rpw",
+  "refreshToken": "f7c9969b83c58d4809123cb13604b70dbb0246aecb0df7d5c0b87babe6f1b535b10cb948052aa0be",
+  "user": {
+    "email": "kostey87@gmail.com",
+    "name": "name"
+  }
+}

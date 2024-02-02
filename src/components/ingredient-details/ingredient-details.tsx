@@ -10,7 +10,7 @@ const IngredientDetails: FC<IProps> = ({ item }) => {
   return (
     <>
       <h2 className={styles.title + " " + "text text_type_main-large mt-10"}>
-        Детали ингридиента
+        Детали ингредиента
       </h2>
       <img className={styles.image} src={item.image_large} alt={item.name} />
       <p className={styles.subtitle + " " + "text text_type_main-medium mt-4"}>

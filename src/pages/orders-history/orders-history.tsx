@@ -33,7 +33,6 @@ export const OrdersHistory: FC = () => {
         <section className={styles.menuContainer}>
           <ProfileMenu />
         </section>
-
         <section className={styles.feedContainer}>
           <div className={styles.main}>
             <section className={styles.feed + " " + " custom-scroll"}>

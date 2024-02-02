@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredients } from "../ingredientsQuery";
 import { TError, TIngredientType } from "../types/types";
 
@@ -8,7 +8,7 @@ interface IItemState {
   error: TError | undefined;
 }
 
-const initialState: IItemState = {
+export const initialState: IItemState = {
   itemsArray: [],
   isLoading: false,
   error: undefined,

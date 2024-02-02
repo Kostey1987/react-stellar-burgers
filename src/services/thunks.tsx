@@ -18,9 +18,7 @@ import {
   setUser,
   setUserRequest,
 } from "./slices/user-slice";
-import { AppActions, AppThunk, TUserRegister } from "./types/types";
-import { RootState } from "../store/store";
-import { Action } from "redux";
+import { AppThunk, TUserRegister } from "./types/types";
 
 export const userLogin = (email: string, password: string): AppThunk => {
   return (dispatch) =>
