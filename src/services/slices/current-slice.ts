@@ -5,11 +5,11 @@ interface ICurrentState {
   ingredient: TIngredientType | null;
 }
 
-const initialState: ICurrentState = {
+export const initialState: ICurrentState = {
   ingredient: null,
 };
 
-const selectedSlice = createSlice({
+export const selectedSlice = createSlice({
   name: "selected",
   initialState,
   reducers: {

@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
 import { postOrder } from "../ordersQuery";
-
-import { nanoid } from "@reduxjs/toolkit";
+// import { nanoid } from "@reduxjs/toolkit";
 import { TConstructorIngredient, TIngredientType } from "../types/types";
+import { v4 as uuidv4 } from "uuid";
 
 interface IConstructor {
   bun: TIngredientType | null;
@@ -20,7 +19,7 @@ interface IDragIngredient {
   ingredient: TIngredientType;
 }
 
-const initialState: IConstructor = {
+export const initialState: IConstructor = {
   order: null,
   bun: null,
   ingredients: [],
@@ -36,7 +35,7 @@ const constructorSlice = createSlice({
     bun: {
       prepare: function (item: TConstructorIngredient) {
         return {
-          payload: { ...item, constructorId: nanoid(12) },
+          payload: { ...item, constructorId: uuidv4() },
         };
       },
       reducer: function (state, action: PayloadAction<TIngredientType>) {
@@ -47,7 +46,7 @@ const constructorSlice = createSlice({
     addIngredients: {
       prepare: function (item: TConstructorIngredient) {
         return {
-          payload: { ...item, constructorId: nanoid(12) },
+          payload: { ...item, constructorId: uuidv4() },
         };
       },
       reducer: function (state, action: PayloadAction<TIngredientType>) {

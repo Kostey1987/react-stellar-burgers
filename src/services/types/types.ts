@@ -26,11 +26,11 @@ export type TIngredientType = {
   image_mobile?: string;
   image_large?: string;
   __v?: number;
-  constructorId: string;
+  constructorId?: string;
 };
 
 export type TConstructorIngredient = TIngredientType & {
-  constructorId: string;
+  constructorId?: string;
 };
 
 export type TDragItem = {

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchOrder } from "../ordersQuery";
-import { TError, TFeedOrders, TOrders } from "../types/types";
+import { TError, TFeedOrders } from "../types/types";
 
 export type TFeedState = {
   success: boolean;
@@ -14,7 +13,7 @@ export type TFeedState = {
   orders: null | TFeedOrders;
 };
 
-export const feedState: TFeedState = {
+export const initialState: TFeedState = {
   success: false,
   errorMessage: null,
   wsUrl: "",
@@ -28,7 +27,7 @@ export const feedState: TFeedState = {
 
 export const feedSlice = createSlice({
   name: "feed",
-  initialState: feedState,
+  initialState,
   reducers: {
     websocketOpen: (state, action: PayloadAction<boolean>) => {
       state.wsOpen = action.payload;
@@ -54,20 +53,6 @@ export const feedSlice = createSlice({
       state.orders = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(fetchOrder.pending, (state) => {
-  //     state.fetchRequest = true;
-  //   });
-  //   builder.addCase(fetchOrder.fulfilled, (state, action) => {
-  //     state.orders = action.payload;
-  //     state.fetchRequest = false;
-  //     state.fetchError = null;
-  //   });
-  //   builder.addCase(fetchOrder.rejected, (state, action) => {
-  //     state.fetchError = action.payload;
-  //     state.fetchRequest = false;
-  //   });
-  // },
 });
 
 export const {
