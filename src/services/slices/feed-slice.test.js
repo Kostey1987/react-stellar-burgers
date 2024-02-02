@@ -11,7 +11,6 @@ import feedSliceReducer, {
 
 describe("тест feedSlice", () => {
   it("тест websocketOpen", () => {
-    initialState;
     const nextState = feedSliceReducer(initialState, websocketOpen(true));
 
     expect(nextState.wsOpen).toEqual(true);
@@ -19,7 +18,6 @@ describe("тест feedSlice", () => {
   });
 
   it("тест websocketClose", () => {
-    initialState;
     const nextState = feedSliceReducer(initialState, websocketClose());
 
     expect(nextState.wsOpen).toEqual(false);
@@ -29,7 +27,6 @@ describe("тест feedSlice", () => {
   });
 
   it("тест websocketConnection", () => {
-    initialState;
     const nextState = feedSliceReducer(
       initialState,
       websocketConnection("wss://example.com")
@@ -40,14 +37,12 @@ describe("тест feedSlice", () => {
   });
 
   it("тест websocketOffline", () => {
-    initialState;
     const nextState = feedSliceReducer(initialState, websocketOffline());
 
     expect(nextState.wsConnectionStatus).toEqual(false);
   });
 
   it("тест websocketConnectionError", () => {
-    initialState;
     const nextState = feedSliceReducer(
       initialState,
       websocketConnectionError("Connection error")
@@ -57,7 +52,6 @@ describe("тест feedSlice", () => {
   });
 
   it("тест websocketGetOrders", () => {
-    initialState;
     const nextState = feedSliceReducer(
       initialState,
       websocketGetOrders(orderList)

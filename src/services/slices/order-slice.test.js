@@ -10,7 +10,6 @@ describe("Проверка получения заказа orderSliceReduce", ()
   });
 
   it("Тест oneOrderFetch.fulfilled", () => {
-    initialState;
     const action = {
       type: oneOrderFetch.fulfilled.type,
       payload: {
@@ -25,7 +24,6 @@ describe("Проверка получения заказа orderSliceReduce", ()
   });
 
   it("Тест oneOrderFetch.rejected", () => {
-    initialState;
     const action = {
       type: oneOrderFetch.rejected.type,
       payload: "Error message",

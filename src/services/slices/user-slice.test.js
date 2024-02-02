@@ -20,7 +20,6 @@ describe("Тестирование userSlice", () => {
     expect(nextState.isAuthChecked).toEqual(true);
   });
   it("sтест setUser", () => {
-    initialState;
     const nextState = userSliceReducer(
       initialState,
       setUser({ email: "test@example.com", name: "Test User" })
@@ -32,26 +31,22 @@ describe("Тестирование userSlice", () => {
     });
   });
   it("тест setLogoutUser", () => {
-    initialState;
     const nextState = userSliceReducer(initialState, setLogoutUser());
 
     expect(nextState.userData.email).toEqual("");
     expect(nextState.userData.name).toEqual("");
   });
   it("тест logoutRequest", () => {
-    initialState;
     const nextState = userSliceReducer(initialState, setLogoutRequest(true));
 
     expect(nextState.logoutRequest).toEqual(true);
   });
   it("тест setUserRequest", () => {
-    initialState;
     const nextState = userSliceReducer(initialState, setUserRequest(true));
 
     expect(nextState.userRequest).toEqual(true);
   });
   it("тест setResetConfirmed", () => {
-    initialState;
     const nextState = userSliceReducer(initialState, setResetConfirmed(true));
 
     expect(nextState.resetConfirmed).toEqual(true);
@@ -63,7 +58,6 @@ describe("Тестирование userSlice", () => {
   });
 
   it("тест setChangePassword", () => {
-    initialState;
     const nextState = userSliceReducer(initialState, setChangePassword(true));
 
     expect(nextState.changePassword).toEqual(true);
@@ -77,7 +71,6 @@ describe("Тестирование userSlice", () => {
     expect(nextState.changePasswordRequest).toEqual(true);
   });
   it("should handle setUpdateUser", () => {
-    initialState;
     const nextState = userSliceReducer(
       initialState,
       setUpdateUser({ email: "test@example.com", name: "Test User" })
@@ -86,7 +79,6 @@ describe("Тестирование userSlice", () => {
     expect(nextState.userData.name).toEqual("Test User");
   });
   it("тест setUpdateUserRequest", () => {
-    initialState;
     const nextState = userSliceReducer(
       initialState,
       setUpdateUserRequest(true)

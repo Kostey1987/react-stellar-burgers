@@ -5,7 +5,6 @@ import { hardcodedIngredients } from "../../utils/data";
 
 describe("Тестирование загрузки ингредиентов itemSlice", () => {
   it("Тест fetchIngredients.fulfilled", () => {
-    initialState;
     const action = {
       type: fetchIngredients.fulfilled.type,
       payload: {
@@ -20,7 +19,6 @@ describe("Тестирование загрузки ингредиентов ite
   });
 
   it("Тест fetchIngredients.pending", () => {
-    initialState;
     const action = { type: fetchIngredients.pending.type };
     const nextState = itemReducer(initialState, action);
 
@@ -29,7 +27,6 @@ describe("Тестирование загрузки ингредиентов ite
   });
 
   it("Тест fetchIngredients.rejected", () => {
-    initialState;
     const action = {
       type: fetchIngredients.rejected.type,
       payload: "Error message",

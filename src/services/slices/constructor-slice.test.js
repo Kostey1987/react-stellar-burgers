@@ -162,13 +162,11 @@ it("Удаление ингредиента delIngredients", () => {
 });
 
 it("Проверка отправки заказа postOrder.pending", () => {
-  const initialState = { isOrderPending: false };
   const nextState = constructorSliceReducer(initialState, postOrder.pending());
 
   expect(nextState.isOrderPending).toEqual(true);
 });
 it("Проверка отправки заказа postOrder.fulfilled", () => {
-  const initialState = { name: null, order: null, isOrderPending: true };
   const payload = { name: "Стенли Кубрик", order: { number: 12345 } };
   const nextState = constructorSliceReducer(
     initialState,
