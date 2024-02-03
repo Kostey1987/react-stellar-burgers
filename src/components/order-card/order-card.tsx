@@ -4,7 +4,6 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { TOrders } from "../../services/types/types";
 import { useAppSelector } from "../../hooks/typed-hooks";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation } from "react-router";
 
 interface IProps {
   item: TOrders;
