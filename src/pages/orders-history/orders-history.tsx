@@ -45,7 +45,7 @@ export const OrdersHistory: FC = () => {
                         to={`/profile/orders/${item.number}`}
                         state={{ background: location }}
                       >
-                        <OrderCard item={item} displayStatus={false} />
+                        <OrderCard item={item} displayStatus={true} />
                       </Link>
                     );
                   })

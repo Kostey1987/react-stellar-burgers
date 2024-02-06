@@ -12,22 +12,6 @@ export const postOrder = createAsyncThunk<
   return res;
 });
 
-export const fetchOrder = createAsyncThunk<
-  TFeedOrders,
-  string,
-  { rejectValue: TError }
->("data/fetchOrder", async function (number, { rejectWithValue }) {
-  const response = await getOrders(number);
-  if (!response.ok) {
-    return rejectWithValue({
-      status: response.status,
-      message: "Error",
-    });
-  }
-  const data: TFeedOrders = await response.json();
-  return data;
-});
-
 export const oneOrderFetch = createAsyncThunk<
   TOrders,
   string,
