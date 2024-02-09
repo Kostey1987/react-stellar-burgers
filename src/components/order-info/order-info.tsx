@@ -37,11 +37,8 @@ const OrderInfo: FC = () => {
   if (!order) {
     return null;
   }
-  const arrayPrice = order?.ingredients.map((id) => {
-    return ingredientsArray.find((item) => item._id === id);
-  });
 
-  const totalPrice = arrayPrice?.reduce(function (acc: any, ingredient) {
+  const totalPrice = ingredients?.reduce(function (acc: any, ingredient) {
     return ingredient && acc + ingredient.price;
   }, 0);
 
