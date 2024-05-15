@@ -40,6 +40,8 @@ _7.WebSocket — протокол для установления двунапр
 
 5. _npx cypress open - запуск cypress_
 
+_Установленные зависимости можно посмотреть открыв файл package.json в корневой директории проекта._
+
 ## Ссылка на репозиторий: https://github.com/Kostey1987/react-stellar-burgers
 
 ## Ссылка на GitHub Pages: https://kostey1987.github.io/react-stellar-burgers/
