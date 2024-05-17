@@ -50,5 +50,6 @@ ___
 ссылка на работу:
 
 Ссылка на репозиторий: https://github.com/Kostey1987/react-stellar-burgers
+
 Ссылка на GitHub Pages: https://kostey1987.github.io/react-stellar-burgers/
 
